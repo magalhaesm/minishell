@@ -1,36 +1,70 @@
-NAME = minishell
-LDFLAGS = -L libft -lft -lreadline
-LIBFT = libft/libft.a
+################################################################################
+##                                MINISHELL                                   ##
+################################################################################
 
-SRC = minishell.c
-SRCS = $(addprefix src/, $(SRC))
+NAME  := minishell
+
+CYAN  := \33[1;36m
+RESET := \033[0m
+LOG   := printf "[$(CYAN)INFO$(RESET)] %s\n"
+
+################################################################################
+##                                DIRECTORIES                                 ##
+################################################################################
+
+OBJ_DIR   := obj
+LIBFT_DIR := libft
+INC_DIRS  := include $(LIBFT_DIR)
+SRC_DIRS  := table
+SRC_DIRS  := $(addprefix src/, $(SRC_DIRS))
+SRC_DIRS  += src
+
+vpath %.h $(INC_DIRS)
+vpath %.c $(SRC_DIRS)
+
+LIBFT   := $(LIBFT_DIR)/libft.a
+HEADERS := minishell.h hash_table.h
+SOURCES := minishell.c hash_table.c
+
+OBJS := $(addprefix $(OBJ_DIR)/, $(SOURCES:.c=.o))
+
+################################################################################
+##                                 COMPILATION                                ##
+################################################################################
+
+CFLAGS  := -Wall -Werror -Wextra -g $(addprefix -I,$(INC_DIRS))
+LDFLAGS := -L $(LIBFT_DIR) -lft -lreadline
 
 all: $(NAME)
 
-INCLUDE = include/
+$(NAME):	$(OBJS) | $(LIBFT)
+	@$(LOG) "Linking objects to $@"
+	$(CC) $^ $(LDFLAGS) -o $@
 
-CFLAGS = -Wall -Werror -Wextra -g
+$(OBJ_DIR)/%.o: %.c $(HEADERS) | $(OBJ_DIR)
+	@$(LOG) "Compiling $@"
+	$(CC) $(CFLAGS) -c $< -o $@
 
-CYAN = \33[1;36m
-RESET = \033[0m
-LOG = printf "[$(CYAN)INFO$(RESET)] %s\n"
+$(OBJ_DIR):
+	@$(LOG) "Creating objects directory"
+	@mkdir $@
 
 $(LIBFT):
-	@make -C libft --no-print-directory
-
-$(NAME):	$(SRCS) $(INCLUDE) $(LIBFT)
-	@$(LOG) "Compiling $@"
-	@$(CC) $(SRCS) $(CFLAGS) -I include -I libft $(LDFLAGS) -o $@
+	@make -C $(LIBFT_DIR) --no-print-directory
 
 leaks:
 	valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./$(NAME)
 
 clean:
+	@$(RM) -r $(OBJS)
+	@$(LOG) "Removing objects"
+	@$(RM) -r $(OBJ_DIR)
+	@$(LOG) "Removing objects directory"
+
+fclean: clean
 	@$(RM) -r $(NAME)
 	@$(LOG) "Removing $(NAME)"
 
-fclean: clean
-
 re: fclean all
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re
