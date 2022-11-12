@@ -6,12 +6,18 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 17:40:01 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/11/11 23:15:56 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/11/12 12:01:39 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HASH_TABLE_H
 # define HASH_TABLE_H
+
+# include "libft.h"
+
+# define TABLE_LOAD_MAX 0.75
+
+typedef unsigned int	t_uint;
 
 typedef struct s_entry
 {
@@ -28,5 +34,7 @@ typedef struct s_table
 }	t_table;
 
 void	init_table(t_table *table);
+t_bool	table_set(t_table *table, char *key, char *value);
+t_entry	*find_entry(t_entry *entries, int capacity, char *key);
 
 #endif

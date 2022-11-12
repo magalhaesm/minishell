@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   hash_table_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 14:23:39 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/11/12 12:07:02 by mdias-ma         ###   ########.fr       */
+/*   Created: 2022/11/12 11:59:43 by mdias-ma          #+#    #+#             */
+/*   Updated: 2022/11/12 12:02:49 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "hash_table.h"
 
-# include "hash_table.h"
-
-#endif
+void	init_table(t_table *table)
+{
+	table->count = 0;
+	table->capacity = 0;
+	table->type_size = sizeof(*table->data);
+	table->data = NULL;
+}
