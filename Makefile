@@ -37,6 +37,9 @@ LDFLAGS := -L $(LIBFT_DIR) -lft -lreadline
 
 all: $(NAME)
 
+test:
+	@make -C tests --no-print-directory
+
 $(NAME):	$(OBJS) | $(LIBFT)
 	@$(LOG) "Linking objects to $@"
 	$(CC) $^ $(LDFLAGS) -o $@
