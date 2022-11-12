@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 17:40:01 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/11/12 12:01:39 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/11/12 17:22:58 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_table
 
 void	init_table(t_table *table);
 t_bool	table_set(t_table *table, char *key, char *value);
+t_bool	table_get(t_table *table, char *key, char **value);
 t_entry	*find_entry(t_entry *entries, int capacity, char *key);
 
 #endif
