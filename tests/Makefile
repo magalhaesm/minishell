@@ -31,5 +31,5 @@ endef
 all: $(TESTS)
 
 # test name: all source-files used by this test
-hash_table: hash_table.c test_hash_table.c
+hash_table: hash_table.c hash_table_utils.c test_hash_table.c
 	@$(call run, "$^")
