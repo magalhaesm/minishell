@@ -41,7 +41,7 @@ Test(hash_table, table_get)
 			"Failed to return false when value not found");
 	table_set(&table, key, expected);
 	cr_assert(eq(table_get(&table, key, &value), TRUE),
-			"Failed to return false when value found");
+			"Failed to return true when value found");
 	cr_assert(eq(str, expected, value));
 }
 
