@@ -20,7 +20,7 @@ CFLAGS  := -Wall -Werror -Wextra -g $(addprefix -I,$(INC_DIRS))
 LDFLAGS := -L $(LIBFT_DIR) -lft -lcriterion
 
 define run
- 	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $@ && ./$@
+ 	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $@ && ./$@ --verbose
  	$(RM) $@
 endef
 
