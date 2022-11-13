@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 11:59:43 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/11/13 18:59:05 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/11/13 19:11:49 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,9 @@ t_bool	table_delete(t_table *table, char *key)
 	entry->key = NULL;
 	entry->value = RIP;
 	return (TRUE);
+}
+
+void	free_table(t_table *table)
+{
+	free(table->data);
 }
