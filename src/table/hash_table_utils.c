@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 11:59:43 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/11/12 17:22:36 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/11/13 18:59:05 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,19 @@ t_bool	table_get(t_table *table, char *key, char **value)
 	if (entry->key == NULL)
 		return (FALSE);
 	*value = entry->value;
+	return (TRUE);
+}
+
+t_bool	table_delete(t_table *table, char *key)
+{
+	t_entry	*entry;
+
+	if (table->count == 0)
+		return (FALSE);
+	entry = find_entry(table->data, table->capacity, key);
+	if (entry->key == NULL)
+		return (FALSE);
+	entry->key = NULL;
+	entry->value = RIP;
 	return (TRUE);
 }
