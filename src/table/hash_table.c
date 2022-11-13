@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 17:39:31 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/11/12 12:05:01 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/11/13 19:03:07 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,37 @@ t_bool	table_set(t_table *table, char *key, char *value)
 	}
 	entry = find_entry(table->data, table->capacity, key);
 	is_new_key = entry->key == NULL;
-	if (is_new_key)
+	if (is_new_key && !entry->value)
 		table->count++;
 	entry->key = key;
 	entry->value = value;
 	return (is_new_key);
 }
 
-// TODO: implement tombstones
 t_entry	*find_entry(t_entry *entries, int capacity, char *key)
 {
-	t_entry	*entry;
 	t_uint	index;
+	t_entry	*entry;
+	t_entry	*tombstone;
 
 	index = hash_string(key) % capacity;
+	tombstone = NULL;
 	while (TRUE)
 	{
 		entry = &entries[index];
-		if (entry->key == key || !entry->key)
-			return (entry);
+		if (entry->key == NULL)
+		{
+			if (entry->value == NULL)
+			{
+				if (tombstone)
+					return (tombstone);
+				return (entry);
+			}
+			else if (tombstone == NULL)
+					tombstone = entry;
+		}
+		else if (entry->key == key)
+			return entry;
 		index = (index + 1) % capacity;
 	}
 }
@@ -61,6 +73,7 @@ static void	adjust_capacity(t_table *table, int capacity)
 
 	entries = ft_calloc(capacity, table->type_size);
 	index = 0;
+	table->count = 0;
 	while (index < table->capacity)
 	{
 		entry = table->data[index++];
@@ -69,6 +82,7 @@ static void	adjust_capacity(t_table *table, int capacity)
 		dest = find_entry(entries, capacity, entry.key);
 		dest->key = entry.key;
 		dest->value = entry.value;
+		table->count++;
 	}
 	free(table->data);
 	table->data = entries;
