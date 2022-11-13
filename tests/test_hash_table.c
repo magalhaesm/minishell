@@ -44,3 +44,22 @@ Test(hash_table, table_get)
 			"Failed to return false when value found");
 	cr_assert(eq(str, expected, value));
 }
+
+Test(hash_table, table_delete)
+{
+	t_table	table;
+	char	*key;
+	char	*value;
+	char	*expected;
+
+	init_table(&table);
+	key = "chave";
+	value = "valor";
+	cr_assert(eq(table_delete(&table, key), FALSE),
+			"Failed to return false when value not found");
+	table_set(&table, key, value);
+	table_get(&table, key, &expected);
+	cr_assert(eq(str, expected, value));
+	cr_assert(eq(table_delete(&table, key), TRUE),
+			"Failed to return true when value found");
+}
