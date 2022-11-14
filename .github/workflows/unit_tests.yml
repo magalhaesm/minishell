@@ -29,6 +29,10 @@ jobs:
       - name: Set up Criterion framework on Ubuntu 22.04
         run: |
           sudo apt-get install libcriterion-dev
+          python3 -m pip install --upgrade pip setuptools
+          python3 -m pip install norminette
       # Runs a single command using the runners shell
+      - name: Run norminette validation
+        run: norminette include src
       - name: Run Minishell's unit tests
-        run: echo "Insert cmds to run minishell here"
+        run: make test
