@@ -6,7 +6,7 @@
 /*   By: ygorgsena <ygorgsena@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:23:39 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/11/14 16:53:21 by ygorgsena        ###   ########.fr       */
+/*   Updated: 2022/11/14 17:33:20 by ygorgsena        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,5 @@ typedef void	t_handler(int);
 
 void			wait_user_signals(void);
 void			show_new_prompt(int sig);
-int				main(void);
 
 #endif
