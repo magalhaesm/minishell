@@ -37,7 +37,7 @@ LDFLAGS := -L $(LIBFT_DIR) -lft -lreadline
 
 all: $(NAME)
 
-test:
+test: $(NAME)
 	@make -C tests --no-print-directory
 
 $(NAME):	$(OBJS) | $(LIBFT)
