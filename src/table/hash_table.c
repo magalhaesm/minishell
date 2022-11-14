@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 17:39:31 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/11/13 19:03:07 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/11/14 10:06:05 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_entry	*find_entry(t_entry *entries, int capacity, char *key)
 					tombstone = entry;
 		}
 		else if (entry->key == key)
-			return entry;
+			return (entry);
 		index = (index + 1) % capacity;
 	}
 }
