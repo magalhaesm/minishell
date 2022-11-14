@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   sig_events.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygorgsena <ygorgsena@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 11:06:36 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/11/14 16:56:03 by ygorgsena        ###   ########.fr       */
+/*   Created: 2022/11/08 16:43:36 by ygorgsena         #+#    #+#             */
+/*   Updated: 2022/11/09 09:49:31 by ygorgsena        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	main(void)
+/* TODO: configure a variable to save EXIT_STATUS value.
+		Here, according to bash docs, is 128 + 2 (SIGINT value) = 130 */
+void	show_new_prompt(int sig)
 {
-	char	*cmdline;
-
-	cmdline = "";
-	wait_user_signals();
-	while (cmdline)
-	{
-		cmdline = readline("> ");
-		if (cmdline)
-		{
-			if (*cmdline)
-				add_history(cmdline);
-			printf("command: %s\n", cmdline);
-			free(cmdline);
-		}
-	}
-	rl_clear_history();
-	ft_printf("exit\n");
+	(void) sig;
+	write (1, "\n", 1);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
 }
+
+/* //TODO: function to be created
+void	exit_heredoc(int sig)
+{
+	(void) sig;
+	// Maybe leaks will occur. Check signals before use 
+	close(STDIN_FILENO);
+} */

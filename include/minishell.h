@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: ygorgsena <ygorgsena@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:23:39 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/11/08 11:06:29 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/11/14 16:53:21 by ygorgsena        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# include <stdio.h>
+# include <stdlib.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+
+# include "../libft/libft.h"
+# include <signal.h>
+# include <sys/types.h>
+
+typedef void	t_handler(int);
+
+void			wait_user_signals(void);
+void			show_new_prompt(int sig);
+int				main(void);
 
 #endif
