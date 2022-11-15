@@ -6,11 +6,11 @@
 /*   By: ygorgsena <ygorgsena@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:43:36 by ygorgsena         #+#    #+#             */
-/*   Updated: 2022/11/09 09:49:31 by ygorgsena        ###   ########.fr       */
+/*   Updated: 2022/11/15 10:02:27 by ygorgsena        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 /* TODO: configure a variable to save EXIT_STATUS value.
 		Here, according to bash docs, is 128 + 2 (SIGINT value) = 130 */
