@@ -6,15 +6,14 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 17:39:31 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/11/14 10:06:05 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/11/15 08:13:44 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "hash_table.h"
+#include "internals.h"
 
 static void		adjust_capacity(t_table *table, int capacity);
-static int		grow_capacity(int capacity);
-static t_uint	hash_string(char *key);
+static t_entry	*find_entry(t_entry *entries, int capacity, char *key);
 
 t_bool	table_set(t_table *table, char *key, char *value)
 {
@@ -36,7 +35,34 @@ t_bool	table_set(t_table *table, char *key, char *value)
 	return (is_new_key);
 }
 
-t_entry	*find_entry(t_entry *entries, int capacity, char *key)
+t_bool	table_get(t_table *table, char *key, char **value)
+{
+	t_entry	*entry;
+
+	if (table->count == 0)
+		return (FALSE);
+	entry = find_entry(table->data, table->capacity, key);
+	if (entry->key == NULL)
+		return (FALSE);
+	*value = entry->value;
+	return (TRUE);
+}
+
+t_bool	table_delete(t_table *table, char *key)
+{
+	t_entry	*entry;
+
+	if (table->count == 0)
+		return (FALSE);
+	entry = find_entry(table->data, table->capacity, key);
+	if (entry->key == NULL)
+		return (FALSE);
+	entry->key = NULL;
+	entry->value = RIP;
+	return (TRUE);
+}
+
+static t_entry	*find_entry(t_entry *entries, int capacity, char *key)
 {
 	t_uint	index;
 	t_entry	*entry;
@@ -87,28 +113,4 @@ static void	adjust_capacity(t_table *table, int capacity)
 	free(table->data);
 	table->data = entries;
 	table->capacity = capacity;
-}
-
-// SOURCE: http://www.isthe.com/chongo/tech/comp/fnv/
-static t_uint	hash_string(char *key)
-{
-	t_uint	hash;
-	int		index;
-
-	hash = 2166136261;
-	index = 0;
-	while (key[index])
-	{
-		hash ^= (t_byte)key[index];
-		hash *= 16777619;
-		index++;
-	}
-	return (hash);
-}
-
-static int	grow_capacity(int capacity)
-{
-	if (capacity < 8)
-		return (8);
-	return (capacity * 2);
 }

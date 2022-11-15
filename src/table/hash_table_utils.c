@@ -6,11 +6,11 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 11:59:43 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/11/13 19:11:49 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/11/15 08:13:18 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "hash_table.h"
+#include "internals.h"
 
 void	init_table(t_table *table)
 {
@@ -20,31 +20,28 @@ void	init_table(t_table *table)
 	table->data = NULL;
 }
 
-t_bool	table_get(t_table *table, char *key, char **value)
+// SOURCE: http://www.isthe.com/chongo/tech/comp/fnv/
+t_uint	hash_string(char *key)
 {
-	t_entry	*entry;
+	t_uint	hash;
+	int		index;
 
-	if (table->count == 0)
-		return (FALSE);
-	entry = find_entry(table->data, table->capacity, key);
-	if (entry->key == NULL)
-		return (FALSE);
-	*value = entry->value;
-	return (TRUE);
+	hash = 2166136261;
+	index = 0;
+	while (key[index])
+	{
+		hash ^= (t_byte)key[index];
+		hash *= 16777619;
+		index++;
+	}
+	return (hash);
 }
 
-t_bool	table_delete(t_table *table, char *key)
+int	grow_capacity(int capacity)
 {
-	t_entry	*entry;
-
-	if (table->count == 0)
-		return (FALSE);
-	entry = find_entry(table->data, table->capacity, key);
-	if (entry->key == NULL)
-		return (FALSE);
-	entry->key = NULL;
-	entry->value = RIP;
-	return (TRUE);
+	if (capacity < 8)
+		return (8);
+	return (capacity * 2);
 }
 
 void	free_table(t_table *table)

@@ -24,7 +24,7 @@ vpath %.c $(SRC_DIRS)
 
 LIBFT   := $(LIBFT_DIR)/libft.a
 HEADERS := minishell.h hash_table.h
-SOURCES := minishell.c hash_table.c
+SOURCES := minishell.c hash_table.c hash_table_utils.c
 
 OBJS := $(addprefix $(OBJ_DIR)/, $(SOURCES:.c=.o))
 
