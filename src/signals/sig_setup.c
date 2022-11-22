@@ -6,11 +6,12 @@
 /*   By: ygorgsena <ygorgsena@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:20:41 by ygorgsena         #+#    #+#             */
-/*   Updated: 2022/11/15 10:02:21 by ygorgsena        ###   ########.fr       */
+/*   Updated: 2022/11/22 17:26:36 by ygorgsena        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "sig_func.h"
 
 static t_handler	*ft_signal(int signum, t_handler *handler);
 
