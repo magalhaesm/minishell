@@ -15,7 +15,7 @@ LOG   := printf "[$(CYAN)INFO$(RESET)] %s\n"
 OBJ_DIR   := obj
 LIBFT_DIR := libft
 INC_DIRS  := include $(LIBFT_DIR)
-SRC_DIRS  := table signals
+SRC_DIRS  := table signals builtins
 SRC_DIRS  := $(addprefix src/, $(SRC_DIRS))
 SRC_DIRS  += src
 
@@ -23,8 +23,8 @@ vpath %.h $(INC_DIRS)
 vpath %.c $(SRC_DIRS)
 
 LIBFT   := $(LIBFT_DIR)/libft.a
-HEADERS := minishell.h hash_table.h
-SOURCES := minishell.c hash_table.c sig_setup.c sig_events.c
+HEADERS := minishell.h hash_table.h builtins.h
+SOURCES := minishell.c hash_table.c sig_setup.c sig_events.c echo.c
 
 OBJS := $(addprefix $(OBJ_DIR)/, $(SOURCES:.c=.o))
 
