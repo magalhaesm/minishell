@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygorgsena <ygorgsena@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 14:23:39 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/11/23 18:39:34 by mdias-ma         ###   ########.fr       */
+/*   Created: 2022/11/21 14:32:01 by ygorgsena         #+#    #+#             */
+/*   Updated: 2022/11/21 22:55:43 by ygorgsena        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-
-# include <stdio.h>
-# include <stdlib.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+#ifndef BUILTINS_H
+# define BUILTINS_H
 
 # include "libft.h"
-# include "sig_func.h"
-# include "hash_table.h"
-# include "builtins.h"
+
+# define NEW_LINE "-n"
+
+void	echo(char	**args);
 
 #endif
