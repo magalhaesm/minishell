@@ -6,7 +6,7 @@
 /*   By: ygorgsena <ygorgsena@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:06:36 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/11/23 18:46:41 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/11/23 19:01:31 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	print_tokens(char *cmdline)
 	t_token		token;
 	t_scanner	scanner;
 
-	scanner = init_scanner(cmdline);;
+	scanner = init_scanner(cmdline);
 	while (TRUE)
 	{
 		token = scan_token(&scanner);
