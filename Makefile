@@ -57,7 +57,7 @@ $(OBJ_DIR):
 $(LIBFT):
 	@make -C $(LIBFT_DIR) --no-print-directory
 
-leaks:
+leaks: $(NAME)
 	valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./$(NAME)
 
 clean:
