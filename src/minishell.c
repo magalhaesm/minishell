@@ -6,7 +6,7 @@
 /*   By: ygorgsena <ygorgsena@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:06:36 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/11/23 19:01:31 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/11/24 11:35:51 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,11 @@ void	print_tokens(char *cmdline)
 	t_scanner	scanner;
 
 	scanner = init_scanner(cmdline);
-	while (TRUE)
+	while (has_next(&scanner))
 	{
-		token = scan_token(&scanner);
+		token = next(&scanner);
 		ft_printf("token: %2d - lexema: ", token.type);
 		write(STDOUT_FILENO, token.start, token.length);
 		write(STDOUT_FILENO, "\n", 2);
-		if (token.type == TOKEN_EOF)
-			break ;
 	}
 }

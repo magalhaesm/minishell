@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 20:32:27 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/11/23 13:35:43 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/11/24 11:26:57 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_scanner	init_scanner(const char *source)
 
 	self.iter.start = source;
 	self.iter.current = source;
+	self.next = scan_token(&self);
 	return (self);
 }
 

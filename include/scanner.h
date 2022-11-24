@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 20:30:47 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/11/23 14:44:19 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/11/24 11:33:24 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,8 @@ t_token		scan_double_char_token(t_scanner *self, char c);
 t_token		token_word(t_scanner *self, char c);
 char		advance(t_scanner *self);
 t_bool		is_at_end(t_scanner *self);
+t_token		peek(t_scanner *self);
+t_token		next(t_scanner *self);
+t_bool		has_next(t_scanner *self);
 
 #endif
