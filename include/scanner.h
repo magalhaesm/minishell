@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 20:30:47 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/11/28 18:32:56 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/11/28 18:34:06 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 typedef enum e_token_type
 {
+	TOKEN_UNKNOWN,
 	TOKEN_LESS,
 	TOKEN_GREAT,
 	TOKEN_PIPE,

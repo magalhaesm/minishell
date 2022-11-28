@@ -6,7 +6,7 @@
 /*   By: ygorgsena <ygorgsena@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:23:39 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/11/23 18:46:16 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/11/24 15:08:51 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@
 # include "hash_table.h"
 # include "builtins.h"
 # include "scanner.h"
+# include "parser.h"
 
 #endif
