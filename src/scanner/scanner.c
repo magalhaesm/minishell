@@ -6,23 +6,14 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 20:32:27 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/11/24 11:26:57 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/11/27 16:12:58 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scanner.h"
 
-static void	skip_whitespace(t_scanner *self);
-
-t_scanner	init_scanner(const char *source)
-{
-	t_scanner	self;
-
-	self.iter.start = source;
-	self.iter.current = source;
-	self.next = scan_token(&self);
-	return (self);
-}
+static void		skip_whitespace(t_scanner *self);
+static t_bool	match(t_scanner *self, char expected);
 
 t_token	scan_token(t_scanner *self)
 {
@@ -65,6 +56,16 @@ t_token	scan_double_char_token(t_scanner *self, char c)
 		return (make_token(self, TOKEN_PIPE));
 	}
 	return (token_word(self, c));
+}
+
+static t_bool	match(t_scanner *self, char expected)
+{
+	if (is_at_end(self))
+		return (FALSE);
+	if (*self->iter.current != expected)
+		return (FALSE);
+	advance(self);
+	return (TRUE);
 }
 
 static void	skip_whitespace(t_scanner *self)

@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 20:30:47 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/11/24 11:33:24 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/11/28 18:32:56 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ t_scanner	init_scanner(const char *source);
 t_token		scan_token(t_scanner *self);
 t_token		error_token(const char *message);
 t_token		make_token(const t_scanner *self, t_token_type type);
-t_bool		match(t_scanner *self, char expected);
 t_token		scan_double_char_token(t_scanner *self, char c);
 t_token		token_word(t_scanner *self, char c);
 char		advance(t_scanner *self);

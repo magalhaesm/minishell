@@ -6,11 +6,21 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 20:36:07 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/11/22 18:00:02 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/11/24 15:58:09 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scanner.h"
+
+t_scanner	init_scanner(const char *source)
+{
+	t_scanner	self;
+
+	self.iter.start = source;
+	self.iter.current = source;
+	self.next = scan_token(&self);
+	return (self);
+}
 
 t_token	make_token(const t_scanner *self, t_token_type type)
 {
@@ -30,16 +40,6 @@ t_token	error_token(const char *message)
 	token.start = message;
 	token.length = ft_strlen(message);
 	return (token);
-}
-
-t_bool	match(t_scanner *self, char expected)
-{
-	if (is_at_end(self))
-		return (FALSE);
-	if (*self->iter.current != expected)
-		return (FALSE);
-	advance(self);
-	return (TRUE);
 }
 
 t_bool	is_at_end(t_scanner *self)
