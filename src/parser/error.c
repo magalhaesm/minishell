@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:21:22 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/11/28 18:03:44 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/11/30 11:00:09 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,19 @@ void	syntax_error(t_scanner *scanner)
 		show(token);
 	else
 	{
-		ft_printf("syntax error near unexpected token ");
+		ft_putstr_fd("syntax error near unexpected token ", STDERR_FILENO);
+		ft_putchar_fd('`', STDERR_FILENO);
 		if (token.type == TOKEN_EOF)
-			ft_printf("`newline'\n");
+			ft_putstr_fd("newline", STDERR_FILENO);
 		else
 			show(token);
+		ft_putchar_fd('\'', STDERR_FILENO);
 	}
+	ft_putchar_fd('\n', STDERR_FILENO);
 	scanner->next.type = TOKEN_UNKNOWN;
 }
 
 static void	show(t_token token)
 {
-	write(STDOUT_FILENO, "`", 1);
-	write(STDOUT_FILENO, token.start, token.length);
-	write(STDOUT_FILENO, "'\n", 3);
+	write(STDERR_FILENO, token.start, token.length);
 }

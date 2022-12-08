@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 09:49:48 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/11/28 18:31:14 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/08 19:01:13 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,49 @@
 # define PARSER_H
 
 # include "scanner.h"
+# include "tree.h"
 
-void	parse(t_scanner *scanner);
+typedef enum e_production {
+	LIST = 0,
+	PIPELINE = LIST,
+	CMD = LIST,
+	SIMPLE_CMD = 1,
+	WORD_NULL = SIMPLE_CMD,
+	CMD_SUFFIX = SIMPLE_CMD,
+	CMD_SUFFIX_NULL = SIMPLE_CMD,
+	IO_REDIRECT = 2,
+	CMD_PREFIX = IO_REDIRECT,
+	CMD_PREFIX_NULL = IO_REDIRECT,
+	REDIRECT_LIST = IO_REDIRECT,
+	REDIRECT_LIST_NULL = IO_REDIRECT,
+	SUBSHELL_NULL = IO_REDIRECT,
+	IO_FILE = 3,
+}	t_production;
+
+t_node	*parse(t_scanner *scanner);
 t_bool	match(t_token_type type, t_scanner *scanner);
-t_bool	consume(t_token_type type, t_scanner *scanner);
+t_bool	first_set(t_production prod, t_scanner *scanner);
 void	syntax_error(t_scanner *scanner);
 
 // RULES:
-t_bool	list(t_scanner *scanner);
-t_bool	conditional(t_scanner *scanner);
-t_bool	pipeline(t_scanner *scanner);
-t_bool	null_command(t_scanner *scanner);
-t_bool	command(t_scanner *scanner);
-t_bool	null_subshell(t_scanner *scanner);
-t_bool	subshell(t_scanner *scanner);
-t_bool	simple_cmd(t_scanner *scanner);
-t_bool	null_word(t_scanner *scanner);
-t_bool	fcmd_prefix(t_scanner *scanner);
-t_bool	cmd_prefix(t_scanner *scanner);
-t_bool	null_cmd_prefix(t_scanner *scanner);
-t_bool	cmd_suffix(t_scanner *scanner);
-t_bool	null_cmd_suffix(t_scanner *scanner);
-t_bool	redirect_list(t_scanner *scanner);
-t_bool	null_redirect_list(t_scanner *scanner);
-t_bool	io_redirect(t_scanner *scanner);
-t_bool	io_file(t_scanner *scanner);
-t_bool	io_here(t_scanner *scanner);
+t_node	*list(t_scanner *scanner);
+t_node	*conditional(t_scanner *scanner);
+t_node	*pipeline(t_scanner *scanner);
+t_node	*pipeline_null(t_scanner *scanner);
+t_node	*command(t_scanner *scanner);
+t_node	*subshell(t_scanner *scanner);
+t_node	*subshell_null(t_scanner *scanner);
+t_node	*simple_cmd(t_scanner *scanner);
+t_node	*word_null(t_scanner *scanner);
+t_node	*fcmd_prefix(t_scanner *scanner);
+t_node	*cmd_prefix(t_scanner *scanner);
+t_node	*cmd_prefix_null(t_scanner *scanner);
+t_node	*cmd_suffix(t_scanner *scanner);
+t_node	*cmd_suffix_null(t_scanner *scanner);
+t_node	*redirect_list(t_scanner *scanner);
+t_node	*redirect_list_null(t_scanner *scanner);
+t_node	*io_redirect(t_scanner *scanner);
+t_node	*io_file(t_scanner *scanner);
+t_node	*io_here(t_scanner *scanner);
 
 #endif

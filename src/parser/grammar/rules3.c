@@ -6,50 +6,117 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:36:49 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/11/28 18:25:18 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/08 18:17:02 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-// fcmd_prefix : ε | WORD fword1
-t_bool	fcmd_prefix(t_scanner *scanner)
+// cmd_prefix -> io_redirect cmd_prefix_null
+t_node	*cmd_prefix(t_scanner *scanner)
 {
-	if (match(TOKEN_WORD, scanner) && null_word(scanner))
-		return (TRUE);
-	return (TRUE);
+	t_node	*left;
+	t_node	*node;
+
+	if (first_set(IO_REDIRECT, scanner))
+	{
+		left = io_redirect(scanner);
+		if (left)
+		{
+			node = cmd_prefix_null(scanner);
+			return (make_subtree(node, left));
+		}
+	}
+	syntax_error(scanner);
+	return (NULL);
 }
 
-// cmd_prefix : io_redirect cmd_prefix1
-t_bool	cmd_prefix(t_scanner *scanner)
+// cmd_prefix_null -> io_redirect cmd_prefix_null
+//                  | empty
+t_node	*cmd_prefix_null(t_scanner *scanner)
 {
-	return (io_redirect(scanner) && null_cmd_prefix(scanner));
+	t_node	*left;
+	t_node	*node;
+
+	if (first_set(IO_REDIRECT, scanner))
+	{
+		left = io_redirect(scanner);
+		if (left)
+		{
+			node = cmd_prefix_null(scanner);
+			return (make_subtree(node, left));
+		}
+	}
+	return (NULL);
 }
 
-// cmd_prefix1 : io_redirect cmd_prefix1 | ε
-t_bool	null_cmd_prefix(t_scanner *scanner)
+// cmd_suffix -> io_redirect cmd_suffix_null
+//             | WORD cmd_suffix_null
+t_node	*cmd_suffix(t_scanner *scanner)
 {
-	if (io_redirect(scanner) && null_cmd_prefix(scanner))
-		return (TRUE);
-	return (TRUE);
+	t_node	*left;
+	t_node	*node;
+
+	if (first_set(IO_REDIRECT, scanner))
+	{
+		left = io_redirect(scanner);
+		if (left)
+		{
+			node = cmd_suffix_null(scanner);
+			return (make_subtree(node, left));
+		}
+	}
+	if (peek(scanner).type == TOKEN_WORD)
+	{
+		left = mkleaf(next(scanner));
+		node = cmd_suffix_null(scanner);
+		return (make_subtree(node, left));
+	}
+	syntax_error(scanner);
+	return (NULL);
 }
 
-// cmd_suffix : io_redirect cmd_suffix1 | WORD cmd_suffix1
-t_bool	cmd_suffix(t_scanner *scanner)
+// cmd_suffix_null -> io_redirect cmd_suffix_null
+//                  | WORD cmd_suffix_null
+//                  | empty
+t_node	*cmd_suffix_null(t_scanner *scanner)
 {
-	if (io_redirect(scanner) && null_cmd_suffix(scanner))
-		return (TRUE);
-	if (match(TOKEN_WORD, scanner) && null_cmd_suffix(scanner))
-		return (TRUE);
-	return (FALSE);
+	t_node	*left;
+	t_node	*node;
+
+	if (first_set(IO_REDIRECT, scanner))
+	{
+		left = io_redirect(scanner);
+		if (left)
+		{
+			node = cmd_suffix_null(scanner);
+			return (make_subtree(node, left));
+		}
+	}
+	if (peek(scanner).type == TOKEN_WORD)
+	{
+		left = mkleaf(next(scanner));
+		node = cmd_suffix_null(scanner);
+		return (make_subtree(node, left));
+	}
+	return (NULL);
 }
 
-// cmd_suffix1 : io_redirect cmd_suffix1 | WORD cmd_suffix1 | ε
-t_bool	null_cmd_suffix(t_scanner *scanner)
+// redirect_list -> io_redirect redirect_list_null
+t_node	*redirect_list(t_scanner *scanner)
 {
-	if (io_redirect(scanner) && null_cmd_suffix(scanner))
-		return (TRUE);
-	if (match(TOKEN_WORD, scanner) && null_cmd_suffix(scanner))
-		return (TRUE);
-	return (TRUE);
+	t_node	*left;
+	t_node	*node;
+
+	if (first_set(IO_REDIRECT, scanner))
+	{
+		left = io_redirect(scanner);
+		if (left)
+		{
+			node = redirect_list_null(scanner);
+			return (make_subtree(node, left));
+		}
+	}
+	syntax_error(scanner);
+	return (NULL);
 }

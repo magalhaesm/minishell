@@ -6,7 +6,7 @@
 /*   By: ygorgsena <ygorgsena@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:06:36 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/11/28 18:31:33 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/08 19:13:06 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(void)
 {
 	char		*cmdline;
 	t_scanner	scanner;
+	t_node		*root;
 
 	cmdline = "";
 	wait_user_signals();
@@ -29,7 +30,8 @@ int	main(void)
 			if (*cmdline)
 				add_history(cmdline);
 			scanner = init_scanner(cmdline);
-			parse(&scanner);
+			root = parse(&scanner);
+			free_tree(root);
 			printf("command: %s\n", cmdline);
 			free(cmdline);
 		}
