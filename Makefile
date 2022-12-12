@@ -15,7 +15,7 @@ LOG   := printf "[$(CYAN)INFO$(RESET)] %s\n"
 OBJ_DIR   := obj
 LIBFT_DIR := libft
 INC_DIRS  := include $(LIBFT_DIR)
-SRC_DIRS  := table signals builtins scanner parser parser/grammar
+SRC_DIRS  := table signals builtins scanner parser parser/grammar debug
 SRC_DIRS  := $(addprefix src/, $(SRC_DIRS))
 SRC_DIRS  += src
 
@@ -23,11 +23,14 @@ vpath %.h $(INC_DIRS)
 vpath %.c $(SRC_DIRS)
 
 LIBFT   := $(LIBFT_DIR)/libft.a
+DEBUG   := scanning.c parsing.c
 HEADERS := minishell.h hash_table.h builtins.h parser.h parser.h tree.h
 SOURCES := minishell.c hash_table.c hash_table_utils.c
 SOURCES += sig_setup.c sig_events.c echo.c
 SOURCES += scanner.c scanner_utils.c token_word.c parser.c error.c
 SOURCES += rules1.c rules2.c rules3.c rules4.c tree.c tree_utils.c table.c
+
+SOURCES += $(DEBUG)
 
 OBJS := $(addprefix $(OBJ_DIR)/, $(SOURCES:.c=.o))
 
