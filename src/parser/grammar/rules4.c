@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:37:35 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/08 18:17:07 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/12 12:48:36 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_node	*redirect_list_null(t_scanner *scanner)
 		if (left)
 		{
 			node = redirect_list_null(scanner);
-			return (make_subtree(node, left));
+			return (subtree(node, left));
 		}
 	}
 	return (NULL);

@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:35:41 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/08 18:16:43 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/12 10:18:10 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,17 @@
 // subshell -> LBRACE list RBRACE
 t_node	*subshell(t_scanner *scanner)
 {
-	t_node	*node;
-	t_node	*subshell;
+	t_node	*parent;
 
-	node = NULL;
+	parent = NULL;
 	if (match(TOKEN_LEFT_PAREN, scanner))
 	{
-		node = list(scanner);
-		if (node)
-			subshell = mknode(SUBSHELL, node, NULL);
-		if (match(TOKEN_RIGHT_PAREN, scanner))
-			return (subshell);
+		parent = list(scanner);
+		if (parent && match(TOKEN_RIGHT_PAREN, scanner))
+			return (mknode(SUBSHELL, parent, NULL));
 	}
 	syntax_error(scanner);
-	return (node);
+	return (parent);
 }
 
 // subshell_null -> redirect_list
@@ -44,18 +41,18 @@ t_node	*subshell_null(t_scanner *scanner)
 //             | cmd_prefix fcmd_prefix
 t_node	*simple_cmd(t_scanner *scanner)
 {
-	t_node	*left;
-	t_node	*node;
+	t_node	*child;
+	t_node	*parent;
 
 	if (peek(scanner).type == TOKEN_WORD)
 		return (word_null(scanner));
 	if (first_set(CMD_PREFIX, scanner))
 	{
-		left = cmd_prefix(scanner);
-		if (left)
+		child = cmd_prefix(scanner);
+		if (child)
 		{
-			node = fcmd_prefix(scanner);
-			return (make_subtree(node, left));
+			parent = fcmd_prefix(scanner);
+			return (subtree(parent, child));
 		}
 	}
 	syntax_error(scanner);
@@ -75,14 +72,14 @@ t_node	*word_null(t_scanner *scanner)
 //              | empty
 t_node	*fcmd_prefix(t_scanner *scanner)
 {
-	t_node	*left;
-	t_node	*node;
+	t_node	*child;
+	t_node	*parent;
 
 	if (peek(scanner).type == TOKEN_WORD)
 	{
-		left = mkleaf(next(scanner));
-		node = word_null(scanner);
-		return (make_subtree(node, left));
+		child = mkleaf(next(scanner));
+		parent = word_null(scanner);
+		return (subtree(parent, child));
 	}
 	return (NULL);
 }

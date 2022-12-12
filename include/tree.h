@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:36:15 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/08 18:21:58 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/12 12:51:55 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_node {
 
 t_node	*mkleaf(t_token token);
 t_node	*mknode(t_node_type type, t_node *left, t_node *right);
-t_node	*make_subtree(t_node *node, t_node *left);
+t_node	*subtree(t_node *node, t_node *left);
 void	free_tree(t_node *root);
 
 #endif

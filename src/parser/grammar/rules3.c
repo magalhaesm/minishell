@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:36:49 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/08 18:17:02 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/12 10:17:50 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 // cmd_prefix -> io_redirect cmd_prefix_null
 t_node	*cmd_prefix(t_scanner *scanner)
 {
-	t_node	*left;
-	t_node	*node;
+	t_node	*child;
+	t_node	*parent;
 
 	if (first_set(IO_REDIRECT, scanner))
 	{
-		left = io_redirect(scanner);
-		if (left)
+		child = io_redirect(scanner);
+		if (child)
 		{
-			node = cmd_prefix_null(scanner);
-			return (make_subtree(node, left));
+			parent = cmd_prefix_null(scanner);
+			return (subtree(parent, child));
 		}
 	}
 	syntax_error(scanner);
@@ -35,16 +35,16 @@ t_node	*cmd_prefix(t_scanner *scanner)
 //                  | empty
 t_node	*cmd_prefix_null(t_scanner *scanner)
 {
-	t_node	*left;
-	t_node	*node;
+	t_node	*child;
+	t_node	*parent;
 
 	if (first_set(IO_REDIRECT, scanner))
 	{
-		left = io_redirect(scanner);
-		if (left)
+		child = io_redirect(scanner);
+		if (child)
 		{
-			node = cmd_prefix_null(scanner);
-			return (make_subtree(node, left));
+			parent = cmd_prefix_null(scanner);
+			return (subtree(parent, child));
 		}
 	}
 	return (NULL);
@@ -54,23 +54,23 @@ t_node	*cmd_prefix_null(t_scanner *scanner)
 //             | WORD cmd_suffix_null
 t_node	*cmd_suffix(t_scanner *scanner)
 {
-	t_node	*left;
-	t_node	*node;
+	t_node	*child;
+	t_node	*parent;
 
 	if (first_set(IO_REDIRECT, scanner))
 	{
-		left = io_redirect(scanner);
-		if (left)
+		child = io_redirect(scanner);
+		if (child)
 		{
-			node = cmd_suffix_null(scanner);
-			return (make_subtree(node, left));
+			parent = cmd_suffix_null(scanner);
+			return (subtree(parent, child));
 		}
 	}
 	if (peek(scanner).type == TOKEN_WORD)
 	{
-		left = mkleaf(next(scanner));
-		node = cmd_suffix_null(scanner);
-		return (make_subtree(node, left));
+		child = mkleaf(next(scanner));
+		parent = cmd_suffix_null(scanner);
+		return (subtree(parent, child));
 	}
 	syntax_error(scanner);
 	return (NULL);
@@ -81,23 +81,23 @@ t_node	*cmd_suffix(t_scanner *scanner)
 //                  | empty
 t_node	*cmd_suffix_null(t_scanner *scanner)
 {
-	t_node	*left;
-	t_node	*node;
+	t_node	*child;
+	t_node	*parent;
 
 	if (first_set(IO_REDIRECT, scanner))
 	{
-		left = io_redirect(scanner);
-		if (left)
+		child = io_redirect(scanner);
+		if (child)
 		{
-			node = cmd_suffix_null(scanner);
-			return (make_subtree(node, left));
+			parent = cmd_suffix_null(scanner);
+			return (subtree(parent, child));
 		}
 	}
 	if (peek(scanner).type == TOKEN_WORD)
 	{
-		left = mkleaf(next(scanner));
-		node = cmd_suffix_null(scanner);
-		return (make_subtree(node, left));
+		child = mkleaf(next(scanner));
+		parent = cmd_suffix_null(scanner);
+		return (subtree(parent, child));
 	}
 	return (NULL);
 }
@@ -105,16 +105,16 @@ t_node	*cmd_suffix_null(t_scanner *scanner)
 // redirect_list -> io_redirect redirect_list_null
 t_node	*redirect_list(t_scanner *scanner)
 {
-	t_node	*left;
-	t_node	*node;
+	t_node	*child;
+	t_node	*parent;
 
 	if (first_set(IO_REDIRECT, scanner))
 	{
-		left = io_redirect(scanner);
-		if (left)
+		child = io_redirect(scanner);
+		if (child)
 		{
-			node = redirect_list_null(scanner);
-			return (make_subtree(node, left));
+			parent = redirect_list_null(scanner);
+			return (subtree(parent, child));
 		}
 	}
 	syntax_error(scanner);

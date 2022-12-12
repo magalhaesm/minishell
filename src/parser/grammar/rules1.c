@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:34:00 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/08 18:16:58 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/12 10:19:19 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,14 @@ t_node	*conditional(t_scanner *scanner)
 // pipeline -> command pipeline_null
 t_node	*pipeline(t_scanner *scanner)
 {
-	t_node	*left;
-	t_node	*node;
+	t_node	*child;
+	t_node	*parent;
 
-	left = command(scanner);
-	if (left)
+	child = command(scanner);
+	if (child)
 	{
-		node = pipeline_null(scanner);
-		if (node)
-			return (make_subtree(node, left));
-		return (left);
+		parent = pipeline_null(scanner);
+		return (subtree(parent, child));
 	}
 	syntax_error(scanner);
 	return (NULL);
@@ -85,20 +83,20 @@ t_node	*pipeline(t_scanner *scanner)
 //          | subshell subshell_null
 t_node	*command(t_scanner *scanner)
 {
-	t_node	*left;
-	t_node	*node;
+	t_node	*child;
+	t_node	*parent;
 
 	if (first_set(SIMPLE_CMD, scanner))
 	{
-		left = simple_cmd(scanner);
-		if (left)
-			return (left);
+		child = simple_cmd(scanner);
+		if (child)
+			return (child);
 	}
-	left = subshell(scanner);
-	if (left)
+	child = subshell(scanner);
+	if (child)
 	{
-		node = subshell_null(scanner);
-		return (make_subtree(node, left));
+		parent = subshell_null(scanner);
+		return (subtree(parent, child));
 	}
 	syntax_error(scanner);
 	return (NULL);
@@ -108,13 +106,13 @@ t_node	*command(t_scanner *scanner)
 //                | empty
 t_node	*pipeline_null(t_scanner *scanner)
 {
-	t_node	*node;
+	t_node	*child;
 
 	if (match(TOKEN_PIPE, scanner))
 	{
-		node = pipeline(scanner);
-		if (node)
-			return (mknode(PIPE, NULL, node));
+		child = pipeline(scanner);
+		if (child)
+			return (mknode(PIPE, NULL, child));
 	}
 	return (NULL);
 }
