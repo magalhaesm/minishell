@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 09:49:48 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/08 19:01:13 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/10 09:06:38 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "scanner.h"
 # include "tree.h"
 
-typedef enum e_production {
+typedef enum e_nonterminal {
 	LIST = 0,
 	PIPELINE = LIST,
 	CMD = LIST,
@@ -31,11 +31,11 @@ typedef enum e_production {
 	REDIRECT_LIST_NULL = IO_REDIRECT,
 	SUBSHELL_NULL = IO_REDIRECT,
 	IO_FILE = 3,
-}	t_production;
+}	t_nonterminal;
 
 t_node	*parse(t_scanner *scanner);
 t_bool	match(t_token_type type, t_scanner *scanner);
-t_bool	first_set(t_production prod, t_scanner *scanner);
+t_bool	first_set(t_nonterminal nts, t_scanner *scanner);
 void	syntax_error(t_scanner *scanner);
 
 // RULES:
