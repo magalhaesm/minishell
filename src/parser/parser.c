@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 22:17:47 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/08 19:01:45 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/12 13:01:44 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ t_node	*parse(t_scanner *scanner)
 {
 	t_node	*root;
 
+	if (peek(scanner).type == TOKEN_EOF)
+		return (NULL);
 	root = list(scanner);
 	if (peek(scanner).type != TOKEN_EOF)
 	{
