@@ -6,11 +6,13 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:34:00 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/12 10:19:19 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/12 20:44:21 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+
+static t_node	*and_or(t_node_type type, t_node *pipe, t_node *logical);
 
 // list -> pipeline conditional
 t_node	*list(t_scanner *scanner)
@@ -48,17 +50,13 @@ t_node	*conditional(t_scanner *scanner)
 	{
 		pipe = pipeline(scanner);
 		logical = conditional(scanner);
-		if (logical)
-			return (mknode(AND, pipe, logical));
-		return (mknode(AND, NULL, pipe));
+		return (and_or(AND, pipe, logical));
 	}
 	if (match(TOKEN_OR, scanner))
 	{
 		pipe = pipeline(scanner);
 		logical = conditional(scanner);
-		if (logical)
-			return (mknode(OR, pipe, logical));
-		return (mknode(OR, NULL, pipe));
+		return (and_or(OR, pipe, logical));
 	}
 	return (NULL);
 }
@@ -102,17 +100,17 @@ t_node	*command(t_scanner *scanner)
 	return (NULL);
 }
 
-// pipeline_null -> PIPE pipeline
-//                | empty
-t_node	*pipeline_null(t_scanner *scanner)
+static t_node	*and_or(t_node_type type, t_node *pipe, t_node *logical)
 {
-	t_node	*child;
-
-	if (match(TOKEN_PIPE, scanner))
+	if (logical)
 	{
-		child = pipeline(scanner);
-		if (child)
-			return (mknode(PIPE, NULL, child));
+		if (logical->data.pair.left == NULL)
+		{
+			logical->data.pair.left = pipe;
+			return (mknode(type, NULL, logical));
+		}
+		else
+			return (mknode(type, pipe, logical));
 	}
-	return (NULL);
+	return (mknode(type, NULL, pipe));
 }

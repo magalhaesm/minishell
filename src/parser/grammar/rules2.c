@@ -6,11 +6,26 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:35:41 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/12 10:18:10 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/12 20:31:02 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+
+// pipeline_null -> PIPE pipeline
+//                | empty
+t_node	*pipeline_null(t_scanner *scanner)
+{
+	t_node	*child;
+
+	if (match(TOKEN_PIPE, scanner))
+	{
+		child = pipeline(scanner);
+		if (child)
+			return (mknode(PIPE, NULL, child));
+	}
+	return (NULL);
+}
 
 // subshell -> LBRACE list RBRACE
 t_node	*subshell(t_scanner *scanner)
@@ -65,21 +80,5 @@ t_node	*word_null(t_scanner *scanner)
 {
 	if (first_set(CMD_SUFFIX, scanner))
 		return (cmd_suffix(scanner));
-	return (NULL);
-}
-
-// fcmd_prefix -> WORD word_null
-//              | empty
-t_node	*fcmd_prefix(t_scanner *scanner)
-{
-	t_node	*child;
-	t_node	*parent;
-
-	if (peek(scanner).type == TOKEN_WORD)
-	{
-		child = mkleaf(next(scanner));
-		parent = word_null(scanner);
-		return (subtree(parent, child));
-	}
 	return (NULL);
 }
