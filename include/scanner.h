@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 20:30:47 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/11/23 14:44:19 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/11/28 18:34:06 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 typedef enum e_token_type
 {
+	TOKEN_UNKNOWN,
 	TOKEN_LESS,
 	TOKEN_GREAT,
 	TOKEN_PIPE,
@@ -54,10 +55,12 @@ t_scanner	init_scanner(const char *source);
 t_token		scan_token(t_scanner *self);
 t_token		error_token(const char *message);
 t_token		make_token(const t_scanner *self, t_token_type type);
-t_bool		match(t_scanner *self, char expected);
 t_token		scan_double_char_token(t_scanner *self, char c);
 t_token		token_word(t_scanner *self, char c);
 char		advance(t_scanner *self);
 t_bool		is_at_end(t_scanner *self);
+t_token		peek(t_scanner *self);
+t_token		next(t_scanner *self);
+t_bool		has_next(t_scanner *self);
 
 #endif

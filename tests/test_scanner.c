@@ -9,7 +9,7 @@ t_token	fixture(char *source)
 	t_token		tok;
 
 	scanner = init_scanner(source);
-	tok = scan_token(&scanner);
+	tok = next(&scanner);
 	return (tok);
 }
 
