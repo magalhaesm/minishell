@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:35:41 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/12 20:31:02 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/13 08:26:49 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ t_node	*subshell(t_scanner *scanner)
 	return (parent);
 }
 
-// subshell_null -> redirect_list
+// subshell_redir -> redirect_list
 //                | empty
-t_node	*subshell_null(t_scanner *scanner)
+t_node	*subshell_redir(t_scanner *scanner)
 {
 	if (first_set(IO_REDIRECT, scanner))
 		return (redirect_list(scanner));

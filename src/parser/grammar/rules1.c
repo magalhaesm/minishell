@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:34:00 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/12 20:44:21 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/13 08:26:58 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_node	*pipeline(t_scanner *scanner)
 }
 
 // command -> simple_cmd
-//          | subshell subshell_null
+//          | subshell subshell_redir
 t_node	*command(t_scanner *scanner)
 {
 	t_node	*child;
@@ -93,7 +93,7 @@ t_node	*command(t_scanner *scanner)
 	child = subshell(scanner);
 	if (child)
 	{
-		parent = subshell_null(scanner);
+		parent = subshell_redir(scanner);
 		return (subtree(parent, child));
 	}
 	syntax_error(scanner);

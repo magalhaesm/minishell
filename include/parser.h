@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 09:49:48 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/10 09:06:38 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/13 08:26:17 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_node	*pipeline(t_scanner *scanner);
 t_node	*pipeline_null(t_scanner *scanner);
 t_node	*command(t_scanner *scanner);
 t_node	*subshell(t_scanner *scanner);
-t_node	*subshell_null(t_scanner *scanner);
+t_node	*subshell_redir(t_scanner *scanner);
 t_node	*simple_cmd(t_scanner *scanner);
 t_node	*word_null(t_scanner *scanner);
 t_node	*fcmd_prefix(t_scanner *scanner);

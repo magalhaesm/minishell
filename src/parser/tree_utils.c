@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 18:20:05 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/12 12:54:39 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/13 09:18:16 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ static t_node	*insert_command(t_node *parent, t_node *child, int level)
 	{
 		if (level == 0)
 			return (append_cmd(child, parent));
-		else
-			return (append_cmd(parent, child));
+		return (append_cmd(parent, child));
 	}
 	return (insert_left(child, parent, level));
 }
