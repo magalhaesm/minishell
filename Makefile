@@ -15,7 +15,7 @@ LOG   := printf "[$(CYAN)INFO$(RESET)] %s\n"
 OBJ_DIR   := obj
 LIBFT_DIR := libft
 INC_DIRS  := include $(LIBFT_DIR)
-SRC_DIRS  := table signals builtins scanner parser parser/grammar debug
+SRC_DIRS  := table signals builtins scanner parser parser/grammar debug helpers
 SRC_DIRS  := $(addprefix src/, $(SRC_DIRS))
 SRC_DIRS  += src
 
@@ -24,12 +24,13 @@ vpath %.c $(SRC_DIRS)
 
 LIBFT   := $(LIBFT_DIR)/libft.a
 DEBUG   := scanning.c parsing.c
-HEADERS := minishell.h hash_table.h builtins.h parser.h parser.h tree.h
+HEADERS := minishell.h hash_table.h builtins.h parser.h parser.h tree.h helpers.h
 SOURCES := minishell.c hash_table.c hash_table_utils.c
 SOURCES += sig_setup.c sig_events.c echo.c
 SOURCES += scanner.c scanner_utils.c token_word.c parser.c syntax_error.c
 SOURCES += tree.c tree_utils.c table.c
 SOURCES += rules1.c rules2.c rules3.c rules4.c rules5.c
+SOURCES += environ.c environ2.c string.c
 
 SOURCES += $(DEBUG)
 
@@ -60,7 +61,7 @@ $(OBJ_DIR):
 	@mkdir $@
 
 $(LIBFT):
-	@make -C $(LIBFT_DIR) --no-print-directory
+	@make bonus -C $(LIBFT_DIR) --no-print-directory
 
 leaks: $(NAME)
 	valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./$(NAME)
@@ -74,6 +75,7 @@ clean:
 fclean: clean
 	@$(RM) -r $(NAME)
 	@$(LOG) "Removing $(NAME)"
+	@make fclean -C $(LIBFT_DIR) --no-print-directory --silent
 
 re: fclean all
 
