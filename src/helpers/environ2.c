@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 11:41:02 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/20 15:46:41 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/20 16:46:41 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,20 @@ int	ft_setenv(const char *name, const char *value)
 	t_list	*node;
 	char	*env;
 
+	if (!name || name[0] == 0 || ft_strchr(name, '='))
+		return (-1);
 	env = pairjoin(name, value);
+	if (env == NULL)
+		return (-1);
 	node = _getenv_internal(name, get_envl(), FALSE);
 	if (node)
 	{
 		free(node->content);
 		node->content = env;
-		return (EXIT_SUCCESS);
 	}
-	ft_lstadd_back(get_envl(), ft_lstnew(env));
-	return (-1);
+	else
+		ft_lstadd_back(get_envl(), ft_lstnew(env));
+	return (EXIT_SUCCESS);
 }
 
 int	ft_unsetenv(const char *name)
@@ -71,6 +75,8 @@ static char	*pairjoin(const char *key, const char *value)
 	aux = ft_strjoin(key, "=");
 	if (!aux)
 		return (NULL);
+	if (!value)
+		value = "";
 	var = ft_strjoin(aux, value);
 	free(aux);
 	if (!var)
