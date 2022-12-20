@@ -6,16 +6,12 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 08:23:11 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/20 16:53:05 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/20 17:54:26 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HELPERS_H
 # define HELPERS_H
-
-# include <stdio.h>
-# include <string.h>
-# include <unistd.h>
 
 # include "libft.h"
 
@@ -40,8 +36,5 @@ int		ft_setenv(const char *name, const char *value);
 /* Deletes the variable name from the environment.
    Return zero on success, or -1 on error. */
 int		ft_unsetenv(const char *name);
-
-/* Free a string table. */
-void	free_strtab(char **tab);
 
 #endif

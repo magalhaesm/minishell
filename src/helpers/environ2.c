@@ -6,12 +6,11 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 11:41:02 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/20 16:46:41 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/20 17:54:52 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "helpers.h"
-#include "libft.h"
 
 static char		*pairjoin(const char *key, const char *value);
 static t_list	*_getenv_internal(const char *name, t_list **envl, int remove);
