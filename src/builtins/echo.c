@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygorgsena <ygorgsena@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 14:30:40 by ygorgsena         #+#    #+#             */
-/*   Updated: 2022/11/23 14:34:23 by ygorgsena        ###   ########.fr       */
+/*   Updated: 2022/12/20 18:49:20 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,17 @@
 
 static void	write_output(char **word, size_t index);
 
-/* TODO: add echo exit status: 0 */
-void	echo(char	**args)
+int	ft_echo(char	**args)
 {
 	if (!args[1])
 	{
 		ft_putstr_fd("\n", 1);
-		return ;
+		return (EXIT_SUCCESS);
 	}
 	if (args[1] && !ft_strncmp(args[1], NEW_LINE, 2))
 	{
 		if (!args[2])
-			return ;
+			return (EXIT_SUCCESS);
 		write_output(args, 2);
 	}
 	else
@@ -33,6 +32,7 @@ void	echo(char	**args)
 		write_output(args, 1);
 		ft_putstr_fd("\n", 1);
 	}
+	return (EXIT_SUCCESS);
 }
 
 static void	write_output(char **word, size_t index)
