@@ -1,6 +1,6 @@
 # For single test, run make with one of the names specified in the TESTS variable
 
-TESTS := hash_table signals echo scanner parser environ builtin_pool
+TESTS := hash_table signals echo scanner parser environ builtin_pool env
 
 CYAN  := \33[1;36m
 RESET := \033[0m
@@ -51,10 +51,14 @@ PARSER += tree.c tree_utils.c syntax_error.c $(SCANNER)
 parser: $(PARSER) test_parser.c
 	@$(call run, "$^")
 
-environ: environ.c environ2.c test_environ.c
+ENVIRON := environ.c environ2.c
+environ: $(ENVIRON) test_environ.c
 	@$(call run, "$^")
 
 builtin_pool: echo.c builtin_pool.c test_builtin_pool.c
+	@$(call run, "$^")
+
+env: env.c builtin_pool.c echo.c $(ENVIRON) test_env.c
 	@$(call run, "$^")
 
 # Makefile rules to clean stdin/stdout/stderr tests' files
