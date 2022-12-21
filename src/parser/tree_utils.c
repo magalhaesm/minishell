@@ -6,50 +6,46 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 18:20:05 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/13 09:18:16 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/13 22:20:48 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tree.h"
 
 static t_node	*append_cmd(t_node *command, t_node *param);
-static t_node	*insert_left(t_node *parent, t_node *child, int level);
-static t_node	*insert_command(t_node *parent, t_node *child, int level);
+static t_node	*insert_left(t_node *parent, t_node *child);
+static t_node	*insert_command(t_node *parent, t_node *child);
 
 t_node	*subtree(t_node *node, t_node *child)
 {
-	if (node == NULL)
-		return (child);
+	if (child == NULL)
+		return (node);
 	if (node && child)
-		return (insert_left(node, child, 0));
+		return (insert_left(node, child));
 	return (NULL);
 }
 
-static t_node	*insert_left(t_node *parent, t_node *child, int level)
+static t_node	*insert_left(t_node *parent, t_node *child)
 {
 	t_node	**aux;
 
 	aux = &parent->data.pair.left;
 	if (parent->type == COMMAND)
-		return (insert_command(parent, child, level));
+		return (insert_command(parent, child));
 	else if (*aux == NULL)
 		*aux = child;
 	else if ((*aux)->type == COMMAND)
-		*aux = insert_left(child, *aux, level + 1);
+		*aux = insert_left(child, *aux);
 	else
-		insert_left(*aux, child, level);
+		insert_left(*aux, child);
 	return (parent);
 }
 
-static t_node	*insert_command(t_node *parent, t_node *child, int level)
+static t_node	*insert_command(t_node *parent, t_node *child)
 {
 	if (child->type == COMMAND)
-	{
-		if (level == 0)
-			return (append_cmd(child, parent));
 		return (append_cmd(parent, child));
-	}
-	return (insert_left(child, parent, level));
+	return (insert_left(child, parent));
 }
 
 static t_node	*append_cmd(t_node *command, t_node *param)

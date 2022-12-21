@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:37:35 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/12 20:31:12 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/14 00:52:23 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 // redirect_list -> io_redirect redirect_list_null
 t_node	*redirect_list(t_scanner *scanner)
 {
-	t_node	*child;
 	t_node	*parent;
+	t_node	*child;
 
 	if (first_set(IO_REDIRECT, scanner))
 	{
-		child = io_redirect(scanner);
-		if (child)
+		parent = io_redirect(scanner);
+		if (parent)
 		{
-			parent = redirect_list_null(scanner);
+			child = redirect_list_null(scanner);
 			return (subtree(parent, child));
 		}
 	}
@@ -35,16 +35,16 @@ t_node	*redirect_list(t_scanner *scanner)
 //                     | empty
 t_node	*redirect_list_null(t_scanner *scanner)
 {
-	t_node	*left;
-	t_node	*node;
+	t_node	*parent;
+	t_node	*child;
 
 	if (first_set(IO_REDIRECT, scanner))
 	{
-		left = io_redirect(scanner);
-		if (left)
+		parent = io_redirect(scanner);
+		if (parent)
 		{
-			node = redirect_list_null(scanner);
-			return (subtree(node, left));
+			child = redirect_list_null(scanner);
+			return (subtree(parent, child));
 		}
 	}
 	return (NULL);
