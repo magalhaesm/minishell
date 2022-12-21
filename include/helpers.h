@@ -6,12 +6,15 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 08:23:11 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/21 15:05:30 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/21 16:05:15 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HELPERS_H
 # define HELPERS_H
+
+# include <stdio.h>
+# include <string.h>
 
 # include "libft.h"
 
@@ -50,5 +53,17 @@ void	free_pathtab(void);
 
 /* Free a string table */
 void	free_strtab(char **tab);
+
+/* Displays error on standard error.
+   `name` is the location of the error. `msg` is a custom message.
+   `error` is a code defined in errno.h.
+   For standard Unix messaging, let `msg` be NULL and use `error`
+   If both msg and error are null, the message will be the last error
+   encountered during a system call or library function. */
+void	msh_error(char *name, char *msg, int error);
+
+/* Protected fork. On success, return the child's pid. On error, send
+   a message to standard error and return -1. */
+int		pfork(void);
 
 #endif
