@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 09:49:48 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/13 08:26:17 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/21 14:40:55 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ t_node	*parse(t_scanner *scanner);
 t_bool	match(t_token_type type, t_scanner *scanner);
 t_bool	first_set(t_nonterminal nts, t_scanner *scanner);
 void	syntax_error(t_scanner *scanner);
+int		parse_status(void);
 
 // RULES:
 t_node	*list(t_scanner *scanner);
