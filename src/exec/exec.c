@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 14:23:39 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/21 16:08:00 by mdias-ma         ###   ########.fr       */
+/*   Created: 2022/12/13 11:46:14 by mdias-ma          #+#    #+#             */
+/*   Updated: 2022/12/21 15:28:00 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "exec.h"
 
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+void	execute(t_node *root)
+{
+	t_context	ctx;
 
-# include "libft.h"
-# include "sig_func.h"
-# include "hash_table.h"
-# include "builtins.h"
-# include "scanner.h"
-# include "parser.h"
-# include "helpers.h"
-# include "exec.h"
+	ctx.retcode = parse_status();
+	ctx.error = FALSE;
+	exec_node(root, &ctx);
+}
 
-#endif
+void	exec_node(t_node *node, t_context *ctx)
+{
+	if (node == NULL)
+		return ;
+	if (ctx->error)
+		return ;
+	if (node->type == COMMAND)
+		exec_command(node, ctx);
+}
