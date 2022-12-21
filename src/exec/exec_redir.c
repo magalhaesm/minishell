@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 16:35:29 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/21 20:25:48 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/21 20:26:56 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,17 @@ void	exec_output(t_node *node, t_context *ctx)
 
 	filename = node->data.pair.right->data.cmd;
 	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC | O_CLOEXEC, 0644);
+	set_redir(filename, fd, STDOUT_FILENO, ctx);
+	exec_node(node->data.pair.left, ctx);
+}
+
+void	exec_append(t_node *node, t_context *ctx)
+{
+	int		fd;
+	char	*filename;
+
+	filename = node->data.pair.right->data.cmd;
+	fd = open(filename, O_WRONLY | O_CREAT | O_APPEND | O_CLOEXEC, 0644);
 	set_redir(filename, fd, STDOUT_FILENO, ctx);
 	exec_node(node->data.pair.left, ctx);
 }

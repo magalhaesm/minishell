@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:46:14 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/21 20:25:50 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/21 20:26:59 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,6 @@ void	exec_node(t_node *node, t_context *ctx)
 		exec_input(node, ctx);
 	else if (node->type == OUTPUT)
 		exec_output(node, ctx);
+	else if (node->type == APPEND)
+		exec_append(node, ctx);
 }
