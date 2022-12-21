@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 16:35:36 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/21 15:32:38 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/21 19:59:40 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ static int	spawn_process(char **argv, t_context *ctx)
 
 	if (pfork() == FORKED_CHILD)
 	{
+		dup2(ctx->fd[STDIN_FILENO], STDIN_FILENO);
+		dup2(ctx->fd[STDOUT_FILENO], STDOUT_FILENO);
 		execve(argv[0], argv, environ);
 		exit(EXIT_FAILURE);
 	}

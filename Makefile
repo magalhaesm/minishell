@@ -35,7 +35,7 @@ SOURCES += scanner.c scanner_utils.c token_word.c parser.c syntax_error.c
 SOURCES += tree.c tree_utils.c table.c
 SOURCES += rules1.c rules2.c rules3.c rules4.c rules5.c
 SOURCES += environ.c environ2.c builtin_pool.c env.c path.c error.c string.c
-SOURCES += exec.c exec_cmd.c pcall.c
+SOURCES += exec.c exec_cmd.c pcall.c exec_redir.c
 
 SOURCES += $(DEBUG)
 
@@ -69,7 +69,8 @@ $(LIBFT):
 	@make bonus -C $(LIBFT_DIR) --no-print-directory
 
 leaks: $(NAME)
-	valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./$(NAME)
+	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes \
+		--suppressions=readline.supp ./$(NAME)
 
 clean:
 	@$(RM) -r $(OBJS)
