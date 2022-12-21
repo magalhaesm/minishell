@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 14:32:01 by ygorgsena         #+#    #+#             */
-/*   Updated: 2022/12/20 19:36:43 by mdias-ma         ###   ########.fr       */
+/*   Created: 2022/12/20 18:50:09 by mdias-ma          #+#    #+#             */
+/*   Updated: 2022/12/20 19:56:58 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include "builtins.h"
 
-# include "libft.h"
-# include "helpers.h"
+int	ft_env(char **args)
+{
+	t_list	*envl;
 
-# define NEW_LINE "-n"
-
-typedef int	(*t_builtin)(char **args);
-
-t_builtin	builtin_pool(char *name);
-int			ft_echo(char	**args);
-int			ft_env(char **args);
-
-#endif
+	(void) args;
+	envl = *get_envl();
+	while (envl)
+	{
+		ft_putendl_fd(envl->content, STDOUT_FILENO);
+		envl = envl->next;
+	}
+	return (EXIT_SUCCESS);
+}

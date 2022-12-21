@@ -1,6 +1,6 @@
 # For single test, run make with one of the names specified in the TESTS variable
 
-TESTS := hash_table signals echo scanner parser
+TESTS := hash_table signals echo scanner parser environ builtin_pool env
 
 CYAN  := \33[1;36m
 RESET := \033[0m
@@ -11,7 +11,7 @@ LIBFT_DIR := ../libft
 INC_DIRS  := ../include $(LIBFT_DIR)
 
 # Insert each new directory here
-SRC_DIRS := table signals builtins scanner parser parser/grammar
+SRC_DIRS := table signals builtins scanner parser parser/grammar helpers
 SRC_DIRS := $(addprefix $(SRC_DIR)/, $(SRC_DIRS))
 SRC_DIRS += $(SRC_DIR)
 
@@ -46,9 +46,19 @@ SCANNER := scanner.c scanner_utils.c token_word.c
 scanner: $(SCANNER) test_scanner.c
 	@$(call run, "$^")
 
-PARSER := parser.c table.c rules1.c rules2.c rules3.c rules4.c rules5.c error.c
-PARSER += tree.c tree_utils.c $(SCANNER)
+PARSER := parser.c table.c rules1.c rules2.c rules3.c rules4.c rules5.c
+PARSER += tree.c tree_utils.c syntax_error.c $(SCANNER)
 parser: $(PARSER) test_parser.c
+	@$(call run, "$^")
+
+ENVIRON := environ.c environ2.c
+environ: $(ENVIRON) test_environ.c
+	@$(call run, "$^")
+
+builtin_pool: echo.c builtin_pool.c test_builtin_pool.c
+	@$(call run, "$^")
+
+env: env.c builtin_pool.c echo.c $(ENVIRON) test_env.c
 	@$(call run, "$^")
 
 # Makefile rules to clean stdin/stdout/stderr tests' files
