@@ -35,7 +35,7 @@ SOURCES += scanner.c scanner_utils.c token_word.c parser.c syntax_error.c
 SOURCES += tree.c tree_utils.c table.c
 SOURCES += rules1.c rules2.c rules3.c rules4.c rules5.c
 SOURCES += environ.c environ2.c builtin_pool.c env.c path.c error.c string.c
-SOURCES += exec.c exec_cmd.c pcall.c exec_redir.c
+SOURCES += exec.c exec_cmd.c pcall.c exec_redir.c exec_utils.c
 
 SOURCES += $(DEBUG)
 
