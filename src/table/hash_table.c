@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 17:39:31 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/11/14 10:06:05 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/15 21:10:47 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ t_bool	table_set(t_table *table, char *key, char *value)
 	is_new_key = entry->key == NULL;
 	if (is_new_key && !entry->value)
 		table->count++;
-	entry->key = key;
-	entry->value = value;
+	entry->key = ft_strdup(key);
+	entry->value = ft_strdup(value);
 	return (is_new_key);
 }
 
@@ -58,7 +58,7 @@ t_entry	*find_entry(t_entry *entries, int capacity, char *key)
 			else if (tombstone == NULL)
 					tombstone = entry;
 		}
-		else if (entry->key == key)
+		else if (ft_strncmp(entry->key, key, ft_strlen(key)) == 0)
 			return (entry);
 		index = (index + 1) % capacity;
 	}
