@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 11:50:16 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/20 18:49:37 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/21 16:14:54 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_builtin	builtin_pool(char *name)
 		if (name[1] == 'c' && check_word(name, 2, 2, "ho"))
 			return (ft_echo);
 		else if (name[1] == 'n' && check_word(name, 2, 1, "v"))
-			return (NULL);
+			return (ft_env);
 		else if (name[1] == 'x')
 		{
 			if (name[2] == 'i' && check_word(name, 3, 1, "t"))
