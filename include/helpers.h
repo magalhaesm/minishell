@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 08:23:11 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/20 17:54:26 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/21 15:05:30 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,19 @@ int		ft_setenv(const char *name, const char *value);
 /* Deletes the variable name from the environment.
    Return zero on success, or -1 on error. */
 int		ft_unsetenv(const char *name);
+
+/* Initialize the internal path table */
+void	init_pathtab(void);
+
+/* Looks up the path of an executable in the internal hash table and returns it.
+   If it's not in the table, then look it up in the PATH and add it.
+   Returns a copy of the path that must be freed by the user. */
+char	*search_path(char *execfile);
+
+/* Free the internal path table */
+void	free_pathtab(void);
+
+/* Free a string table */
+void	free_strtab(char **tab);
 
 #endif
