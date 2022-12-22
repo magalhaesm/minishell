@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 16:35:36 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/21 20:30:35 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/22 20:37:11 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,15 @@
 static int		spawn_process(char **argv, t_context *ctx);
 static int		launch_executable(char **argv, t_context *ctx);
 static t_bool	is_executable(char *filename, t_context *ctx);
-static void		report_sigterm(int wstatus);
 
-void	exec_command(t_node *node, t_context *ctx)
+int	exec_command(t_node *node, t_context *ctx)
 {
 	char		**argv;
 	t_builtin	exec_builtin;
 	int			saved_fd[2];
+	int			children;
 
+	children = 0;
 	argv = ft_split(node->data.cmd, ' ');
 	if (ft_strchr(argv[0], '/') == NULL)
 	{
@@ -41,11 +42,12 @@ void	exec_command(t_node *node, t_context *ctx)
 			restore_io(saved_fd);
 		}
 		else
-			launch_executable(argv, ctx);
+			children += launch_executable(argv, ctx);
 	}
 	else if (is_executable(argv[0], ctx))
-		spawn_process(argv, ctx);
+		children += spawn_process(argv, ctx);
 	free_strtab(argv);
+	return (children);
 }
 
 static int	launch_executable(char **argv, t_context *ctx)
@@ -61,7 +63,7 @@ static int	launch_executable(char **argv, t_context *ctx)
 	}
 	msh_error(argv[0], "command not found", 0);
 	ctx->retcode = 127;
-	return (EXIT_FAILURE);
+	return (0);
 }
 
 static t_bool	is_executable(char *filename, t_context *ctx)
@@ -92,33 +94,20 @@ static t_bool	is_executable(char *filename, t_context *ctx)
 
 static int	spawn_process(char **argv, t_context *ctx)
 {
-	int			wstatus;
 	extern char	**environ;
 
 	if (pfork() == FORKED_CHILD)
 	{
 		dup2(ctx->fd[STDIN_FILENO], STDIN_FILENO);
 		dup2(ctx->fd[STDOUT_FILENO], STDOUT_FILENO);
+		if (ctx->fd_close >= 0)
+			close(ctx->fd_close);
 		execve(argv[0], argv, environ);
 		exit(EXIT_FAILURE);
 	}
-	wait(&wstatus);
-	if (WIFEXITED(wstatus))
-		ctx->retcode = WEXITSTATUS(wstatus);
-	else if (WIFSIGNALED(wstatus))
-	{
-		ctx->retcode = wstatus;
-		report_sigterm(wstatus);
-	}
-	return (EXIT_SUCCESS);
-}
-
-static void	report_sigterm(int wstatus)
-{
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putstr_fd("Process finished with exit code ", STDERR_FILENO);
-	ft_putnbr_fd(wstatus, STDERR_FILENO);
-	ft_putstr_fd(" (interrupted by signal ", STDERR_FILENO);
-	ft_putnbr_fd(WTERMSIG(wstatus), STDERR_FILENO);
-	ft_putendl_fd(")", STDERR_FILENO);
+	if (ctx->fd[STDIN_FILENO] != STDIN_FILENO)
+		close(ctx->fd[STDIN_FILENO]);
+	if (ctx->fd[STDOUT_FILENO] != STDOUT_FILENO)
+		close(ctx->fd[STDOUT_FILENO]);
+	return (1);
 }
