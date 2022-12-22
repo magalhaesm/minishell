@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   expansion.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 14:23:39 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/22 11:04:43 by yde-goes         ###   ########.fr       */
+/*   Created: 2022/12/22 11:04:58 by yde-goes          #+#    #+#             */
+/*   Updated: 2022/12/22 15:11:09 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+#ifndef EXPANSION_H
+# define EXPANSION_H
 
 # include "libft.h"
-# include "sig_func.h"
-# include "hash_table.h"
-# include "builtins.h"
-# include "scanner.h"
-# include "parser.h"
 # include "helpers.h"
-# include "exec.h"
-# include "expansion.h"
+
+typedef struct s_regex
+{
+	size_t	eval_size;
+	size_t	pattern_size;
+	size_t	write_index;
+	t_bool	is_first;
+}	t_regex;
+
+t_bool	is_match(char *eval, char *pattern);
+void	init_regex(t_regex *regex, char *eval, char *pattern);
+void	free_dparr(t_bool **split, size_t length);
 
 #endif
