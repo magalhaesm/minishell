@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   pcall.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 14:23:39 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/21 16:08:00 by mdias-ma         ###   ########.fr       */
+/*   Created: 2022/12/19 08:26:44 by mdias-ma          #+#    #+#             */
+/*   Updated: 2022/12/19 08:39:19 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "helpers.h"
 
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+int	pfork(void)
+{
+	int	pid;
 
-# include "libft.h"
-# include "sig_func.h"
-# include "hash_table.h"
-# include "builtins.h"
-# include "scanner.h"
-# include "parser.h"
-# include "helpers.h"
-# include "exec.h"
-
-#endif
+	pid = fork();
+	if (pid == -1)
+		msh_error("fork", NULL, 0);
+	return (pid);
+}

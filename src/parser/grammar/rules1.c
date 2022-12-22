@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:34:00 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/13 08:26:58 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/15 20:49:01 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,18 @@ t_node	*conditional(t_scanner *scanner)
 // pipeline -> command pipeline_null
 t_node	*pipeline(t_scanner *scanner)
 {
-	t_node	*child;
 	t_node	*parent;
+	t_node	*child;
 
-	child = command(scanner);
-	if (child)
+	parent = command(scanner);
+	if (parent)
 	{
-		parent = pipeline_null(scanner);
+		child = pipeline_null(scanner);
+		if (child && child->data.pair.left == NULL)
+		{
+			child->data.pair.left = parent;
+			return (child);
+		}
 		return (subtree(parent, child));
 	}
 	syntax_error(scanner);
@@ -81,19 +86,21 @@ t_node	*pipeline(t_scanner *scanner)
 //          | subshell subshell_redir
 t_node	*command(t_scanner *scanner)
 {
-	t_node	*child;
 	t_node	*parent;
+	t_node	*child;
 
 	if (first_set(SIMPLE_CMD, scanner))
 	{
-		child = simple_cmd(scanner);
-		if (child)
-			return (child);
+		parent = simple_cmd(scanner);
+		if (parent)
+			return (parent);
 	}
 	child = subshell(scanner);
 	if (child)
 	{
 		parent = subshell_redir(scanner);
+		if (parent == NULL)
+			return (child);
 		return (subtree(parent, child));
 	}
 	syntax_error(scanner);

@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:35:41 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/13 08:26:49 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/13 21:52:15 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,17 @@ t_node	*subshell_redir(t_scanner *scanner)
 //             | cmd_prefix fcmd_prefix
 t_node	*simple_cmd(t_scanner *scanner)
 {
-	t_node	*child;
 	t_node	*parent;
+	t_node	*child;
 
 	if (peek(scanner).type == TOKEN_WORD)
 		return (word_null(scanner));
 	if (first_set(CMD_PREFIX, scanner))
 	{
-		child = cmd_prefix(scanner);
-		if (child)
+		parent = cmd_prefix(scanner);
+		if (parent)
 		{
-			parent = fcmd_prefix(scanner);
+			child = fcmd_prefix(scanner);
 			return (subtree(parent, child));
 		}
 	}

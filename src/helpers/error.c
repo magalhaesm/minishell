@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 14:23:39 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/21 16:08:00 by mdias-ma         ###   ########.fr       */
+/*   Created: 2022/12/19 08:27:28 by mdias-ma          #+#    #+#             */
+/*   Updated: 2022/12/21 15:46:10 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "helpers.h"
 
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-
-# include "libft.h"
-# include "sig_func.h"
-# include "hash_table.h"
-# include "builtins.h"
-# include "scanner.h"
-# include "parser.h"
-# include "helpers.h"
-# include "exec.h"
-
-#endif
+void	msh_error(char *name, char *msg, int error)
+{
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	if (msg == NULL && error == 0)
+	{
+		perror(name);
+		return ;
+	}
+	ft_putstr_fd(name, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	if (msg)
+		ft_putendl_fd(msg, STDERR_FILENO);
+	else if (error)
+		ft_putendl_fd(strerror(error), STDERR_FILENO);
+}

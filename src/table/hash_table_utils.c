@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 11:59:43 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/11/13 19:11:49 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/18 22:23:26 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ t_bool	table_delete(t_table *table, char *key)
 	entry = find_entry(table->data, table->capacity, key);
 	if (entry->key == NULL)
 		return (FALSE);
+	free(entry->key);
+	free(entry->value);
 	entry->key = NULL;
 	entry->value = RIP;
 	return (TRUE);
@@ -49,5 +51,18 @@ t_bool	table_delete(t_table *table, char *key)
 
 void	free_table(t_table *table)
 {
+	int		i;
+	t_entry	entry;
+
+	i = 0;
+	while (i < table->capacity)
+	{
+		entry = table->data[i++];
+		if (entry.key != NULL)
+		{
+			free(entry.key);
+			free(entry.value);
+		}
+	}
 	free(table->data);
 }

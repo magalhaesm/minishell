@@ -78,27 +78,27 @@ Test(parser, redirection_sequence)
 
 	scanner = init_scanner("cmd < in > out");
 	root = parse(&scanner);
-	cr_assert(eq(root->type, OUTPUT), "Failed: cmd < in > out");
+	cr_assert(eq(root->type, INPUT), "Failed: cmd < in > out");
 	lhs = root->data.pair.left;
-	cr_assert(eq(lhs->type, INPUT), "Failed: cmd < in > out");
+	cr_assert(eq(lhs->type, OUTPUT), "Failed: cmd < in > out");
 	rhs = root->data.pair.right;
 	cr_assert(eq(rhs->type, COMMAND), "Failed: cmd < in > out");
 	free_tree(root);
 
 	scanner = init_scanner("< in cmd > out");
 	root = parse(&scanner);
-	cr_assert(eq(root->type, OUTPUT), "Failed: < in cmd > out");
+	cr_assert(eq(root->type, INPUT), "Failed: < in cmd > out");
 	lhs = root->data.pair.left;
-	cr_assert(eq(lhs->type, INPUT), "Failed: < in cmd > out");
+	cr_assert(eq(lhs->type, OUTPUT), "Failed: < in cmd > out");
 	rhs = root->data.pair.right;
 	cr_assert(eq(rhs->type, COMMAND), "Failed: < in cmd > out");
 	free_tree(root);
 
 	scanner = init_scanner("< in > out cmd");
 	root = parse(&scanner);
-	cr_assert(eq(root->type, OUTPUT), "Failed: < in > out cmd");
+	cr_assert(eq(root->type, INPUT), "Failed: < in > out cmd");
 	lhs = root->data.pair.left;
-	cr_assert(eq(lhs->type, INPUT), "Failed: < in > out cmd");
+	cr_assert(eq(lhs->type, OUTPUT), "Failed: < in > out cmd");
 	rhs = root->data.pair.right;
 	cr_assert(eq(rhs->type, COMMAND), "Failed: < in > out cmd");
 	free_tree(root);
