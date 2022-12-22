@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sig_func.h                                         :+:      :+:    :+:   */
+/*   exp_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 14:23:39 by yde-goes          #+#    #+#             */
-/*   Updated: 2022/12/22 11:06:33 by yde-goes         ###   ########.fr       */
+/*   Created: 2022/12/22 14:36:45 by yde-goes          #+#    #+#             */
+/*   Updated: 2022/12/22 15:11:04 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIG_FUNC_H
-# define SIG_FUNC_H
+#include "expansion.h"
 
-# include <signal.h>
-# include <sys/types.h>
+void	init_regex(t_regex *regex, char *eval, char *pattern)
+{
+	regex->eval_size = ft_strlen(eval);
+	regex->pattern_size = ft_strlen(pattern);
+	regex->write_index = 0;
+	regex->is_first = TRUE;
+}
 
-# include "libft.h"
+void	free_dparr(t_bool **split, size_t length)
+{
+	size_t	x;
 
-typedef void	t_handler(int);
-
-void			wait_user_signals(void);
-void			show_new_prompt(int sig);
-
-#endif
+	x = 0;
+	while (x < length)
+	{
+		free(split[x]);
+		x++;
+	}
+	free(split);
+}

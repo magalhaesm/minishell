@@ -16,7 +16,7 @@ OBJ_DIR   := obj
 LIBFT_DIR := libft
 INC_DIRS  := include $(LIBFT_DIR)
 SRC_DIRS  := table signals builtins scanner parser parser/grammar debug
-SRC_DIRS  += helpers exec
+SRC_DIRS  += helpers exec expansion
 SRC_DIRS  := $(addprefix src/, $(SRC_DIRS))
 SRC_DIRS  += src
 
@@ -27,7 +27,7 @@ LIBFT   := $(LIBFT_DIR)/libft.a
 DEBUG   := scanning.c parsing.c
 
 HEADERS := minishell.h hash_table.h builtins.h parser.h parser.h tree.h
-HEADERS += helpers.h exec.h
+HEADERS += helpers.h exec.h expansion.h
 
 SOURCES := minishell.c hash_table.c hash_table_utils.c
 SOURCES += sig_setup.c sig_events.c echo.c
@@ -36,6 +36,7 @@ SOURCES += tree.c tree_utils.c table.c
 SOURCES += rules1.c rules2.c rules3.c rules4.c rules5.c
 SOURCES += environ.c environ2.c builtin_pool.c env.c path.c error.c string.c
 SOURCES += exec.c exec_cmd.c pcall.c exec_redir.c exec_utils.c
+SOURCES += exp_utils.c wildcard.c
 
 SOURCES += $(DEBUG)
 
