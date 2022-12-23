@@ -35,7 +35,7 @@ SOURCES += scanner.c scanner_utils.c token_word.c parser.c syntax_error.c
 SOURCES += tree.c tree_utils.c table.c
 SOURCES += rules1.c rules2.c rules3.c rules4.c rules5.c
 SOURCES += environ.c environ2.c builtin_pool.c env.c path.c error.c string.c
-SOURCES += exec.c exec_cmd.c pcall.c exec_redir.c exec_utils.c
+SOURCES += exec.c exec_cmd.c pcall.c exec_redir.c exec_utils.c exec_pipe.c
 SOURCES += exp_utils.c wildcard.c
 
 SOURCES += $(DEBUG)
@@ -72,6 +72,12 @@ $(LIBFT):
 leaks: $(NAME)
 	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes \
 		--suppressions=readline.supp ./$(NAME)
+
+checks: $(NAME)
+	valgrind -q --leak-check=full --show-leak-kinds=all --track-fds=yes \
+		--track-origins=yes --trace-children=yes \
+		--trace-children-skip='*/bin/*,*/sbin/*' \
+		--suppressions=readline.supp ./minishell
 
 clean:
 	@$(RM) -r $(OBJS)
