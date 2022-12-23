@@ -1,6 +1,7 @@
 # For single test, run make with one of the names specified in the TESTS variable
 
-TESTS := hash_table signals echo scanner parser environ builtin_pool env
+TESTS := hash_table signals echo scanner parser environ builtin_pool
+TESTS += env pwd unset
 
 CYAN  := \33[1;36m
 RESET := \033[0m
@@ -48,7 +49,7 @@ PARSER += tree.c tree_utils.c syntax_error.c $(SCANNER)
 parser: $(PARSER) test_parser.c
 	@$(call run, "$^")
 
-ENVIRON := environ.c environ2.c
+ENVIRON := environ.c environ2.c error.c
 environ: $(ENVIRON) test_environ.c
 	@$(call run, "$^")
 
@@ -58,6 +59,14 @@ echo: $(BUILTIN) test_echo.c
 
 BUILTIN += env.c
 env: $(BUILTIN) $(ENVIRON) builtin_pool.c test_env.c
+	@$(call run, "$^")
+
+BUILTIN += pwd.c 
+pwd: $(BUILTIN) $(ENVIRON) error.c test_pwd.c 
+	@$(call run, "$^")
+
+BUILTIN += unset.c builtin_utils.c 
+unset: $(BUILTIN) $(ENVIRON) test_unset.c
 	@$(call run, "$^")
 
 builtin_pool: $(BUILTIN) $(ENVIRON) builtin_pool.c test_builtin_pool.c
@@ -72,4 +81,5 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all hash_table signals echo clean fclean re
+.PHONY: all hash_table signals scanner parser environ \
+		echo env pwd unset builtin_pool clean fclean re

@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 14:32:01 by ygorgsena         #+#    #+#             */
-/*   Updated: 2022/12/23 16:34:55 by yde-goes         ###   ########.fr       */
+/*   Created: 2022/11/27 10:40:04 by yde-goes          #+#    #+#             */
+/*   Updated: 2022/12/23 16:34:10 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include "builtins.h"
 
-# include "libft.h"
-# include "helpers.h"
+int	ft_pwd(char **args)
+{
+	(void) args;
+	char	*pwd;
 
-# define NEW_LINE "-n"
-
-typedef int	(*t_builtin)(char **args);
-
-t_builtin	builtin_pool(char *name);
-size_t		get_param_size(char **args);
-int			ft_echo(char **args);
-int			ft_env(char **args);
-int			ft_pwd(char **args);
-int			ft_unset(char **args);
-
-#endif
+	pwd = ft_getenv("PWD");
+	if (!pwd)
+		msh_error("ft_pwd", "Environment variable doesn't exist.", 0);
+	ft_printf("%s\n", pwd);
+	return (EXIT_SUCCESS);
+}
