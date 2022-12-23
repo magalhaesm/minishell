@@ -12,7 +12,7 @@ LIBFT_DIR := ../libft
 INC_DIRS  := ../include $(LIBFT_DIR)
 
 # Insert each new directory here
-SRC_DIRS := table signals builtins scanner parser parser/grammar helpers
+SRC_DIRS := table signals builtins scanner parser parser/grammar helpers expansion
 SRC_DIRS := $(addprefix $(SRC_DIR)/, $(SRC_DIRS))
 SRC_DIRS += $(SRC_DIR)
 
@@ -38,6 +38,9 @@ hash_table: hash_table.c hash_table_utils.c test_hash_table.c
 	@$(call run, "$^")
 
 signals: sig_events.c sig_setup.c test_signals.c
+	@$(call run, "$^")
+
+wildcard: exp_utils.c wildcard.c test_wildcard.c
 	@$(call run, "$^")
 
 SCANNER := scanner.c scanner_utils.c token_word.c
