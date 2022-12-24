@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 18:20:05 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/24 11:03:08 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/24 12:10:22 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,18 +62,13 @@ static t_node	*append_cmd(t_node *command, t_node *param)
 	str = 0;
 	size = 0;
 	while (command->data.cmd[str])
-	{
-		new_cmd[size++] = ft_strdup(command->data.cmd[str]);
-		str++;
-	}
+		new_cmd[size++] = command->data.cmd[str++];
 	str = 0;
 	while (param->data.cmd[str])
-	{
-		new_cmd[size++] = ft_strdup(param->data.cmd[str]);
-		str++;
-	}
-	free_tree(param);
-	free_strtab(command->data.cmd);
+		new_cmd[size++] = param->data.cmd[str++];
+	free(command->data.cmd);
+	free(param->data.cmd);
+	free(param);
 	command->data.cmd = new_cmd;
 	return (command);
 }
