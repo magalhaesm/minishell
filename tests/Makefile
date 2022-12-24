@@ -47,7 +47,7 @@ scanner: $(SCANNER) test_scanner.c
 	@$(call run, "$^")
 
 PARSER := parser.c table.c rules1.c rules2.c rules3.c rules4.c rules5.c
-PARSER += tree.c tree_utils.c syntax_error.c $(SCANNER)
+PARSER += tree.c tree_utils.c syntax_error.c string.c $(SCANNER)
 parser: $(PARSER) test_parser.c
 	@$(call run, "$^")
 

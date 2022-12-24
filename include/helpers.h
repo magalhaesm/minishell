@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 08:23:11 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/21 16:05:15 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/24 11:05:26 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ char	*search_path(char *execfile);
 
 /* Free the internal path table */
 void	free_pathtab(void);
+
+/* Return the length a string table */
+size_t	strtab_size(char **tab);
 
 /* Free a string table */
 void	free_strtab(char **tab);

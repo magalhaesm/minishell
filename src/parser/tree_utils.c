@@ -6,11 +6,12 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 18:20:05 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/13 22:20:48 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/24 11:03:08 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tree.h"
+#include "helpers.h"
 
 static t_node	*append_cmd(t_node *command, t_node *param);
 static t_node	*insert_left(t_node *parent, t_node *child);
@@ -50,15 +51,29 @@ static t_node	*insert_command(t_node *parent, t_node *child)
 
 static t_node	*append_cmd(t_node *command, t_node *param)
 {
-	char	*aux;
+	int		str;
+	int		size;
+	char	**new_cmd;
 
-	aux = command->data.cmd;
-	command->data.cmd = ft_strjoin(aux, " ");
-	free(aux);
-	aux = command->data.cmd;
-	command->data.cmd = ft_strjoin(aux, param->data.cmd);
-	free(param->data.cmd);
-	free(param);
-	free(aux);
+	size = 0;
+	size += strtab_size(command->data.cmd);
+	size += strtab_size(param->data.cmd);
+	new_cmd = ft_calloc(sizeof(*new_cmd), size + 1);
+	str = 0;
+	size = 0;
+	while (command->data.cmd[str])
+	{
+		new_cmd[size++] = ft_strdup(command->data.cmd[str]);
+		str++;
+	}
+	str = 0;
+	while (param->data.cmd[str])
+	{
+		new_cmd[size++] = ft_strdup(param->data.cmd[str]);
+		str++;
+	}
+	free_tree(param);
+	free_strtab(command->data.cmd);
+	command->data.cmd = new_cmd;
 	return (command);
 }

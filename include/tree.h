@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:36:15 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/12 12:51:55 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/24 11:03:19 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef enum e_node_type {
 }	t_node_type;
 
 typedef struct s_node	t_node;
-typedef char *			t_command;
+typedef char **			t_command;
 
 typedef struct s_operand {
 	t_node	*left;

@@ -112,13 +112,16 @@ Test(parser, concatenate_parameters)
 
 	scanner = init_scanner("echo Hello World!");
 	root = parse(&scanner);
-	cr_assert(eq(str, root->data.cmd, "echo Hello World!"));
+	cr_assert(eq(str, root->data.cmd[0], "echo"));
+	cr_assert(eq(str, root->data.cmd[1], "Hello"));
+	cr_assert(eq(str, root->data.cmd[2], "World!"));
 	free_tree(root);
 
 	scanner = init_scanner("sort < infile -r");
 	root = parse(&scanner);
 	lhs = root->data.pair.left;
-	cr_assert(eq(str, lhs->data.cmd, "sort -r"));
+	cr_assert(eq(str, lhs->data.cmd[0], "sort"));
+	cr_assert(eq(str, lhs->data.cmd[1], "-r"));
 	free_tree(root);
 }
 
