@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 13:25:54 by yde-goes          #+#    #+#             */
-/*   Updated: 2022/12/26 18:34:48 by yde-goes         ###   ########.fr       */
+/*   Updated: 2022/12/26 19:57:46 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void teardown(void)
 	free_environ();
 }
 
-Test(builtin_export, cd_home_arg, .init = redirect_all_std, .fini = teardown)
+Test(builtin_cd, cd_home_arg, .init = redirect_all_std, .fini = teardown)
 {
 	char	*input[] = {"cd", NULL};
 	int		expected;
@@ -48,7 +48,7 @@ Test(builtin_export, cd_home_arg, .init = redirect_all_std, .fini = teardown)
 	cr_assert(ne(str, pwd, new_pwd));
 }
 
-Test(builtin_export, cd_many_arg, .init = redirect_all_std, .fini = teardown)
+Test(builtin_cd, cd_many_arg, .init = redirect_all_std, .fini = teardown)
 {
 	char	*input[] = {"cd", "test", "folder", NULL};
 	int		expected;
@@ -60,7 +60,7 @@ Test(builtin_export, cd_many_arg, .init = redirect_all_std, .fini = teardown)
 	cr_assert(eq(i32, result, expected));
 }
 
-Test(builtin_export, cd_false_dir, .init = redirect_all_std, .fini = teardown)
+Test(builtin_cd, cd_false_dir, .init = redirect_all_std, .fini = teardown)
 {
 	char	*input[] = {"cd", "no_dir", NULL};
 	int		expected;
@@ -73,7 +73,7 @@ Test(builtin_export, cd_false_dir, .init = redirect_all_std, .fini = teardown)
 }
 
 
-Test(builtin_export, cd_dir_exist, .init = redirect_all_std, .fini = teardown)
+Test(builtin_cd, cd_dir_exist, .init = redirect_all_std, .fini = teardown)
 {
 	char	*input[] = {"cd", "test_folder", NULL};
 	int		expected;
@@ -87,12 +87,12 @@ Test(builtin_export, cd_dir_exist, .init = redirect_all_std, .fini = teardown)
 	expected = 0;
 	if (mkdir(dir_name, 777))
 		cr_fail("Couldn't create directory to test " \
-		  		"builtin_export::cd_dir_exist");
+		  		"builtin_cd::cd_dir_exist");
 	result = ft_cd(input);
 	new_pwd = ft_getenv("PWD");
 	if (rmdir(dir_name))
 		cr_fail("Couldn't remove directory used for " \
-		  		"builtin_export::cd_dir_exist");
+		  		"builtin_cd::cd_dir_exist");
 	fflush(stdout);
 	cr_assert(eq(i32, result, expected));
 	cr_assert(ne(str, pwd, new_pwd));
