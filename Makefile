@@ -31,7 +31,7 @@ HEADERS += helpers.h exec.h expansion.h
 
 SOURCES := minishell.c hash_table.c hash_table_utils.c
 SOURCES += sig_setup.c sig_events.c
-SOURCES += echo.c pwd.c unset.c builtin_utils.c
+SOURCES += echo.c pwd.c unset.c builtin_utils.c cd.c export.c
 SOURCES += scanner.c scanner_utils.c token_word.c parser.c syntax_error.c
 SOURCES += tree.c tree_utils.c table.c
 SOURCES += rules1.c rules2.c rules3.c rules4.c rules5.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_pool.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 11:50:16 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/21 16:14:54 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/26 10:11:34 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static t_bool	check_word(char *name, int start, int length, char *rest);
 t_builtin	builtin_pool(char *name)
 {
 	if (name[0] == 'c' && check_word(name, 1, 1, "d"))
-		return (NULL);
+		return (ft_cd);
 	else if (name[0] == 'e')
 	{
 		if (name[1] == 'c' && check_word(name, 2, 2, "ho"))
@@ -29,13 +29,13 @@ t_builtin	builtin_pool(char *name)
 			if (name[2] == 'i' && check_word(name, 3, 1, "t"))
 				return (NULL);
 			if (name[2] == 'p' && check_word(name, 3, 3, "ort"))
-				return (NULL);
+				return (ft_export);
 		}
 	}
 	else if (name[0] == 'p' && check_word(name, 1, 2, "wd"))
-		return (NULL);
+		return (ft_pwd);
 	else if (name[0] == 'u' && check_word(name, 1, 4, "nset"))
-		return (NULL);
+		return (ft_unset);
 	return (NULL);
 }
 
