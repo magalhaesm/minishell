@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:15:37 by yde-goes          #+#    #+#             */
-/*   Updated: 2022/12/25 18:27:56 by yde-goes         ###   ########.fr       */
+/*   Updated: 2022/12/26 19:50:20 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,14 @@
 	bash: exit: too many arguments
 */
 
-#include <stdio.h>
-#include <string.h>
-#include <math.h>
-#include <stdlib.h>
-#include <ctype.h>
+#include "builtins.h"
 
+int	ft_exit(char **args)
+{
+	return (EXIT_SUCCESS);
+}
+
+/*
 int	ft_exit(char **args)
 {
 	size_t	i;
@@ -67,10 +69,12 @@ int	ft_exit(char **args)
 	}
 	return (EXIT_SUCCESS);
 }
+*/
 
-int	main(void)
+/* int	main(void)
 {
 	char *string[] = {"exit", "127", "1456"};
 	bash_exit(string);
 	return (0);
 }
+*/

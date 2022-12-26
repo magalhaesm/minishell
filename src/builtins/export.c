@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 21:24:00 by yde-goes          #+#    #+#             */
-/*   Updated: 2022/12/26 14:48:48 by yde-goes         ###   ########.fr       */
+/*   Updated: 2022/12/26 19:48:20 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	ft_export(char	**args)
 		ft_setenv(env_var[0], env_var[1]);
 		free_strtab(env_var);
 	}
-	
 	return (EXIT_SUCCESS);
 }
 
