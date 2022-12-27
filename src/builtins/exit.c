@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 14:32:01 by yde-goes          #+#    #+#             */
-/*   Updated: 2022/12/25 18:32:23 by yde-goes         ###   ########.fr       */
+/*   Created: 2022/11/26 17:15:37 by yde-goes          #+#    #+#             */
+/*   Updated: 2022/12/27 11:54:24 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include "builtins.h"
 
-# include "libft.h"
-# include "helpers.h"
+/* 
+	[EXIT CODE: 1]
+	exit
 
-# define NEW_LINE "-n"
+	[EXIT CODE: 2]
+	exit
+	bash: exit: asdfa: numeric argument required
 
-typedef int	(*t_builtin)(char **args);
+	[IT DOESNT SHUT DOWN] exit code: 127
+	exit
+	bash: exit: too many arguments
+*/
 
-t_builtin	builtin_pool(char *name);
-size_t		get_param_size(char **args);
-int			ft_echo(char **args);
-int			ft_env(char **args);
-int			ft_pwd(char **args);
-int			ft_unset(char **args);
-int			ft_cd(char	**args);
-int			ft_export(char	**args);
+#include "builtins.h"
 
-#endif
+int	ft_exit(char **args)
+{
+	return (EXIT_SUCCESS);
+}
