@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 13:25:54 by yde-goes          #+#    #+#             */
-/*   Updated: 2022/12/26 19:57:46 by yde-goes         ###   ########.fr       */
+/*   Updated: 2022/12/27 11:24:08 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ Test(builtin_cd, cd_false_dir, .init = redirect_all_std, .fini = teardown)
 	int		expected;
 	int		result;
 
-	expected = 0; 
+	expected = 1; 
 	result = ft_cd(input);
 	fflush(stdout);
 	cr_assert(eq(i32, result, expected));
@@ -81,7 +81,6 @@ Test(builtin_cd, cd_dir_exist, .init = redirect_all_std, .fini = teardown)
 	char	*dir_name = "test_folder";
 	char	*pwd;
 	char	*new_pwd;
-
 	
 	pwd = ft_getenv("PWD");
 	expected = 0;
