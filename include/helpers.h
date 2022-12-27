@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 08:23:11 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/24 11:05:26 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/27 20:27:57 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*search_path(char *execfile);
 /* Free the internal path table */
 void	free_pathtab(void);
 
-/* Return the length a string table */
+/* Return the length of a string table */
 size_t	strtab_size(char **tab);
 
 /* Free a string table */
@@ -68,5 +68,11 @@ void	msh_error(char *name, char *msg, int error);
 /* Protected fork. On success, return the child's pid. On error, send
    a message to standard error and return -1. */
 int		pfork(void);
+
+/* Count occurrences of a word */
+int		wordcount(char *str, char *word);
+
+/* Replace all occurrences of a word */
+char	*str_replace(char *str, char *oldw, char *neww);
 
 #endif
