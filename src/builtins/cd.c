@@ -6,13 +6,13 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 19:00:09 by yde-goes          #+#    #+#             */
-/*   Updated: 2022/12/27 11:22:26 by yde-goes         ###   ########.fr       */
+/*   Updated: 2022/12/27 11:29:07 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-static char *get_valid_arg(char **args);
+static char	*get_valid_arg(char **args);
 
 int	ft_cd(char	**args)
 {
@@ -39,7 +39,7 @@ int	ft_cd(char	**args)
 	return (EXIT_SUCCESS);
 }
 
-static char *get_valid_arg(char **args)
+static char	*get_valid_arg(char **args)
 {
 	size_t	size;
 	char	*dir_param;
