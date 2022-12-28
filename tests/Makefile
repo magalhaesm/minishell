@@ -1,7 +1,7 @@
 # For single test, run make with one of the names specified in the TESTS variable
 
 TESTS := hash_table signals echo scanner parser environ builtin_pool env wildcard
-TESTS += string
+TESTS += string quotes
 
 CYAN  := \33[1;36m
 RESET := \033[0m
@@ -68,6 +68,9 @@ builtin_pool: $(BUILTIN) $(ENVIRON) builtin_pool.c test_builtin_pool.c
 	@$(call run, "$^")
 
 string: string.c test_string.c
+	@$(call run, "$^")
+
+quotes: $(ENVIRON) quotes.c expand.c string.c test_quotes.c
 	@$(call run, "$^")
 
 # Makefile rules to clean stdin/stdout/stderr tests' files
