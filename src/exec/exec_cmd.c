@@ -6,13 +6,14 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 16:35:36 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/24 11:04:01 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/28 09:06:16 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 #include "builtins.h"
 #include "helpers.h"
+#include "expansion.h"
 
 #define ENOENT 2
 #define EACCES 13
@@ -31,7 +32,7 @@ int	exec_command(t_node *node, t_context *ctx)
 	int			children;
 
 	children = 0;
-	argv = node->data.cmd;
+	argv = expand(node->data.cmd);
 	if (ft_strchr(argv[0], '/') == NULL)
 	{
 		exec_builtin = builtin_pool(argv[0]);
