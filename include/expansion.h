@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 11:04:58 by yde-goes          #+#    #+#             */
-/*   Updated: 2022/12/28 17:38:44 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/28 17:47:23 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*var_expansion(char *string);
  * or null on error. */
 t_list	*split_quotes(char *str);
 
-/* Expand each string into a list. */
+/* Expand and remove quotes on each string in a list. */
 void	expand_quotes(t_list *list);
 
 /* Join each string into a list. Return a complete string. */
