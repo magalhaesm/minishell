@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:15:37 by yde-goes          #+#    #+#             */
-/*   Updated: 2022/12/29 13:25:38 by yde-goes         ###   ########.fr       */
+/*   Updated: 2022/12/29 14:43:03 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ int	ft_exit(char **args)
 		status = is_digit_arg(args[i]);
 		if (status == 2)
 		{
-			msh_error("exit", "bash: numeric argument required\n", 0);
+			msh_error("exit", "minishell: numeric argument required\n", 0);
 			return (status);
 		}
 		i++;
 	}
 	if (i > 2)
 	{
-		msh_error("exit", "bash: too many arguments\n", 0);
+		msh_error("exit", "minishell: too many arguments\n", 0);
 		return (127);
 	}
 	else if (args[1])
