@@ -6,12 +6,14 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 14:32:01 by yde-goes          #+#    #+#             */
-/*   Updated: 2022/12/25 18:32:23 by yde-goes         ###   ########.fr       */
+/*   Updated: 2022/12/29 09:36:52 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
+
+# include <dirent.h>
 
 # include "libft.h"
 # include "helpers.h"

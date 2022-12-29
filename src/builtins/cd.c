@@ -6,25 +6,23 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 19:00:09 by yde-goes          #+#    #+#             */
-/*   Updated: 2022/12/28 21:27:44 by yde-goes         ###   ########.fr       */
+/*   Updated: 2022/12/29 09:45:09 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-static char	*get_valid_arg(char **args, t_bool *is_malloc);
+static char	*get_valid_arg(char **args);
 //static char	*get_parent_folder(void);
 //static char *get_folder_name(char **dir_list);
 
 int	ft_cd(char	**args)
 {
-	char	*pwd;
+	char	pwd[PATH_MAX];
 	char	*old_pwd;
 	char	*new_dir;
-	t_bool	is_malloc;
 
-	is_malloc = FALSE;
-	new_dir = get_valid_arg(args, &is_malloc);
+	new_dir = get_valid_arg(args);
 	if (!new_dir)
 	{
 		msh_error("cd", "too many arguments", 0);
@@ -37,19 +35,17 @@ int	ft_cd(char	**args)
 	}
 	old_pwd = ft_getenv("PWD");
 	ft_setenv("OLDPWD", old_pwd);
-	pwd = getcwd(NULL, 0);
+	getcwd(pwd, PATH_MAX);
 	ft_setenv("PWD", pwd);
-	free(pwd);
-	if (is_malloc)
-		free(new_dir);
 	return (EXIT_SUCCESS);
 }
 
-static char	*get_valid_arg(char **args, t_bool *is_malloc)
+static char	*get_valid_arg(char **args)
 {
-	size_t	size;
-	size_t	arg_len;
-	char	*dir_param;
+	static char	pwd[PATH_MAX];
+	size_t		size;
+	size_t		arg_len;
+	char		*dir_param;
 
 	size = get_param_size(args);
 	dir_param = ft_getenv("HOME");
@@ -61,10 +57,10 @@ static char	*get_valid_arg(char **args, t_bool *is_malloc)
 	if (arg_len == 1 && ft_strncmp(args[1], "~", 1) == 0)
 		return (dir_param);
 	else if (arg_len == 1 && ft_strncmp(args[1], ".", 1) == 0)
-	{		
-		dir_param = getcwd(NULL, 0);
-		*is_malloc = TRUE;
-	}
+	{
+		getcwd(pwd, PATH_MAX);
+		return (pwd);
+	}			
 	else if (arg_len == 2 && ft_strncmp(args[1], "..", 2) == 0)
 		dir_param = "..";
 	else
