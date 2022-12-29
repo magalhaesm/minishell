@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 20:41:03 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/28 15:33:41 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/29 13:24:44 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static t_bool	empty_quotes(char *str);
 static t_list	*slice(char *string, int *pos, char end);
 
-void	expand_quotes(t_list *list)
+void	parameter_expansion(t_list *list)
 {
 	char	*aux;
 
@@ -26,7 +26,7 @@ void	expand_quotes(t_list *list)
 			list->content = ft_strdup("");
 		else if (aux[0] != '\'')
 		{
-			aux = var_expansion(list->content);
+			aux = variable_expansion(list->content);
 			free(list->content);
 			if (empty_quotes(aux) || ft_strlen(aux) == 0)
 				list->content = ft_strdup("");
@@ -40,7 +40,7 @@ void	expand_quotes(t_list *list)
 	}
 }
 
-char	*join_quotes(t_list *list)
+char	*concatenate(t_list *list)
 {
 	int		size;
 	char	*aux;

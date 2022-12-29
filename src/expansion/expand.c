@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 18:17:34 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/28 15:25:15 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/29 13:24:54 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,15 @@ char	**expand(char **cmdtab)
 	{
 		list = split_quotes(cmdtab[str]);
 		free(cmdtab[str]);
-		expand_quotes(list);
-		cmdtab[str] = join_quotes(list);
+		parameter_expansion(list);
+		cmdtab[str] = concatenate(list);
 		ft_lstclear(&list, free);
 		str++;
 	}
 	return (cmdtab);
 }
 
-char	*var_expansion(char *string)
+char	*variable_expansion(char *string)
 {
 	char	*newstr;
 	char	*key;
