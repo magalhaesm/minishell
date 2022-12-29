@@ -37,7 +37,7 @@ all: $(TESTS)
 hash_table: hash_table.c hash_table_utils.c test_hash_table.c
 	@$(call run, "$^")
 
-signals: sig_events.c sig_setup.c test_signals.c
+signals: sig_events.c sig_setup.c test_signals.c error.c
 	@$(call run, "$^")
 
 wildcard: exp_utils.c wildcard.c test_wildcard.c
