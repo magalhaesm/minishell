@@ -6,15 +6,13 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 19:00:09 by yde-goes          #+#    #+#             */
-/*   Updated: 2022/12/29 09:45:09 by yde-goes         ###   ########.fr       */
+/*   Updated: 2022/12/29 10:35:23 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
 static char	*get_valid_arg(char **args);
-//static char	*get_parent_folder(void);
-//static char *get_folder_name(char **dir_list);
 
 int	ft_cd(char	**args)
 {
