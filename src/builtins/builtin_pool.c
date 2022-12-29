@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 11:50:16 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/26 10:11:34 by yde-goes         ###   ########.fr       */
+/*   Updated: 2022/12/29 10:32:46 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_builtin	builtin_pool(char *name)
 		else if (name[1] == 'x')
 		{
 			if (name[2] == 'i' && check_word(name, 3, 1, "t"))
-				return (NULL);
+				return (ft_exit);
 			if (name[2] == 'p' && check_word(name, 3, 3, "ort"))
 				return (ft_export);
 		}

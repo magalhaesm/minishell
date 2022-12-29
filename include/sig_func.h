@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:23:39 by yde-goes          #+#    #+#             */
-/*   Updated: 2022/12/22 11:06:33 by yde-goes         ###   ########.fr       */
+/*   Updated: 2022/12/29 14:27:30 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <sys/types.h>
 
 # include "libft.h"
+# include "helpers.h"
 
 typedef void	t_handler(int);
 
