@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:21:22 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/20 09:06:34 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2022/12/23 19:17:06 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	syntax_error(t_scanner *scanner)
 	token = peek(scanner);
 	if (token.type == TOKEN_UNKNOWN)
 		return ;
-	else if (token.type == TOKEN_ERROR)
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	if (token.type == TOKEN_ERROR)
 		show(token);
 	else
 	{
