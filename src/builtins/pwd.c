@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sig_func.h                                         :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 14:23:39 by yde-goes          #+#    #+#             */
-/*   Updated: 2022/12/29 14:27:30 by yde-goes         ###   ########.fr       */
+/*   Created: 2022/11/27 10:40:04 by yde-goes          #+#    #+#             */
+/*   Updated: 2022/12/26 09:26:41 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIG_FUNC_H
-# define SIG_FUNC_H
+#include "builtins.h"
 
-# include <signal.h>
-# include <sys/types.h>
+int	ft_pwd(char **args)
+{
+	char	*pwd;
 
-# include "libft.h"
-# include "helpers.h"
-
-typedef void	t_handler(int);
-
-void			wait_user_signals(void);
-void			show_new_prompt(int sig);
-
-#endif
+	(void) args;
+	pwd = ft_getenv("PWD");
+	if (!pwd)
+		msh_error("pwd", "Environment variable doesn't exist.", 0);
+	ft_printf("%s\n", pwd);
+	return (EXIT_SUCCESS);
+}

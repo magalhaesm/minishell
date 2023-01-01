@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sig_func.h                                         :+:      :+:    :+:   */
+/*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 14:23:39 by yde-goes          #+#    #+#             */
-/*   Updated: 2022/12/29 14:27:30 by yde-goes         ###   ########.fr       */
+/*   Created: 2022/12/23 15:56:20 by yde-goes          #+#    #+#             */
+/*   Updated: 2022/12/23 16:02:18 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIG_FUNC_H
-# define SIG_FUNC_H
+#include "builtins.h"
 
-# include <signal.h>
-# include <sys/types.h>
+size_t	get_param_size(char **args)
+{
+	size_t	i;
 
-# include "libft.h"
-# include "helpers.h"
-
-typedef void	t_handler(int);
-
-void			wait_user_signals(void);
-void			show_new_prompt(int sig);
-
-#endif
+	i = 0;
+	while (args[i])
+		i++;
+	return (i);
+}

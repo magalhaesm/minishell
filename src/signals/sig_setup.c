@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sig_setup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygorgsena <ygorgsena@student.42.fr>        +#+  +:+       +#+        */
+/*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:20:41 by ygorgsena         #+#    #+#             */
-/*   Updated: 2022/11/22 17:26:36 by ygorgsena        ###   ########.fr       */
+/*   Updated: 2022/12/29 14:05:05 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ static t_handler	*ft_signal(int signum, t_handler *handler)
 	sigemptyset(&action.sa_mask);
 	action.sa_flags = SA_RESTART;
 	if (sigaction(signum, &action, &old_action) < 0)
-		ft_putstr_fd("Signal error.\n", 1);
+		msh_error("ft_signal", "signal error", 0);
 	return (old_action.sa_handler);
 }
