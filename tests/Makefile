@@ -40,9 +40,6 @@ hash_table: hash_table.c hash_table_utils.c test_hash_table.c
 signals: sig_events.c sig_setup.c test_signals.c
 	@$(call run, "$^")
 
-wildcard: exp_utils.c wildcard.c test_wildcard.c
-	@$(call run, "$^")
-
 SCANNER := scanner.c scanner_utils.c token_word.c
 scanner: $(SCANNER) test_scanner.c
 	@$(call run, "$^")
@@ -70,7 +67,11 @@ builtin_pool: $(BUILTIN) $(ENVIRON) builtin_pool.c test_builtin_pool.c
 string: string.c test_string.c
 	@$(call run, "$^")
 
-quotes: $(ENVIRON) quotes.c expand.c string.c test_quotes.c
+EXPANSION := expand.c exp_utils.c string.c quotes.c wildcard.c wildcard_utils.c
+wildcard: $(ENVIRON) $(EXPANSION) test_wildcard.c
+	@$(call run, "$^")
+
+quotes: $(ENVIRON) $(EXPANSION) test_quotes.c
 	@$(call run, "$^")
 
 # Makefile rules to clean stdin/stdout/stderr tests' files

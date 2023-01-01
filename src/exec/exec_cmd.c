@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 16:35:36 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/28 09:06:16 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/01 17:49:01 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	exec_command(t_node *node, t_context *ctx)
 	}
 	else if (is_executable(argv[0], ctx))
 		children += spawn_process(argv, ctx);
+	free_strtab(argv);
 	return (children);
 }
 

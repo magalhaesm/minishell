@@ -6,12 +6,14 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 11:04:58 by yde-goes          #+#    #+#             */
-/*   Updated: 2022/12/29 13:24:42 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/01 17:46:25 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXPANSION_H
 # define EXPANSION_H
+
+# include <dirent.h>
 
 # include "libft.h"
 # include "helpers.h"
@@ -50,5 +52,10 @@ void	parameter_expansion(t_list *list);
 
 /* Join each string into a list. Return a complete string. */
 char	*concatenate(t_list *list);
+
+t_list	*pathname_expansion(t_list *chunks, t_bool glob);
+t_list	*list_matches(char *pattern);
+char	**table(t_list *list);
+t_bool	has_pattern(t_list *list, char chr);
 
 #endif
