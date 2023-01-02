@@ -1,7 +1,7 @@
 # For single test, run make with one of the names specified in the TESTS variable
 
 TESTS := hash_table signals scanner parser environ wildcard string quotes
-TESTS += echo env pwd unset cd export exit builtin_pool
+TESTS += echo env pwd unset cd export exit builtin_pool expand
 
 CYAN  := \33[1;36m
 RESET := \033[0m
@@ -92,6 +92,9 @@ wildcard: $(ENVIRON) $(EXPANSION) test_wildcard.c
 	@$(call run, "$^")
 
 quotes: $(ENVIRON) $(EXPANSION) test_quotes.c
+	@$(call run, "$^")
+
+expand: $(ENVIRON) $(EXPANSION) test_expander.c
 	@$(call run, "$^")
 
 # Makefile rules to clean stdin/stdout/stderr tests' files
