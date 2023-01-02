@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 21:24:00 by yde-goes          #+#    #+#             */
-/*   Updated: 2022/12/26 19:48:20 by yde-goes         ###   ########.fr       */
+/*   Updated: 2023/01/02 11:12:52 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_export(char	**args)
 	size_t	size;
 	char	**env_var;
 
-	size = get_param_size(args);
+	size = strtab_size(args);
 	if (size == 1)
 		ft_declare_x(args);
 	while (*(++args))

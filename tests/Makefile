@@ -61,11 +61,11 @@ BUILTIN += env.c
 env: $(BUILTIN) $(ENVIRON) test_env.c
 	@$(call run, "$^")
 
-BUILTIN += pwd.c 
-pwd: $(BUILTIN) $(ENVIRON) test_pwd.c 
+BUILTIN += pwd.c
+pwd: $(BUILTIN) $(ENVIRON) test_pwd.c
 	@$(call run, "$^")
 
-BUILTIN += unset.c builtin_utils.c 
+BUILTIN += unset.c
 unset: $(BUILTIN) $(ENVIRON) test_unset.c
 	@$(call run, "$^")
 
@@ -78,7 +78,7 @@ exit: $(BUILTIN) $(ENVIRON) test_exit.c
 	@$(call run, "$^")
 
 BUILTIN += export.c
-export: $(BUILTIN) $(ENVIRON) test_export.c 
+export: $(BUILTIN) $(ENVIRON) test_export.c
 	@$(call run, "$^")
 
 builtin_pool: $(BUILTIN) $(ENVIRON) builtin_pool.c test_builtin_pool.c

@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 14:32:01 by yde-goes          #+#    #+#             */
-/*   Updated: 2022/12/29 11:56:42 by yde-goes         ###   ########.fr       */
+/*   Updated: 2023/01/01 19:19:04 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 typedef int	(*t_builtin)(char **args);
 
 t_builtin	builtin_pool(char *name);
-size_t		get_param_size(char **args);
 int			ft_echo(char **args);
 int			ft_env(char **args);
 int			ft_pwd(char **args);
