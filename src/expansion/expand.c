@@ -6,13 +6,14 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 18:17:34 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/01 17:46:23 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/03 10:06:16 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "helpers.h"
 #include "expansion.h"
 #include "libft.h"
+#include "exec.h"
 
 static t_list	*find_key(char *str);
 static char		*get_value(char *key);
@@ -72,10 +73,16 @@ char	*variable_expansion(char *string)
 
 static char	*get_value(char *key)
 {
-	char	*value;
+	static char	status[4];
+	char		*value;
 
 	if (key[1] == '?')
-		return ("2022");
+	{
+		value = ft_itoa(*get_exit_status());
+		ft_strlcpy(status, value, 4);
+		free(value);
+		return (status);
+	}
 	value = ft_getenv(&key[1]);
 	if (!value)
 		value = "";

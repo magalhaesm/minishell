@@ -28,6 +28,7 @@ SOURCES += tree.c tree_utils.c syntax_error.c string.c
 SOURCES += environ.c environ2.c error.c string.c string.c path.c
 SOURCES += builtin_pool.c echo.c env.c pwd.c unset.c cd.c exit.c export.c
 SOURCES += expand.c exp_utils.c string.c quotes.c wildcard.c wildcard_utils.c
+SOURCES += exit_status.c
 
 OBJS := $(addprefix $(OBJ_DIR)/, $(SOURCES:.c=.o))
 
