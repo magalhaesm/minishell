@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 13:25:49 by yde-goes          #+#    #+#             */
-/*   Updated: 2022/12/26 15:03:08 by yde-goes         ###   ########.fr       */
+/*   Updated: 2023/01/03 11:44:27 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,18 @@ Test(builtin_export, multiple_export, .init = redirect_all_std, .fini = teardown
 	int		result;
 	
 	expected = 0;
+	result = ft_export(input);
+	fflush(stdout);
+	cr_assert(eq(i32, result, expected));
+}
+
+Test(builtin_export, invalid_char, .init = redirect_all_std, .fini = teardown)
+{
+	char	*input[] = {"export", "==test", NULL};
+	int		expected;
+	int		result;
+	
+	expected = 1;
 	result = ft_export(input);
 	fflush(stdout);
 	cr_assert(eq(i32, result, expected));
