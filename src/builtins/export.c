@@ -6,79 +6,79 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 21:24:00 by yde-goes          #+#    #+#             */
-/*   Updated: 2023/01/02 11:12:52 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/03 11:41:47 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
+#include "helpers.h"
 
-static t_bool	has_name_rules(char *name);
-static int		ft_declare_x(char **args);
-static int		valid_chr_name(int c);
+static void		ft_declare_x(char **args);
+static t_bool	valid_identifier(char *name);
 
 int	ft_export(char	**args)
 {
-	size_t	size;
+	int		exit_status;
 	char	**env_var;
+	char	*err_msg;
 
-	size = strtab_size(args);
-	if (size == 1)
-		ft_declare_x(args);
+	exit_status = EXIT_SUCCESS;
+	ft_declare_x(args);
 	while (*(++args))
 	{
-		env_var = ft_split(*args, '=');
-		if (!has_name_rules(env_var[0]))
+		if (valid_identifier(*args))
 		{
-			msh_error("export", "not a valid identifier", 0);
-			return (EXIT_FAILURE);
+			env_var = ft_split(*args, '=');
+			ft_setenv(env_var[0], env_var[1]);
+			free_strtab(env_var);
 		}
-		ft_setenv(env_var[0], env_var[1]);
-		free_strtab(env_var);
+		else
+		{
+			err_msg = "export: `arg': not a valid identifier";
+			err_msg = str_replace(err_msg, "arg", *args);
+			msh_error("export", err_msg, 0);
+			free(err_msg);
+			exit_status = EXIT_FAILURE;
+		}
 	}
-	return (EXIT_SUCCESS);
+	return (exit_status);
 }
 
-static t_bool	has_name_rules(char *name)
+static t_bool	valid_identifier(char *name)
 {
-	size_t	i;
-	size_t	length;
+	int		idx;
+	t_bool	valid;
 
-	i = 1;
-	length = ft_strlen(name);
-	if (ft_isdigit(name[0]))
-		return (FALSE);
-	if (length > 1)
+	idx = 0;
+	valid = FALSE;
+	if (ft_isalpha(name[idx]) || name[idx] == '_')
+		valid = TRUE;
+	while (name[idx] && valid)
 	{
-		while (name[i] != '\0')
-		{
-			if (ft_isspace(name[i]) || !valid_chr_name(name[i]))
-				return (FALSE);
-			i++;
-		}
+		if (name[idx] == '=')
+			return (valid);
+		if (!ft_isalnum(name[idx]) && name[idx] != '_')
+			return (FALSE);
+		idx++;
 	}
-	return (TRUE);
+	return (valid);
 }
 
-static int	ft_declare_x(char **args)
+static void	ft_declare_x(char **args)
 {
 	t_list	*envl;
-	char	*output;
+	size_t	size;
 
 	(void) args;
-	envl = *get_envl();
-	while (envl)
+	size = strtab_size(args);
+	if (size == 1)
 	{
-		output = ft_strjoin("declare -x ", envl->content);
-		ft_putendl_fd(output, STDOUT_FILENO);
-		free(output);
-		envl = envl->next;
+		envl = *get_envl();
+		while (envl)
+		{
+			ft_putstr_fd("declare -x ", STDOUT_FILENO);
+			ft_putendl_fd(envl->content, STDOUT_FILENO);
+			envl = envl->next;
+		}
 	}
-	return (EXIT_SUCCESS);
-}
-
-static int	valid_chr_name(int c)
-{
-	if (c == '_')
-		return (1);
-	return (ft_isalpha(c) || ft_isdigit(c));
 }
