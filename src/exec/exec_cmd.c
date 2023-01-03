@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 16:35:36 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/03 09:51:33 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/03 12:19:26 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,11 @@ int	exec_command(t_node *node, t_context *ctx)
 	argv = expand(node->data.cmd);
 	if (ft_strchr(argv[0], '/') == NULL)
 	{
-		exec_builtin = builtin_pool(argv[0]);
+		exec_builtin = builtin_pool(argv[0], ctx);
 		if (exec_builtin)
 		{
 			redirect_io(saved_fd, ctx);
 			ctx->retcode = exec_builtin(argv);
-			if (ft_strncmp(argv[0], "exit", ft_strlen(argv[0])) == 0)
-				ctx->quit = TRUE;
 			restore_io(saved_fd);
 		}
 		else
