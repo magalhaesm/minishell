@@ -6,29 +6,84 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 14:36:45 by yde-goes          #+#    #+#             */
-/*   Updated: 2022/12/22 15:11:04 by yde-goes         ###   ########.fr       */
+/*   Updated: 2023/01/01 17:46:21 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 
-void	init_regex(t_regex *regex, char *eval, char *pattern)
+t_list	*pathname_expansion(t_list *chunks, t_bool glob)
 {
-	regex->eval_size = ft_strlen(eval);
-	regex->pattern_size = ft_strlen(pattern);
-	regex->write_index = 0;
-	regex->is_first = TRUE;
+	t_list	*list;
+	char	*pattern;
+
+	pattern = concatenate(chunks);
+	if (glob)
+	{
+		list = list_matches(pattern);
+		if (list)
+		{
+			free(pattern);
+			return (list);
+		}
+	}
+	return (ft_lstnew(pattern));
 }
 
-void	free_dparr(t_bool **split, size_t length)
+t_list	*list_matches(char *pattern)
 {
-	size_t	x;
+	t_list			*matches;
+	DIR				*dp;
+	char			dirbuf[PATH_MAX];
+	struct dirent	*dir;
 
-	x = 0;
-	while (x < length)
+	matches = NULL;
+	getcwd(dirbuf, PATH_MAX);
+	dp = opendir(dirbuf);
+	dir = readdir(dp);
+	while (dir != NULL)
 	{
-		free(split[x]);
-		x++;
+		dir = readdir(dp);
+		if (dir && dir->d_type == DT_REG && is_match(dir->d_name, pattern))
+			ft_lstadd_back(&matches, ft_lstnew(ft_strdup(dir->d_name)));
 	}
-	free(split);
+	closedir(dp);
+	return (matches);
+}
+
+t_bool	has_pattern(t_list *list, char chr)
+{
+	char	*aux;
+	t_bool	pattern;
+
+	pattern = FALSE;
+	while (list)
+	{
+		aux = list->content;
+		if (ft_strchr(aux, chr))
+		{
+			if (!ft_strchr(aux, '"') && !ft_strchr(aux, '\''))
+				pattern = TRUE;
+		}
+		list = list->next;
+	}
+	return (pattern);
+}
+
+char	**table(t_list *list)
+{
+	int		index;
+	char	**argv;
+	t_list	*aux;
+
+	argv = ft_calloc(sizeof(char *), ft_lstsize(list) + 1);
+	index = 0;
+	while (list)
+	{
+		aux = list;
+		argv[index++] = aux->content;
+		list = list->next;
+		free(aux);
+	}
+	return (argv);
 }

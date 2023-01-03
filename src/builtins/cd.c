@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 19:00:09 by yde-goes          #+#    #+#             */
-/*   Updated: 2022/12/29 14:26:45 by yde-goes         ###   ########.fr       */
+/*   Updated: 2023/01/01 19:15:34 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static char	*get_valid_arg(char **args)
 	size_t		size;
 	char		*dir_param;
 
-	size = get_param_size(args);
+	size = strtab_size(args);
 	if (size > 2)
 		return (NULL);
 	else if (size == 1)

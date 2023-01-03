@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_utils.c                                    :+:      :+:    :+:   */
+/*   exit_status.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/23 15:56:20 by yde-goes          #+#    #+#             */
-/*   Updated: 2022/12/23 16:02:18 by yde-goes         ###   ########.fr       */
+/*   Created: 2023/01/03 10:01:52 by mdias-ma          #+#    #+#             */
+/*   Updated: 2023/01/03 10:02:15 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "exec.h"
 
-size_t	get_param_size(char **args)
+int	*get_exit_status(void)
 {
-	size_t	i;
+	static int	status;
 
-	i = 0;
-	while (args[i])
-		i++;
-	return (i);
+	return (&status);
+}
+
+void	set_exit_status(int status)
+{
+	int	*code;
+
+	code = get_exit_status();
+	*code = status;
 }

@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 21:24:18 by yde-goes          #+#    #+#             */
-/*   Updated: 2022/12/26 09:23:26 by yde-goes         ###   ########.fr       */
+/*   Updated: 2023/01/02 18:44:24 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,17 @@ int	ft_unset(char **args)
 {
 	size_t	size;
 
-	size = get_param_size(args);
+	size = strtab_size(args);
 	if (size == 1)
 		return (EXIT_SUCCESS);
 	while (*(++args))
+	{
+		if (ft_strncmp(*args, "PATH", ft_strlen(*args)) == 0)
+		{
+			free_pathtab();
+			init_pathtab();
+		}
 		ft_unsetenv(*args);
+	}
 	return (EXIT_SUCCESS);
 }

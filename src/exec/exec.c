@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:46:14 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/22 20:51:09 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/03 10:02:55 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 void	report_sigterm(int wstatus);
 void	reaper(int zombies, t_context *ctx);
+int		*get_exit_status(void);
+void	set_exit_status(int status);
 
-void	execute(t_node *root)
+t_bool	execute(t_node *root)
 {
 	t_context	ctx;
 	int			children;
@@ -23,18 +25,19 @@ void	execute(t_node *root)
 	ctx.fd[STDIN_FILENO] = STDIN_FILENO;
 	ctx.fd[STDOUT_FILENO] = STDOUT_FILENO;
 	ctx.fd_close = -1;
-	ctx.retcode = parse_status();
+	ctx.retcode = *get_exit_status();
 	ctx.error = FALSE;
+	ctx.quit = FALSE;
 	children = exec_node(root, &ctx);
 	if (children)
 		reaper(children, &ctx);
+	set_exit_status(ctx.retcode);
+	return (ctx.quit);
 }
 
 int	exec_node(t_node *node, t_context *ctx)
 {
-	if (node == NULL)
-		return (0);
-	if (ctx->error)
+	if (node == NULL || ctx->error)
 		return (0);
 	if (node->type == COMMAND)
 		return (exec_command(node, ctx));

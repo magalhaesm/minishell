@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 19:18:06 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/21 14:16:46 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/02 14:54:05 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*search_path(char *execfile)
 	char	*path;
 	t_table	*pathtab;
 
-	if (execfile[0] == '.')
+	if (execfile[0] == '.' || execfile[0] == 0)
 		return (NULL);
 	pathtab = get_pathtab();
 	if (table_get(pathtab, execfile, &path))
@@ -55,7 +55,10 @@ static char	*get_abspath(char *execfile)
 	char	**syspath;
 
 	path = 0;
-	syspath = ft_split(ft_getenv("PATH"), ':');
+	bin = ft_getenv("PATH");
+	if (bin == NULL)
+		bin = "";
+	syspath = ft_split(bin, ':');
 	bin = ft_strjoin("/", execfile);
 	while (syspath[path])
 	{
