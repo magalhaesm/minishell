@@ -1,12 +1,13 @@
 # For single test, run make with one of the names specified in the TESTS variable
 
 TESTS := hash_table signals scanner parser environ wildcard string quotes
-TESTS += echo env pwd unset cd export exit builtin_pool expand
+TESTS += echo env pwd unset cd export exit builtin_pool expand path
 
 CYAN  := \33[1;36m
 RESET := \033[0m
 LOG   := printf "[$(CYAN)INFO$(RESET)] %s\n"
 
+OBJ_DIR   := ../obj
 SRC_DIR   := ../src
 LIBFT_DIR := ../libft
 INC_DIRS  := ../include $(LIBFT_DIR)
@@ -19,85 +20,104 @@ SRC_DIRS += $(SRC_DIR)
 vpath %.h $(INC_DIRS)
 vpath %.c $(SRC_DIRS)
 
+SOURCES := hash_table.c hash_table_utils.c
+SOURCES += sig_events.c sig_setup.c error.c
+SOURCES += scanner.c scanner_utils.c token_word.c
+SOURCES += parser.c table.c rules1.c rules2.c rules3.c rules4.c rules5.c
+SOURCES += tree.c tree_utils.c syntax_error.c string.c
+SOURCES += environ.c environ2.c error.c string.c string.c path.c
+SOURCES += builtin_pool.c echo.c env.c pwd.c unset.c cd.c exit.c export.c
+SOURCES += expand.c exp_utils.c string.c quotes.c wildcard.c wildcard_utils.c
+
+OBJS := $(addprefix $(OBJ_DIR)/, $(SOURCES:.c=.o))
+
 CFLAGS  := -Wall -Werror -Wextra -g $(addprefix -I,$(INC_DIRS))
 LDFLAGS := -L $(LIBFT_DIR) -lft -lcriterion -lreadline
 
 define run
  	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $@ && ./$@ --verbose
- 	make clean --no-print-directory
 endef
 
 ################################################################################
 ##                                 TESTS                                      ##
 ################################################################################
 
-all: $(TESTS)
+all: $(TESTS) clean
 
-# test name: all source-files used by this test
-hash_table: hash_table.c hash_table_utils.c test_hash_table.c
+# test name: $(dependencies) test file
+.PHONY: hash_table
+hash_table: $(OBJS) test_hash_table.c
 	@$(call run, "$^")
 
-signals: sig_events.c sig_setup.c test_signals.c error.c
+.PHONY: signals
+signals: $(OBJS) test_signals.c
 	@$(call run, "$^")
 
-SCANNER := scanner.c scanner_utils.c token_word.c
-scanner: $(SCANNER) test_scanner.c
+.PHONY: scanner
+scanner: $(OBJS) test_scanner.c
 	@$(call run, "$^")
 
-PARSER := parser.c table.c rules1.c rules2.c rules3.c rules4.c rules5.c
-PARSER += tree.c tree_utils.c syntax_error.c string.c $(SCANNER)
-parser: $(PARSER) test_parser.c
+.PHONY: parser
+parser: $(OBJS) test_parser.c
 	@$(call run, "$^")
 
-ENVIRON := environ.c environ2.c error.c string.c
-environ: $(ENVIRON) test_environ.c
+.PHONY: environ
+environ: $(OBJS) test_environ.c
 	@$(call run, "$^")
 
-BUILTIN += echo.c
-echo: $(BUILTIN) test_echo.c
+.PHONY: echo
+echo: $(OBJS) test_echo.c
 	@$(call run, "$^")
 
-BUILTIN += env.c
-env: $(BUILTIN) $(ENVIRON) test_env.c
+.PHONY: env
+env: $(OBJS) test_env.c
 	@$(call run, "$^")
 
-BUILTIN += pwd.c
-pwd: $(BUILTIN) $(ENVIRON) test_pwd.c
+.PHONY: pwd
+pwd: $(OBJS) test_pwd.c
 	@$(call run, "$^")
 
-BUILTIN += unset.c
-unset: $(BUILTIN) $(ENVIRON) test_unset.c
+.PHONY: unset
+unset: $(OBJS) test_unset.c
 	@$(call run, "$^")
 
-BUILTIN += cd.c
-cd: $(BUILTIN) $(ENVIRON) test_cd.c
+.PHONY: cd
+cd: $(OBJS) test_cd.c
 	@$(call run, "$^")
 
-BUILTIN += exit.c
-exit: $(BUILTIN) $(ENVIRON) test_exit.c
+.PHONY: exit
+exit: $(OBJS) test_exit.c
 	@$(call run, "$^")
 
-BUILTIN += export.c
-export: $(BUILTIN) $(ENVIRON) test_export.c
+.PHONY: export
+export: $(OBJS) test_export.c
 	@$(call run, "$^")
 
-builtin_pool: $(BUILTIN) $(ENVIRON) builtin_pool.c test_builtin_pool.c
+.PHONY: builtin_pool
+builtin_pool: $(OBJS) test_builtin_pool.c
 	@$(call run, "$^")
 
-string: string.c test_string.c
+.PHONY: string
+string: $(OBJS) test_string.c
 	@$(call run, "$^")
 
-EXPANSION := expand.c exp_utils.c string.c quotes.c wildcard.c wildcard_utils.c
-wildcard: $(ENVIRON) $(EXPANSION) test_wildcard.c
+.PHONY: wildcard
+wildcard: $(OBJS) test_wildcard.c
 	@$(call run, "$^")
 
-quotes: $(ENVIRON) $(EXPANSION) test_quotes.c
+.PHONY: quotes
+quotes: $(OBJS) test_quotes.c
 	@$(call run, "$^")
 
-expand: $(ENVIRON) $(EXPANSION) test_expander.c
+.PHONY: expand
+expand: $(OBJS) test_expander.c
 	@$(call run, "$^")
 
-# Makefile rules to clean stdin/stdout/stderr tests' files
+.PHONY: path
+path: $(OBJS) test_path.c
+	@$(call run, "$^")
+
+# Makefile rules to clean stdin/stdout/stderr test's files
 clean:
 	@$(RM) -r $(TESTS)
 	@$(LOG) "Removing objects"
@@ -106,6 +126,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all hash_table signals scanner parser environ \
-		echo env pwd cd export unset builtin_pool exit \
-		clean fclean re
+.PHONY: all clean fclean re
