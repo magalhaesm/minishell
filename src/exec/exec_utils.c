@@ -6,11 +6,16 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 09:29:15 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/19 10:19:02 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/03 15:03:34 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+
+void	enqueue(long pid, t_context *ctx)
+{
+	ft_lstadd_back(&ctx->proc_queue, ft_lstnew((void *)pid));
+}
 
 void	redirect_io(int saved[], t_context *ctx)
 {
