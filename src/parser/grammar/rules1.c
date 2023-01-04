@@ -6,19 +6,18 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:34:00 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/15 20:49:01 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/04 08:06:59 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-
-static t_node	*and_or(t_node_type type, t_node *pipe, t_node *logical);
 
 // list -> pipeline conditional
 t_node	*list(t_scanner *scanner)
 {
 	t_node	*pipe;
 	t_node	*logical;
+	t_node	*aux;
 
 	if (first_set(PIPELINE, scanner))
 	{
@@ -28,7 +27,10 @@ t_node	*list(t_scanner *scanner)
 			logical = conditional(scanner);
 			if (logical)
 			{
-				logical->data.pair.left = pipe;
+				aux = logical;
+				while (aux->data.pair.left)
+					aux = aux->data.pair.left;
+				aux->data.pair.left = pipe;
 				return (logical);
 			}
 			return (pipe);
@@ -50,13 +52,17 @@ t_node	*conditional(t_scanner *scanner)
 	{
 		pipe = pipeline(scanner);
 		logical = conditional(scanner);
-		return (and_or(AND, pipe, logical));
+		if (logical)
+			return (mknode(logical->type, mknode(AND, NULL, pipe), logical));
+		return (mknode(AND, NULL, pipe));
 	}
 	if (match(TOKEN_OR, scanner))
 	{
 		pipe = pipeline(scanner);
 		logical = conditional(scanner);
-		return (and_or(OR, pipe, logical));
+		if (logical)
+			return (mknode(logical->type, mknode(OR, NULL, pipe), logical));
+		return (mknode(OR, NULL, pipe));
 	}
 	return (NULL);
 }
@@ -105,19 +111,4 @@ t_node	*command(t_scanner *scanner)
 	}
 	syntax_error(scanner);
 	return (NULL);
-}
-
-static t_node	*and_or(t_node_type type, t_node *pipe, t_node *logical)
-{
-	if (logical)
-	{
-		if (logical->data.pair.left == NULL)
-		{
-			logical->data.pair.left = pipe;
-			return (mknode(type, NULL, logical));
-		}
-		else
-			return (mknode(type, pipe, logical));
-	}
-	return (mknode(type, NULL, pipe));
 }

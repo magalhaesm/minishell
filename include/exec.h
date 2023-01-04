@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:45:35 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/03 15:33:01 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/03 17:57:29 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,13 @@ void	exec_input(t_node *node, t_context *ctx);
 void	exec_output(t_node *node, t_context *ctx);
 void	exec_append(t_node *node, t_context *ctx);
 void	exec_pipe(t_node *node, t_context *ctx);
+void	exec_and(t_node *node, t_context *ctx);
+void	exec_or(t_node *node, t_context *ctx);
 
 void	enqueue(long pid, t_context *ctx);
 void	redirect_io(int saved[], t_context *ctx);
 void	restore_io(int saved[]);
+void	reaper(t_context *ctx);
 
 void	set_exit_status(int status);
 int		*get_exit_status(void);

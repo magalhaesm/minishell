@@ -6,15 +6,14 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:46:14 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/03 16:24:52 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/03 17:59:46 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	report_sigterm(int wstatus);
-void	reaper(t_context *ctx);
-void	set_wstatus(int wstatus, t_context *ctx);
+static void	report_sigterm(int wstatus);
+static void	set_wstatus(int wstatus, t_context *ctx);
 
 t_bool	execute(t_node *root)
 {
@@ -47,6 +46,10 @@ void	exec_node(t_node *node, t_context *ctx)
 		exec_append(node, ctx);
 	else if (node->type == PIPE)
 		exec_pipe(node, ctx);
+	else if (node->type == AND)
+		exec_and(node, ctx);
+	else if (node->type == OR)
+		exec_or(node, ctx);
 	return ;
 }
 
@@ -68,7 +71,7 @@ void	reaper(t_context *ctx)
 	ctx->proc_queue = NULL;
 }
 
-void	set_wstatus(int wstatus, t_context *ctx)
+static void	set_wstatus(int wstatus, t_context *ctx)
 {
 	if (ctx->proc_queue == NULL)
 		return ;
@@ -83,7 +86,7 @@ void	set_wstatus(int wstatus, t_context *ctx)
 	}
 }
 
-void	report_sigterm(int wstatus)
+static void	report_sigterm(int wstatus)
 {
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd("Process finished with exit code ", STDERR_FILENO);
