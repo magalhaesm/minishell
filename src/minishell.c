@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:06:36 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/03 10:33:26 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/03 12:02:59 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	main(int argc, char **argv, char **envp)
 	free_pathtab();
 	free_environ();
 	rl_clear_history();
+	ft_putendl_fd("exit", STDOUT_FILENO);
 	return (*get_exit_status());
 }
 

@@ -6,21 +6,18 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:46:14 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/03 10:02:55 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/03 17:59:46 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	report_sigterm(int wstatus);
-void	reaper(int zombies, t_context *ctx);
-int		*get_exit_status(void);
-void	set_exit_status(int status);
+static void	report_sigterm(int wstatus);
+static void	set_wstatus(int wstatus, t_context *ctx);
 
 t_bool	execute(t_node *root)
 {
 	t_context	ctx;
-	int			children;
 
 	ctx.fd[STDIN_FILENO] = STDIN_FILENO;
 	ctx.fd[STDOUT_FILENO] = STDOUT_FILENO;
@@ -28,46 +25,68 @@ t_bool	execute(t_node *root)
 	ctx.retcode = *get_exit_status();
 	ctx.error = FALSE;
 	ctx.quit = FALSE;
-	children = exec_node(root, &ctx);
-	if (children)
-		reaper(children, &ctx);
+	ctx.proc_queue = NULL;
+	exec_node(root, &ctx);
+	reaper(&ctx);
 	set_exit_status(ctx.retcode);
 	return (ctx.quit);
 }
 
-int	exec_node(t_node *node, t_context *ctx)
+void	exec_node(t_node *node, t_context *ctx)
 {
 	if (node == NULL || ctx->error)
-		return (0);
+		return ;
 	if (node->type == COMMAND)
-		return (exec_command(node, ctx));
+		exec_command(node, ctx);
 	else if (node->type == INPUT)
-		return (exec_input(node, ctx));
+		exec_input(node, ctx);
 	else if (node->type == OUTPUT)
-		return (exec_output(node, ctx));
+		exec_output(node, ctx);
 	else if (node->type == APPEND)
-		return (exec_append(node, ctx));
+		exec_append(node, ctx);
 	else if (node->type == PIPE)
-		return (exec_pipe(node, ctx));
-	return (0);
+		exec_pipe(node, ctx);
+	else if (node->type == AND)
+		exec_and(node, ctx);
+	else if (node->type == OR)
+		exec_or(node, ctx);
+	return ;
 }
 
-void	reaper(int zombies, t_context *ctx)
+void	reaper(t_context *ctx)
 {
-	int	wstatus;
+	int		wstatus;
+	t_list	*proc;
+	t_list	*aux;
 
-	while (zombies--)
-		wait(&wstatus);
+	proc = ctx->proc_queue;
+	while (proc)
+	{
+		waitpid((long)proc->content, &wstatus, 0);
+		aux = proc;
+		proc = proc->next;
+		free(aux);
+	}
+	set_wstatus(wstatus, ctx);
+	ctx->proc_queue = NULL;
+}
+
+static void	set_wstatus(int wstatus, t_context *ctx)
+{
+	if (ctx->proc_queue == NULL)
+		return ;
 	if (WIFEXITED(wstatus))
 		ctx->retcode = WEXITSTATUS(wstatus);
 	else if (WIFSIGNALED(wstatus))
 	{
-		ctx->retcode = wstatus;
-		report_sigterm(wstatus);
+		ctx->retcode = WTERMSIG(wstatus);
+		if (ctx->retcode == 11)
+			report_sigterm(wstatus);
+		ctx->retcode += 128;
 	}
 }
 
-void	report_sigterm(int wstatus)
+static void	report_sigterm(int wstatus)
 {
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd("Process finished with exit code ", STDERR_FILENO);

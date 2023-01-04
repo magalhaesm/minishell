@@ -9,7 +9,7 @@ Test(builtin_pool, return_valid)
 	t_builtin	received;
 
 	expected = ft_echo;
-	received = builtin_pool("echo");
+	received = builtin_pool("echo", NULL);
 	cr_assert(eq(ptr, expected, received));
 }
 
@@ -19,6 +19,6 @@ Test(builtin_pool, return_null_for_invalid)
 	t_builtin	received;
 
 	expected = NULL;
-	received = builtin_pool("nonexistent");
+	received = builtin_pool("nonexistent", NULL);
 	cr_assert(eq(ptr, expected, received));
 }

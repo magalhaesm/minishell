@@ -6,13 +6,14 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 13:57:07 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/12 13:58:56 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/04 08:07:18 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tree.h"
 
 void	print_type(t_node *node);
+void	print_cmd(t_node *node);
 void	print_tree(t_node *root, int indentation);
 void	indent(int indentation);
 
@@ -32,7 +33,7 @@ void	print_tree(t_node *root, int indentation)
 void	print_type(t_node *node)
 {
 	if (node->type == COMMAND)
-		ft_printf("COMMAND: %s\n", node->data.cmd);
+		print_cmd(node);
 	else if (node->type == INPUT)
 		ft_printf("INPUT:\n");
 	else if (node->type == OUTPUT)
@@ -49,6 +50,17 @@ void	print_type(t_node *node)
 		ft_printf("OR:\n");
 	else if (node->type == SUBSHELL)
 		ft_printf("SUBSHELL:\n");
+}
+
+void	print_cmd(t_node *node)
+{
+	int	str;
+
+	str = 0;
+	ft_printf("COMMAND:");
+	while (node->data.cmd[str])
+		ft_printf(" %s", node->data.cmd[str++]);
+	ft_printf("\n");
 }
 
 void	indent(int indentation)

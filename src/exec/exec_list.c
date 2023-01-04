@@ -1,36 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_pipe.c                                        :+:      :+:    :+:   */
+/*   exec_list.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/21 21:30:25 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/03 15:46:50 by mdias-ma         ###   ########.fr       */
+/*   Created: 2022/12/22 22:24:20 by mdias-ma          #+#    #+#             */
+/*   Updated: 2023/01/03 17:58:03 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	exec_pipe(t_node *node, t_context *ctx)
+void	exec_and(t_node *node, t_context *ctx)
 {
-	int			pfd[2];
-	t_context	aux_ctx;
-	t_node		*rhs;
-	t_node		*lhs;
+	t_node	*lhs;
+	t_node	*rhs;
 
-	pipe(pfd);
 	lhs = node->data.pair.left;
-	aux_ctx = *ctx;
-	aux_ctx.fd[STDOUT_FILENO] = pfd[STDOUT_FILENO];
-	aux_ctx.fd_close = pfd[STDIN_FILENO];
-	exec_node(lhs, &aux_ctx);
-	ctx->proc_queue = aux_ctx.proc_queue;
 	rhs = node->data.pair.right;
-	aux_ctx = *ctx;
-	aux_ctx.fd[STDIN_FILENO] = pfd[STDIN_FILENO];
-	aux_ctx.fd_close = pfd[STDOUT_FILENO];
-	exec_node(rhs, &aux_ctx);
-	close(pfd[STDIN_FILENO]);
-	close(pfd[STDOUT_FILENO]);
+	exec_node(lhs, ctx);
+	reaper(ctx);
+	if (ctx->retcode == EXIT_SUCCESS)
+		exec_node(rhs, ctx);
+}
+
+void	exec_or(t_node *node, t_context *ctx)
+{
+	t_node	*lhs;
+	t_node	*rhs;
+
+	lhs = node->data.pair.left;
+	rhs = node->data.pair.right;
+	exec_node(lhs, ctx);
+	reaper(ctx);
+	if (ctx->retcode != EXIT_SUCCESS)
+		exec_node(rhs, ctx);
 }

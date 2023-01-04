@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 16:35:36 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/03 09:51:33 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/03 16:23:42 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,40 +20,36 @@
 #define EISDIR 21
 #define FORKED_CHILD 0
 
-static int		spawn_process(char **argv, t_context *ctx);
-static int		launch_executable(char **argv, t_context *ctx);
+static void		spawn_process(char **argv, t_context *ctx);
+static void		launch_executable(char **argv, t_context *ctx);
 static t_bool	is_executable(char *filename, t_context *ctx);
 
-int	exec_command(t_node *node, t_context *ctx)
+void	exec_command(t_node *node, t_context *ctx)
 {
 	char		**argv;
 	t_builtin	exec_builtin;
 	int			saved_fd[2];
-	int			children;
 
-	children = 0;
 	argv = expand(node->data.cmd);
 	if (ft_strchr(argv[0], '/') == NULL)
 	{
-		exec_builtin = builtin_pool(argv[0]);
+		exec_builtin = builtin_pool(argv[0], ctx);
 		if (exec_builtin)
 		{
 			redirect_io(saved_fd, ctx);
 			ctx->retcode = exec_builtin(argv);
-			if (ft_strncmp(argv[0], "exit", ft_strlen(argv[0])) == 0)
-				ctx->quit = TRUE;
+			set_exit_status(ctx->retcode);
 			restore_io(saved_fd);
 		}
 		else
-			children += launch_executable(argv, ctx);
+			launch_executable(argv, ctx);
 	}
 	else if (is_executable(argv[0], ctx))
-		children += spawn_process(argv, ctx);
+		spawn_process(argv, ctx);
 	free_strtab(argv);
-	return (children);
 }
 
-static int	launch_executable(char **argv, t_context *ctx)
+static void	launch_executable(char **argv, t_context *ctx)
 {
 	char	*fullpath;
 
@@ -62,11 +58,13 @@ static int	launch_executable(char **argv, t_context *ctx)
 	{
 		free(argv[0]);
 		argv[0] = fullpath;
-		return (spawn_process(argv, ctx));
+		spawn_process(argv, ctx);
 	}
-	msh_error(argv[0], "command not found", 0);
-	ctx->retcode = 127;
-	return (0);
+	else
+	{
+		msh_error(argv[0], "command not found", 0);
+		ctx->retcode = 127;
+	}
 }
 
 static t_bool	is_executable(char *filename, t_context *ctx)
@@ -95,11 +93,13 @@ static t_bool	is_executable(char *filename, t_context *ctx)
 	return (TRUE);
 }
 
-static int	spawn_process(char **argv, t_context *ctx)
+static void	spawn_process(char **argv, t_context *ctx)
 {
+	int			pid;
 	extern char	**environ;
 
-	if (pfork() == FORKED_CHILD)
+	pid = pfork();
+	if (pid == FORKED_CHILD)
 	{
 		dup2(ctx->fd[STDIN_FILENO], STDIN_FILENO);
 		dup2(ctx->fd[STDOUT_FILENO], STDOUT_FILENO);
@@ -112,5 +112,5 @@ static int	spawn_process(char **argv, t_context *ctx)
 		close(ctx->fd[STDIN_FILENO]);
 	if (ctx->fd[STDOUT_FILENO] != STDOUT_FILENO)
 		close(ctx->fd[STDOUT_FILENO]);
-	return (1);
+	enqueue(pid, ctx);
 }

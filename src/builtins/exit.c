@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:15:37 by yde-goes          #+#    #+#             */
-/*   Updated: 2023/01/03 10:32:56 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/03 12:02:52 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	ft_exit(char **args)
 	}
 	else if (args[1])
 		return (get_return_code(ft_atoi(args[1])));
-	ft_putendl_fd("exit", STDOUT_FILENO);
 	return (EXIT_SUCCESS);
 }
 

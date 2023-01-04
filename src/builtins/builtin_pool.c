@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 11:50:16 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/29 10:32:46 by yde-goes         ###   ########.fr       */
+/*   Updated: 2023/01/03 12:51:15 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static t_bool	check_word(char *name, int start, int length, char *rest);
 
-t_builtin	builtin_pool(char *name)
+t_builtin	builtin_pool(char *name, t_context *ctx)
 {
 	if (name[0] == 'c' && check_word(name, 1, 1, "d"))
 		return (ft_cd);
@@ -26,8 +26,11 @@ t_builtin	builtin_pool(char *name)
 			return (ft_env);
 		else if (name[1] == 'x')
 		{
-			if (name[2] == 'i' && check_word(name, 3, 1, "t"))
+			if (name[2] == 'i' && check_word(name, 3, 1, "t") && ctx)
+			{
+				ctx->quit = TRUE;
 				return (ft_exit);
+			}
 			if (name[2] == 'p' && check_word(name, 3, 3, "ort"))
 				return (ft_export);
 		}

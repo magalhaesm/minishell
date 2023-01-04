@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:45:35 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/03 09:52:58 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/03 17:57:29 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,25 @@ typedef struct s_context {
 	t_byte	retcode;
 	t_bool	error;
 	t_bool	quit;
+	t_list	*proc_queue;
 }	t_context;
 
 t_bool	execute(t_node *root);
-int		exec_node(t_node *node, t_context *ctx);
-int		exec_command(t_node *node, t_context *ctx);
-int		exec_input(t_node *node, t_context *ctx);
-int		exec_output(t_node *node, t_context *ctx);
-int		exec_append(t_node *node, t_context *ctx);
-int		exec_pipe(t_node *node, t_context *ctx);
-int		*get_exit_status(void);
-void	set_exit_status(int status);
+void	exec_node(t_node *node, t_context *ctx);
+void	exec_command(t_node *node, t_context *ctx);
+void	exec_input(t_node *node, t_context *ctx);
+void	exec_output(t_node *node, t_context *ctx);
+void	exec_append(t_node *node, t_context *ctx);
+void	exec_pipe(t_node *node, t_context *ctx);
+void	exec_and(t_node *node, t_context *ctx);
+void	exec_or(t_node *node, t_context *ctx);
 
+void	enqueue(long pid, t_context *ctx);
 void	redirect_io(int saved[], t_context *ctx);
 void	restore_io(int saved[]);
+void	reaper(t_context *ctx);
+
+void	set_exit_status(int status);
+int		*get_exit_status(void);
 
 #endif
