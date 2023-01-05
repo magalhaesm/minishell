@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 22:24:20 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/04 22:35:16 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/04 23:30:57 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	exec_and(t_node *node, t_context *ctx)
 		rhs = node->data.pair.right;
 		exec_node(rhs, &aux_ctx);
 		reaper(&aux_ctx);
+		ctx->retcode = aux_ctx.retcode;
 	}
 }
 
@@ -49,5 +50,6 @@ void	exec_or(t_node *node, t_context *ctx)
 		rhs = node->data.pair.right;
 		exec_node(rhs, &aux_ctx);
 		reaper(&aux_ctx);
+		ctx->retcode = aux_ctx.retcode;
 	}
 }
