@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:20:41 by ygorgsena         #+#    #+#             */
-/*   Updated: 2023/01/05 09:20:55 by yde-goes         ###   ########.fr       */
+/*   Updated: 2023/01/05 09:49:01 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,5 @@ void	ft_kill(pid_t pid, int signum)
 
 	rc = kill(pid, signum);
 	if (rc < 0)
-		msh_error("ft_kill", "kill error", 0);
+		msh_error("ft_kill", NULL, 0);
 }
