@@ -6,13 +6,12 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 20:41:03 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/29 13:24:44 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/05 14:48:21 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 
-static t_bool	empty_quotes(char *str);
 static t_list	*slice(char *string, int *pos, char end);
 
 void	parameter_expansion(t_list *list)
@@ -104,7 +103,7 @@ static t_list	*slice(char *string, int *pos, char end)
 	return (ft_lstnew(ft_substr(&string[init], 0, *pos - init + 1)));
 }
 
-static t_bool	empty_quotes(char *str)
+t_bool	empty_quotes(char *str)
 {
 	char	init;
 
