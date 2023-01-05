@@ -161,20 +161,41 @@ Test(parser, conditionals)
 
 	scanner = init_scanner("cmd1 && cmd2 && cmd3 && cmd4");
 	root = parse(&scanner);
-	cr_assert(eq(root->type, AND), "Chain of logical AND failed");
-	node = root->data.pair.right;
-	cr_assert(eq(node->type, AND), "Chain of logical AND failed");
-	node = node->data.pair.right;
-	cr_assert(eq(node->type, AND), "Chain of logical AND failed");
+	cr_assert(eq(root->type, AND));
+	cr_assert(eq(root->data.pair.right->type, COMMAND));
+	node = root->data.pair.left;
+	cr_assert(eq(node->type, AND));
+	cr_assert(eq(node->data.pair.right->type, COMMAND));
+	node = node->data.pair.left;
+	cr_assert(eq(node->type, AND));
+	cr_assert(eq(node->data.pair.left->type, COMMAND));
+	cr_assert(eq(node->data.pair.right->type, COMMAND));
 	free_tree(root);
 
 	scanner = init_scanner("cmd1 || cmd2 || cmd3 || cmd4");
 	root = parse(&scanner);
-	cr_assert(eq(root->type, OR), "Chain of logical OR failed");
-	node = root->data.pair.right;
-	cr_assert(eq(node->type, OR), "Chain of logical OR failed");
-	node = node->data.pair.right;
-	cr_assert(eq(node->type, OR), "Chain of logical OR failed");
+	cr_assert(eq(root->type, OR));
+	cr_assert(eq(root->data.pair.right->type, COMMAND));
+	node = root->data.pair.left;
+	cr_assert(eq(node->type, OR));
+	cr_assert(eq(node->data.pair.right->type, COMMAND));
+	node = node->data.pair.left;
+	cr_assert(eq(node->type, OR));
+	cr_assert(eq(node->data.pair.left->type, COMMAND));
+	cr_assert(eq(node->data.pair.right->type, COMMAND));
+	free_tree(root);
+
+	scanner = init_scanner("echo a && echo b || echo c && echo d");
+	root = parse(&scanner);
+	cr_assert(eq(root->type, AND));
+	cr_assert(eq(root->data.pair.right->type, COMMAND));
+	node = root->data.pair.left;
+	cr_assert(eq(node->type, OR));
+	cr_assert(eq(node->data.pair.right->type, COMMAND));
+	node = node->data.pair.left;
+	cr_assert(eq(root->type, AND));
+	cr_assert(eq(node->data.pair.left->type, COMMAND));
+	cr_assert(eq(node->data.pair.right->type, COMMAND));
 	free_tree(root);
 }
 

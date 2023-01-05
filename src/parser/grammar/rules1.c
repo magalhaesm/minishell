@@ -6,11 +6,13 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:34:00 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/04 08:06:59 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/04 17:38:31 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+
+static t_node	*and_or(t_node_type type, t_node *pipe, t_node *logical);
 
 // list -> pipeline conditional
 t_node	*list(t_scanner *scanner)
@@ -52,17 +54,13 @@ t_node	*conditional(t_scanner *scanner)
 	{
 		pipe = pipeline(scanner);
 		logical = conditional(scanner);
-		if (logical)
-			return (mknode(logical->type, mknode(AND, NULL, pipe), logical));
-		return (mknode(AND, NULL, pipe));
+		return (and_or(AND, pipe, logical));
 	}
 	if (match(TOKEN_OR, scanner))
 	{
 		pipe = pipeline(scanner);
 		logical = conditional(scanner);
-		if (logical)
-			return (mknode(logical->type, mknode(OR, NULL, pipe), logical));
-		return (mknode(OR, NULL, pipe));
+		return (and_or(OR, pipe, logical));
 	}
 	return (NULL);
 }
@@ -111,4 +109,19 @@ t_node	*command(t_scanner *scanner)
 	}
 	syntax_error(scanner);
 	return (NULL);
+}
+
+static t_node	*and_or(t_node_type type, t_node *pipe, t_node *logical)
+{
+	t_node	*aux;
+
+	if (logical)
+	{
+		aux = logical;
+		while (aux->data.pair.left)
+			aux = aux->data.pair.left;
+		aux->data.pair.left = mknode(type, NULL, pipe);
+		return (logical);
+	}
+	return (mknode(type, NULL, pipe));
 }
