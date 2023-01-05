@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:46:14 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/03 17:59:46 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/05 12:07:11 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	exec_node(t_node *node, t_context *ctx)
 		exec_and(node, ctx);
 	else if (node->type == OR)
 		exec_or(node, ctx);
+	else if (node->type == HERE_DOC)
+		exec_heredoc(node, ctx);
 	return ;
 }
 
