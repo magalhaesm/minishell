@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 18:17:34 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/03 10:06:16 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/06 16:37:24 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ char	**expand(char **cmdtab)
 		list = split_quotes(cmdtab[str]);
 		glob = check_pattern(list);
 		parameter_expansion(list);
+		unquote(list);
 		ft_lstadd_back(&cmdlist, pathname_expansion(list, glob));
 		ft_lstclear(&list, free);
 		str++;

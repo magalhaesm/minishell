@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 14:36:45 by yde-goes          #+#    #+#             */
-/*   Updated: 2023/01/01 17:46:21 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/06 16:40:03 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,23 @@ t_list	*pathname_expansion(t_list *chunks, t_bool glob)
 		}
 	}
 	return (ft_lstnew(pattern));
+}
+
+void	parameter_expansion(t_list *list)
+{
+	char	*aux;
+
+	while (list)
+	{
+		aux = list->content;
+		if (aux[0] != '\'')
+		{
+			aux = variable_expansion(list->content);
+			free(list->content);
+			list->content = aux;
+		}
+		list = list->next;
+	}
 }
 
 t_list	*list_matches(char *pattern)
