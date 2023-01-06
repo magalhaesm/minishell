@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:45:35 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/05 13:36:10 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/05 19:40:51 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include "parser.h"
 # include "helpers.h"
 
+# define FORKED_CHILD 0
+
 typedef struct s_context {
 	int		fd[2];
 	int		fd_close;
@@ -30,6 +32,7 @@ typedef struct s_context {
 	t_bool	error;
 	t_bool	quit;
 	t_list	*proc_queue;
+	t_node	*to_clean;
 }	t_context;
 
 t_bool	execute(t_node *root);
@@ -42,6 +45,7 @@ void	exec_pipe(t_node *node, t_context *ctx);
 void	exec_and(t_node *node, t_context *ctx);
 void	exec_or(t_node *node, t_context *ctx);
 void	exec_heredoc(t_node *node, t_context *ctx);
+void	exec_subshell(t_node *node, t_context *ctx);
 
 void	enqueue(long pid, t_context *ctx);
 void	redirect_io(int saved[], t_context *ctx);

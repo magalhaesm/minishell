@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:46:14 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/05 12:07:11 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/05 18:20:31 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_bool	execute(t_node *root)
 	ctx.error = FALSE;
 	ctx.quit = FALSE;
 	ctx.proc_queue = NULL;
+	ctx.to_clean = root;
 	exec_node(root, &ctx);
 	reaper(&ctx);
 	set_exit_status(ctx.retcode);
@@ -52,6 +53,8 @@ void	exec_node(t_node *node, t_context *ctx)
 		exec_or(node, ctx);
 	else if (node->type == HERE_DOC)
 		exec_heredoc(node, ctx);
+	else if (node->type == SUBSHELL)
+		exec_subshell(node, ctx);
 	return ;
 }
 
