@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 21:24:00 by yde-goes          #+#    #+#             */
-/*   Updated: 2023/01/03 14:11:08 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/05 18:20:52 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_export(char	**args)
 		}
 		else
 		{
-			err_msg = "`arg': not a valid identifier";
+			err_msg = "'arg': not a valid identifier";
 			err_msg = str_replace(err_msg, "arg", *args);
 			msh_error("export", err_msg, 0);
 			free(err_msg);

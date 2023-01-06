@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   exec_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 10:56:51 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/05 15:00:10 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/06 09:09:17 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 #include "expansion.h"
 #include "libft.h"
+#include "sig_func.h"
 
 static t_bool	delimiter(char *word, char *line);
 static void		here_doc(char *limiter, t_context *ctx);
@@ -40,7 +41,14 @@ static void	here_doc(char *word, t_context *ctx)
 	line = "";
 	while (line)
 	{
+		wait_heredoc_signals();
 		line = readline("> ");
+		if (!line)
+		{
+			close(fd[STDOUT_FILENO]);
+			close(fd[STDIN_FILENO]);
+			return ;
+		}
 		if (delimiter(word, line))
 		{
 			free(line);
