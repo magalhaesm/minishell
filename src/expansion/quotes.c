@@ -6,13 +6,14 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 20:41:03 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/06 16:39:54 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/06 16:59:22 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 
 static t_list	*slice(char *string, int *pos, char end);
+static t_bool	empty_quotes(char *str);
 
 void	unquote(t_list *list)
 {
@@ -106,7 +107,7 @@ static t_list	*slice(char *string, int *pos, char end)
 	return (ft_lstnew(ft_substr(&string[init], 0, *pos - init + 1)));
 }
 
-t_bool	empty_quotes(char *str)
+static t_bool	empty_quotes(char *str)
 {
 	char	init;
 
