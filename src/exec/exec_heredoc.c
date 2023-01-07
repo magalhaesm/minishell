@@ -6,16 +6,13 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 10:56:51 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/07 06:53:12 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/07 07:32:50 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 #include "expansion.h"
-#include "helpers.h"
 #include "sig_func.h"
-
-#define FORKED_CHILD 0
 
 #define ERRMSG "here-document at line N delimited by end-of-file (wanted `eof')"
 
@@ -26,7 +23,6 @@ static t_bool	next_line(char *input, char *word, int line);
 
 void	exec_heredoc(t_node *node, t_context *ctx)
 {
-	t_node		*lhs;
 	char		*word;
 	int			pid;
 	int			pfd[2];
@@ -43,17 +39,14 @@ void	exec_heredoc(t_node *node, t_context *ctx)
 		word = quote_removal(word);
 		here_doc(word, &aux_ctx);
 		free(word);
-		free_pathtab();
-		free_environ();
-		rl_clear_history();
+		msh_clean();
 		exit(aux_ctx.retcode);
 	}
-	lhs = node->data.pair.left;
 	ctx->fd[STDIN_FILENO] = pfd[STDIN_FILENO];
 	close(pfd[STDOUT_FILENO]);
 	enqueue(pid, ctx);
 	reaper(ctx);
-	exec_node(lhs, ctx);
+	exec_node(node->data.pair.left, ctx);
 }
 
 static void	here_doc(char *word, t_context *ctx)
