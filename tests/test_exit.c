@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 10:30:57 by yde-goes          #+#    #+#             */
-/*   Updated: 2022/12/29 12:48:45 by yde-goes         ###   ########.fr       */
+/*   Updated: 2023/01/07 16:08:42 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ Test(builtin_exit, exit_only_arg)
 	int		expected;
 	int		result;
 
-	expected = 1;
+	expected = 0;
 	result = ft_exit(input);
 	cr_assert(eq(int, result, expected));
 }
