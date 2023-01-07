@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 10:56:51 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/06 16:39:05 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/07 06:53:12 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "expansion.h"
 #include "helpers.h"
 #include "sig_func.h"
+
+#define FORKED_CHILD 0
 
 #define ERRMSG "here-document at line N delimited by end-of-file (wanted `eof')"
 
@@ -24,14 +26,33 @@ static t_bool	next_line(char *input, char *word, int line);
 
 void	exec_heredoc(t_node *node, t_context *ctx)
 {
-	t_node	*lhs;
-	char	*word;
+	t_node		*lhs;
+	char		*word;
+	int			pid;
+	int			pfd[2];
+	t_context	aux_ctx;
 
-	word = node->data.pair.right->data.cmd[0];
-	word = quote_removal(word);
-	here_doc(word, ctx);
-	free(word);
+	pipe(pfd);
+	aux_ctx = *ctx;
+	aux_ctx.fd[STDOUT_FILENO] = pfd[STDOUT_FILENO];
+	aux_ctx.fd_close = pfd[STDIN_FILENO];
+	pid = pfork();
+	if (pid == FORKED_CHILD)
+	{
+		word = node->data.pair.right->data.cmd[0];
+		word = quote_removal(word);
+		here_doc(word, &aux_ctx);
+		free(word);
+		free_pathtab();
+		free_environ();
+		rl_clear_history();
+		exit(aux_ctx.retcode);
+	}
 	lhs = node->data.pair.left;
+	ctx->fd[STDIN_FILENO] = pfd[STDIN_FILENO];
+	close(pfd[STDOUT_FILENO]);
+	enqueue(pid, ctx);
+	reaper(ctx);
 	exec_node(lhs, ctx);
 }
 
@@ -39,9 +60,7 @@ static void	here_doc(char *word, t_context *ctx)
 {
 	int		line;
 	char	*input;
-	int		fd[2];
 
-	pipe(fd);
 	input = "";
 	line = 1;
 	while (input)
@@ -51,11 +70,11 @@ static void	here_doc(char *word, t_context *ctx)
 		if (next_line(input, word, line) == FALSE)
 			break ;
 		line++;
-		ft_putendl_fd(input, fd[STDOUT_FILENO]);
+		ft_putendl_fd(input, ctx->fd[STDOUT_FILENO]);
 		free(input);
 	}
-	close(fd[STDOUT_FILENO]);
-	ctx->fd[STDIN_FILENO] = fd[STDIN_FILENO];
+	close(ctx->fd[STDOUT_FILENO]);
+	close(ctx->fd_close);
 	ctx->retcode = EXIT_SUCCESS;
 }
 
