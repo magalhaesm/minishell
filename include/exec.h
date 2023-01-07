@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:45:35 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/05 19:40:51 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/07 07:35:03 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ typedef struct s_context {
 	t_bool	error;
 	t_bool	quit;
 	t_list	*proc_queue;
-	t_node	*to_clean;
 }	t_context;
 
 t_bool	execute(t_node *root);
@@ -54,5 +53,8 @@ void	reaper(t_context *ctx);
 
 void	set_exit_status(int status);
 int		*get_exit_status(void);
+void	save_tree_ref(t_node *root);
+t_node	**get_tree_ref(void);
+void	msh_clean(void);
 
 #endif

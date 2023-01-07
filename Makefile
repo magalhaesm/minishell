@@ -39,7 +39,7 @@ SOURCES += environ.c environ2.c builtin_pool.c env.c path.c error.c string.c
 SOURCES += exec.c exec_cmd.c pcall.c exec_redir.c exec_utils.c exec_pipe.c
 SOURCES += exec_list.c exec_heredoc.c exec_subshell.c
 SOURCES += exp_utils.c wildcard.c wildcard_utils.c expand.c quotes.c
-SOURCES += exit_status.c
+SOURCES += exit_utils.c
 
 SOURCES += $(DEBUG)
 

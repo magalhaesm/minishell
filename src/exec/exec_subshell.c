@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 18:03:29 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/05 19:37:08 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/07 07:29:12 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,7 @@ void	exec_subshell(t_node *node, t_context *ctx)
 		exec_node(list, &aux_ctx);
 		restore_io(saved_fd);
 		reaper(&aux_ctx);
-		free_pathtab();
-		free_environ();
-		rl_clear_history();
-		free_tree(aux_ctx.to_clean);
+		msh_clean();
 		exit(aux_ctx.retcode);
 	}
 	restore_io(saved_fd);
