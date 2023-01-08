@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:23:39 by yde-goes          #+#    #+#             */
-/*   Updated: 2023/01/05 18:22:45 by yde-goes         ###   ########.fr       */
+/*   Updated: 2023/01/08 15:03:26 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ void			wait_user_signals(void);
 void			wait_heredoc_signals(void);
 void			show_new_prompt(int sig);
 void			exit_heredoc(int sig);
-void			ft_kill(pid_t pid, int signum);
+void			heredoc_parent_sighandler(void);
 
 #endif

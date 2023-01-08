@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:45:35 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/07 07:35:03 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/08 17:27:01 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include "helpers.h"
 
 # define FORKED_CHILD 0
+# define HEREDOC_TEMPFILE "/tmp/heredoc_tempfile"
 
 typedef struct s_context {
 	int		fd[2];
@@ -56,5 +57,9 @@ int		*get_exit_status(void);
 void	save_tree_ref(t_node *root);
 t_node	**get_tree_ref(void);
 void	msh_clean(void);
+
+void	here_doc(char *delimiter);
+void	set_fd_close(int fd);
+int		*get_fd_close(void);
 
 #endif
