@@ -6,13 +6,13 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 10:56:51 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/08 17:36:17 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/08 17:47:01 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 #include "expansion.h"
-#include "sig_func.h"
+#include "events.h"
 
 #define DELIMLEN 1024
 

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sig_setup.c                                        :+:      :+:    :+:   */
+/*   handlers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:20:41 by ygorgsena         #+#    #+#             */
-/*   Updated: 2023/01/08 15:49:21 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/08 17:49:39 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sig_func.h"
+#include "events.h"
 
 static void	ft_signal(int signum, t_handler *handler);
 

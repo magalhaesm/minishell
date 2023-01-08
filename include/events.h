@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sig_func.h                                         :+:      :+:    :+:   */
+/*   events.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:23:39 by yde-goes          #+#    #+#             */
-/*   Updated: 2023/01/08 15:03:26 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/08 17:54:20 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIG_FUNC_H
-# define SIG_FUNC_H
+#ifndef EVENTS_H
+# define EVENTS_H
 
 # include <signal.h>
 # include <sys/types.h>

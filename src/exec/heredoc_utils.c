@@ -6,13 +6,13 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 15:51:04 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/08 17:34:39 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/08 17:47:30 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 #include "expansion.h"
-#include "sig_func.h"
+#include "events.h"
 
 #define ERRMSG "here-document delimited by end-of-file (wanted `eof')"
 
