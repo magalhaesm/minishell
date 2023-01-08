@@ -21,14 +21,14 @@ vpath %.h $(INC_DIRS)
 vpath %.c $(SRC_DIRS)
 
 SOURCES := hash_table.c hash_table_utils.c
-SOURCES += sig_events.c sig_setup.c error.c
+SOURCES += events.c handlers.c error.c
 SOURCES += scanner.c scanner_utils.c token_word.c
 SOURCES += parser.c table.c rules1.c rules2.c rules3.c rules4.c rules5.c
 SOURCES += tree.c tree_utils.c syntax_error.c string.c
 SOURCES += environ.c environ2.c error.c string.c string.c path.c
 SOURCES += builtin_pool.c echo.c env.c pwd.c unset.c cd.c exit.c export.c
 SOURCES += expand.c exp_utils.c string.c quotes.c wildcard.c wildcard_utils.c
-SOURCES += exit_utils.c
+SOURCES += exit_utils.c heredoc_utils.c
 
 OBJS := $(addprefix $(OBJ_DIR)/, $(SOURCES:.c=.o))
 

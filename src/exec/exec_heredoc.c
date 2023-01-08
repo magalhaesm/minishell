@@ -6,101 +6,51 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 10:56:51 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/07 07:32:50 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/08 17:47:01 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 #include "expansion.h"
-#include "sig_func.h"
+#include "events.h"
 
-#define ERRMSG "here-document at line N delimited by end-of-file (wanted `eof')"
+#define DELIMLEN 1024
 
 static char		*quote_removal(char *word);
-static t_bool	delimiter(char *word, char *line);
-static void		here_doc(char *limiter, t_context *ctx);
-static t_bool	next_line(char *input, char *word, int line);
+static void		set_delimiter(t_node *node, char buf[]);
 
 void	exec_heredoc(t_node *node, t_context *ctx)
 {
-	char		*word;
-	int			pid;
-	int			pfd[2];
-	t_context	aux_ctx;
+	int		pid;
+	char	delim[DELIMLEN];
 
-	pipe(pfd);
-	aux_ctx = *ctx;
-	aux_ctx.fd[STDOUT_FILENO] = pfd[STDOUT_FILENO];
-	aux_ctx.fd_close = pfd[STDIN_FILENO];
+	set_delimiter(node, delim);
 	pid = pfork();
 	if (pid == FORKED_CHILD)
 	{
-		word = node->data.pair.right->data.cmd[0];
-		word = quote_removal(word);
-		here_doc(word, &aux_ctx);
-		free(word);
+		here_doc(delim);
 		msh_clean();
-		exit(aux_ctx.retcode);
+		exit(EXIT_SUCCESS);
 	}
-	ctx->fd[STDIN_FILENO] = pfd[STDIN_FILENO];
-	close(pfd[STDOUT_FILENO]);
+	heredoc_parent_sighandler();
 	enqueue(pid, ctx);
 	reaper(ctx);
-	exec_node(node->data.pair.left, ctx);
+	wait_user_signals();
+	if (ctx->retcode == EXIT_SUCCESS)
+	{
+		ctx->fd[STDIN_FILENO] = open(HEREDOC_TEMPFILE, O_RDONLY, 0644);
+		exec_node(node->data.pair.left, ctx);
+	}
 }
 
-static void	here_doc(char *word, t_context *ctx)
+static void	set_delimiter(t_node *node, char buf[])
 {
-	int		line;
-	char	*input;
+	char	*word;
 
-	input = "";
-	line = 1;
-	while (input)
-	{
-		wait_heredoc_signals();
-		input = readline("> ");
-		if (next_line(input, word, line) == FALSE)
-			break ;
-		line++;
-		ft_putendl_fd(input, ctx->fd[STDOUT_FILENO]);
-		free(input);
-	}
-	close(ctx->fd[STDOUT_FILENO]);
-	close(ctx->fd_close);
-	ctx->retcode = EXIT_SUCCESS;
-}
-
-static t_bool	next_line(char *input, char *word, int line)
-{
-	char	*number;
-	char	*err_msg;
-
-	if (!input)
-	{
-		number = ft_itoa(line);
-		err_msg = str_replace(ERRMSG, "N", number);
-		msh_error("warning", err_msg, 0);
-		free(number);
-		free(err_msg);
-		return (FALSE);
-	}
-	else if (delimiter(word, input))
-	{
-		free(input);
-		return (FALSE);
-	}
-	return (TRUE);
-}
-
-static t_bool	delimiter(char *word, char *line)
-{
-	int	content;
-	int	length;
-
-	content = ft_strncmp(line, word, ft_strlen(word)) == 0;
-	length = (ft_strlen(line) == ft_strlen(word));
-	return (content && length);
+	word = node->data.pair.right->data.cmd[0];
+	word = quote_removal(word);
+	ft_strlcpy(buf, word, DELIMLEN);
+	free(word);
 }
 
 static char	*quote_removal(char *word)
