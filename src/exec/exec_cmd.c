@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 16:35:36 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/05 16:53:11 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/08 19:38:57 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "builtins.h"
 #include "helpers.h"
 #include "expansion.h"
+#include "events.h"
 
 #define ENOENT 2
 #define EACCES 13
@@ -97,6 +98,7 @@ static void	spawn_process(char **argv, t_context *ctx)
 	int			pid;
 	extern char	**environ;
 
+	wait_child_signals();
 	pid = pfork();
 	if (pid == FORKED_CHILD)
 	{
