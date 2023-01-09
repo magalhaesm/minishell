@@ -6,35 +6,39 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 20:41:03 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/05 14:48:21 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/06 16:59:22 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 
 static t_list	*slice(char *string, int *pos, char end);
+static t_bool	empty_quotes(char *str);
 
-void	parameter_expansion(t_list *list)
+void	unquote(t_list *list)
 {
-	char	*aux;
+	char	*chunk;
 
 	while (list)
 	{
-		aux = list->content;
-		if (empty_quotes(aux))
-			list->content = ft_strdup("");
-		else if (aux[0] != '\'')
+		chunk = list->content;
+		if (empty_quotes(chunk))
 		{
-			aux = variable_expansion(list->content);
 			free(list->content);
-			if (empty_quotes(aux) || ft_strlen(aux) == 0)
-				list->content = ft_strdup("");
-			else
-				list->content = ft_strtrim(aux, "\"");
+			list->content = ft_strdup("");
 		}
-		else
-			list->content = ft_strtrim(aux, "'");
-		free(aux);
+		else if (chunk[0] == '"')
+		{
+			chunk = ft_strtrim(chunk, "\"");
+			free(list->content);
+			list->content = chunk;
+		}
+		else if (chunk[0] == '\'')
+		{
+			chunk = ft_strtrim(chunk, "'");
+			free(list->content);
+			list->content = chunk;
+		}
 		list = list->next;
 	}
 }
@@ -103,7 +107,7 @@ static t_list	*slice(char *string, int *pos, char end)
 	return (ft_lstnew(ft_substr(&string[init], 0, *pos - init + 1)));
 }
 
-t_bool	empty_quotes(char *str)
+static t_bool	empty_quotes(char *str)
 {
 	char	init;
 

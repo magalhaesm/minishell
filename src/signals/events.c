@@ -1,33 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sig_events.c                                       :+:      :+:    :+:   */
+/*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygorgsena <ygorgsena@student.42.fr>        +#+  +:+       +#+        */
+/*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:43:36 by ygorgsena         #+#    #+#             */
-/*   Updated: 2022/11/22 17:26:28 by ygorgsena        ###   ########.fr       */
+/*   Updated: 2023/01/08 17:49:31 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "sig_func.h"
 
-/* TODO: configure a variable to save EXIT_STATUS value.
-		Here, according to bash docs, is 128 + 2 (SIGINT value) = 130 */
 void	show_new_prompt(int sig)
 {
-	(void) sig;
-	write (1, "\n", 1);
+	ft_putendl_fd("", STDOUT_FILENO);
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
+	set_exit_status(128 + sig);
 }
 
-/* //TODO: function to be created
 void	exit_heredoc(int sig)
 {
-	(void) sig;
-	// Maybe leaks will occur. Check signals before use 
-	close(STDIN_FILENO);
-} */
+	int	fd;
+
+	sig += 128;
+	fd = *get_fd_close();
+	if (fd != STDIN_FILENO || fd != STDOUT_FILENO)
+		close(fd);
+	set_exit_status(sig);
+	ft_putendl_fd("", STDOUT_FILENO);
+	msh_clean();
+	exit(sig);
+}

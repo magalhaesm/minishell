@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 16:35:29 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/03 14:57:13 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/06 16:37:22 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ static char	*expand_file(char *filename, t_context *ctx)
 		return (NULL);
 	}
 	parameter_expansion(list);
+	unquote(list);
 	filename = concatenate(list);
 	ft_lstclear(&list, free);
 	return (filename);

@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:23:39 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/05 13:36:04 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/08 17:46:56 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINISHELL_H
 
 # include "libft.h"
-# include "sig_func.h"
+# include "events.h"
 # include "hash_table.h"
 # include "builtins.h"
 # include "scanner.h"

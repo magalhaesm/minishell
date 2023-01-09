@@ -27,10 +27,10 @@ LIBFT   := $(LIBFT_DIR)/libft.a
 DEBUG   := scanning.c parsing.c
 
 HEADERS := minishell.h hash_table.h builtins.h parser.h parser.h tree.h
-HEADERS += helpers.h exec.h expansion.h
+HEADERS += helpers.h exec.h expansion.h events.h
 
 SOURCES := minishell.c hash_table.c hash_table_utils.c
-SOURCES += sig_setup.c sig_events.c
+SOURCES += handlers.c events.c
 SOURCES += echo.c pwd.c unset.c cd.c export.c exit.c
 SOURCES += scanner.c scanner_utils.c token_word.c parser.c syntax_error.c
 SOURCES += tree.c tree_utils.c table.c
@@ -39,7 +39,7 @@ SOURCES += environ.c environ2.c builtin_pool.c env.c path.c error.c string.c
 SOURCES += exec.c exec_cmd.c pcall.c exec_redir.c exec_utils.c exec_pipe.c
 SOURCES += exec_list.c exec_heredoc.c exec_subshell.c
 SOURCES += exp_utils.c wildcard.c wildcard_utils.c expand.c quotes.c
-SOURCES += exit_status.c
+SOURCES += exit_utils.c heredoc_utils.c
 
 SOURCES += $(DEBUG)
 

@@ -38,7 +38,7 @@ Test(quotes, split_quotes, .init = setup, .fini = teardown,
 	ft_lstclear(&list, free);
 }
 
-Test(quotes, parameter_expansion, .init = setup, .fini = teardown,
+Test(quotes, unquote, .init = setup, .fini = teardown,
 		.description = "Expand and remove quotes")
 {
 	t_list	*list;
@@ -46,24 +46,14 @@ Test(quotes, parameter_expansion, .init = setup, .fini = teardown,
 	char	*expected;
 	char	*string;
 
-	string = "$var1'$var2'\"$var3\"";
+	string = "'sapien'\"pellentesque\"'habitant'";
 	list = split_quotes(string);
-	parameter_expansion(list);
-
-	result = list->content;
-	expected = ft_getenv("var1");
-	cr_assert(eq(str, result, expected));
-
-	list = list->next;
-	result = list->content;
-	expected = "$var2";
-	cr_assert(eq(str, result, expected));
-
-	list = list->next;
-	result = list->content;
-	expected = ft_getenv("var3");
+	unquote(list);
+	result = concatenate(list);
+	expected = "sapienpellentesquehabitant";
 	cr_assert(eq(str, result, expected));
 	ft_lstclear(&list, free);
+	free(result);
 }
 
 Test(quotes, concatenate, .init = setup, .fini = teardown,
@@ -77,6 +67,7 @@ Test(quotes, concatenate, .init = setup, .fini = teardown,
 	string = "$var1'$var2'\"$var3\"''\"\"";
 	list = split_quotes(string);
 	parameter_expansion(list);
+	unquote(list);
 	result = concatenate(list);
 	expected = "value1$var2value3";
 	cr_assert(eq(str, result, expected));

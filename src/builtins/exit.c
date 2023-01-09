@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:15:37 by yde-goes          #+#    #+#             */
-/*   Updated: 2023/01/03 12:02:52 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/07 15:42:10 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_exit(char **args)
 	int		status;
 
 	if (!args[1])
-		return (1);
+		return (*get_exit_status());
 	i = 1;
 	while (args[i])
 	{
