@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:43:36 by ygorgsena         #+#    #+#             */
-/*   Updated: 2023/01/08 17:49:31 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/08 19:38:27 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@ void	show_new_prompt(int sig)
 	rl_on_new_line();
 	rl_redisplay();
 	set_exit_status(128 + sig);
+}
+
+void	exit_child(int sig)
+{
+	if (sig == SIGINT)
+		ft_putendl_fd("", STDIN_FILENO);
+	else if (sig == SIGQUIT)
+		ft_putendl_fd("Quit", STDIN_FILENO);
 }
 
 void	exit_heredoc(int sig)
