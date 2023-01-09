@@ -11,7 +11,7 @@ Test(string, wordcount, .description = "Count occurrences")
 
 	string = "var var2 var var3 var";
 	word = "var";
-	expected = 3;
+	expected = 5;
 	cr_assert(eq(int, expected, wordcount(string, word)));
 	word = "VAR";
 	expected = 0;
@@ -28,6 +28,6 @@ Test(string, replace, .description = "Replace words")
 	string = "var var2 var var3 var";
 	oldw = "var";
 	neww = "VAR";
-	expected = "VAR var2 VAR var3 VAR";
+	expected = "VAR VAR2 VAR VAR3 VAR";
 	cr_assert(eq(str, expected, str_replace(string, oldw, neww)));
 }

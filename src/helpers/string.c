@@ -6,13 +6,11 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 20:59:21 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/27 20:10:31 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/09 10:23:50 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static t_bool	is_equal(char *str, char *oldw);
 
 int	wordcount(char *str, char *word)
 {
@@ -25,8 +23,7 @@ int	wordcount(char *str, char *word)
 	wordlen = ft_strlen(word);
 	while (str[pos])
 	{
-		if (ft_strnstr(&str[pos], word, ft_strlen(&str[pos])) == &str[pos]
-			&& is_equal(&str[pos], word))
+		if (ft_strnstr(&str[pos], word, ft_strlen(&str[pos])) == &str[pos])
 		{
 			counter++;
 			pos += wordlen - 1;
@@ -50,7 +47,7 @@ char	*str_replace(char *str, char *oldw, char *neww)
 	pos = 0;
 	while (*str)
 	{
-		if (ft_strnstr(str, oldw, ft_strlen(str)) == str && is_equal(str, oldw))
+		if (ft_strnstr(str, oldw, ft_strlen(str)) == str)
 		{
 			ft_strlcpy(&result[pos], neww, neww_len + 1);
 			pos += neww_len;
@@ -83,14 +80,4 @@ void	free_strtab(char **tab)
 	while (tab[str])
 		free(tab[str++]);
 	free(tab);
-}
-
-static t_bool	is_equal(char *str, char *oldw)
-{
-	size_t	oldw_len;
-
-	oldw_len = ft_strlen(oldw);
-	if (ft_isalnum(str[oldw_len]) || str[oldw_len] == '_')
-		return (FALSE);
-	return (TRUE);
 }
