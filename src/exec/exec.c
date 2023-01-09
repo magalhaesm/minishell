@@ -6,11 +6,12 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:46:14 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/07 07:31:30 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/08 21:23:21 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+#include "events.h"
 
 static void	report_sigterm(int wstatus);
 static void	set_wstatus(int wstatus, t_context *ctx);
@@ -35,6 +36,7 @@ t_bool	execute(t_node *root)
 
 void	exec_node(t_node *node, t_context *ctx)
 {
+	wait_user_signals();
 	if (node == NULL || ctx->error)
 		return ;
 	if (node->type == COMMAND)

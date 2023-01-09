@@ -6,13 +6,12 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 16:35:36 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/08 19:38:57 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/08 22:40:42 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 #include "builtins.h"
-#include "helpers.h"
 #include "expansion.h"
 #include "events.h"
 
@@ -38,7 +37,6 @@ void	exec_command(t_node *node, t_context *ctx)
 		{
 			redirect_io(saved_fd, ctx);
 			ctx->retcode = exec_builtin(argv);
-			set_exit_status(ctx->retcode);
 			restore_io(saved_fd);
 		}
 		else
@@ -46,6 +44,7 @@ void	exec_command(t_node *node, t_context *ctx)
 	}
 	else if (is_executable(argv[0], ctx))
 		spawn_process(argv, ctx);
+	set_exit_status(ctx->retcode);
 	free_strtab(argv);
 }
 
