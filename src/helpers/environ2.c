@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 11:41:02 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/20 17:54:52 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/18 11:16:45 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,7 @@ static t_list	*_getenv_internal(const char *name, t_list **envl, int remove)
 	}
 	if (remove && prev && temp)
 		prev->next = temp->next;
+	else if (!prev && temp)
+		*envl = temp->next;
 	return (temp);
 }
