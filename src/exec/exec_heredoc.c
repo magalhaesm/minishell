@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 10:56:51 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/08 22:31:10 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/18 10:56:20 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,12 @@ void	exec_heredoc(t_node *node, t_context *ctx)
 	heredoc_parent_sighandler();
 	enqueue(pid, ctx);
 	reaper(ctx);
+	wait_user_signals();
 	if (ctx->retcode == EXIT_SUCCESS)
 	{
 		ctx->fd[STDIN_FILENO] = open(HEREDOC_TEMPFILE, O_RDONLY, 0644);
 		exec_node(node->data.pair.left, ctx);
+		close(ctx->fd[STDIN_FILENO]);
 	}
 }
 
