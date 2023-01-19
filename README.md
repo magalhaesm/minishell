@@ -57,7 +57,7 @@ If you want to run the executable program automatically with valgrind flags to c
 
 ## About how we implemented the project
 
-There two main files at projects's root directory:
+There are two main files at projects's root directory:
 
 - `include`: contains all the necessary headers for the project
 - `grammar`: the implemented grammar
@@ -74,3 +74,34 @@ There two main files at projects's root directory:
   - `table`: implements a hash table to store enviroment variables
 
 ## References
+
+- General references:
+  - [CS 61: Systems Programming and Machine Organization (2022)](https://cs61.seas.harvard.edu/site/2022/#gsc.tab=0), by Harvard University
+  - [Playlist about compilers](https://www.youtube.com/playlist?list=PLX6Nyaq0ebfhI396WlWN6WlBm-tp7vDtV), by [Judson Santiago](https://www.youtube.com/@JudSan)
+  - [Playlist about Programming Languages and Compilers](https://www.youtube.com/playlist?list=PLvat2X-KHJNYmC4M1HHrDkMkFDf8Dwyf8), by [Rafael Ivo](https://www.youtube.com/@ProfessorRafaelIvo)
+  - https://www.youtube.com/playlist?list=PLX6Nyaq0ebfhI396WlWN6WlBm-tp7vDtV
+  - [Subshell: types and origins](https://www.youtube.com/watch?v=MkejZKVfsRg), by [prog.shell.linux](https://www.youtube.com/@progshelllinux)
+
+- Useful tools for grammar generation:
+  - [The context free grammar checker](https://smlweb.cpsc.ucalgary.ca/start.html), by [University of Calgary](https://science.ucalgary.ca/computer-science)
+  - [Grammophone: transform context-free grammars](https://mdaines.github.io/grammophone/)
+  - [Compiler left recursion eliminination](https://cyberzhg.github.io/toolbox/left_rec), by [Zhao HG](https://github.com/CyberZHG)
+
+- About hash table implementation
+  - [FNV Hash](http://www.isthe.com/chongo/tech/comp/fnv/#FNV-1a), by [Landon Curt Noll](http://www.isthe.com/chongo/index.html)
+
+- About parser:
+  - [Recursive Descendant Parsing](https://www.youtube.com/watch?v=SToUyjAsaFk), by [hhp3](https://www.youtube.com/@hhp3)
+
+- About syntax analyzer:
+  - [08: Análise Sintática Top Down: Parser Descendente Recursivo](https://www.youtube.com/watch?v=dvql913QHzs) and [10: Análise Preditiva (Parser Recursivo Preditivo](https://www.youtube.com/watch?v=8nb-6Zo_X_0), by [Andre Du Bois](https://www.youtube.com/@andredubois7117)
+  
+  - About bonus implementation
+  - [Wildcard Matching with Dynamic Programming](https://www.youtube.com/watch?v=3ZDZ-N0EPV0), by [Tushar Roy](https://www.youtube.com/@tusharroy2525)
+
+- The same project done by fellows 42SP's students
+  - https://github.com/sgkhusal/minishell/
+  - https://github.com/SouzaSA/42sp_minishell.git
+
+- Automated tester that helped us to find some bugs: 
+  - https://github.com/LucasKuhn/minishell_tester/blob/main/builtins
