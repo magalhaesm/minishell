@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:46:14 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/08 21:23:21 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/19 09:03:34 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_bool	execute(t_node *root)
 	ctx.retcode = *get_exit_status();
 	ctx.error = FALSE;
 	ctx.quit = FALSE;
+	ctx.pipeline = FALSE;
 	ctx.proc_queue = NULL;
 	save_tree_ref(root);
 	exec_node(root, &ctx);
@@ -36,7 +37,6 @@ t_bool	execute(t_node *root)
 
 void	exec_node(t_node *node, t_context *ctx)
 {
-	wait_user_signals();
 	if (node == NULL || ctx->error)
 		return ;
 	if (node->type == COMMAND)
