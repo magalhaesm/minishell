@@ -79,7 +79,6 @@ There are two main files at projects's root directory:
   - [CS 61: Systems Programming and Machine Organization (2022)](https://cs61.seas.harvard.edu/site/2022/#gsc.tab=0), by Harvard University
   - [Playlist about compilers](https://www.youtube.com/playlist?list=PLX6Nyaq0ebfhI396WlWN6WlBm-tp7vDtV), by [Judson Santiago](https://www.youtube.com/@JudSan)
   - [Playlist about Programming Languages and Compilers](https://www.youtube.com/playlist?list=PLvat2X-KHJNYmC4M1HHrDkMkFDf8Dwyf8), by [Rafael Ivo](https://www.youtube.com/@ProfessorRafaelIvo)
-
   - [Subshell: types and origins](https://www.youtube.com/watch?v=MkejZKVfsRg), by [prog.shell.linux](https://www.youtube.com/@progshelllinux)
 
 - Useful tools for grammar generation:
