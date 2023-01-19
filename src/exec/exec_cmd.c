@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 16:35:36 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/08 22:40:42 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/19 11:10:59 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,11 @@ static t_bool	is_executable(char *filename, t_context *ctx);
 void	exec_command(t_node *node, t_context *ctx)
 {
 	char		**argv;
-	t_builtin	exec_builtin;
-	int			saved_fd[2];
 
 	argv = expand(node->data.cmd);
 	if (ft_strchr(argv[0], '/') == NULL)
 	{
-		exec_builtin = builtin_pool(argv[0], ctx);
-		if (exec_builtin)
-		{
-			redirect_io(saved_fd, ctx);
-			ctx->retcode = exec_builtin(argv);
-			restore_io(saved_fd);
-		}
-		else
+		if (exec_builtin(argv, ctx) == FALSE)
 			launch_executable(argv, ctx);
 	}
 	else if (is_executable(argv[0], ctx))
@@ -108,6 +99,7 @@ static void	spawn_process(char **argv, t_context *ctx)
 		execve(argv[0], argv, environ);
 		exit(EXIT_FAILURE);
 	}
+	wait_user_signals();
 	if (ctx->fd[STDIN_FILENO] != STDIN_FILENO)
 		close(ctx->fd[STDIN_FILENO]);
 	if (ctx->fd[STDOUT_FILENO] != STDOUT_FILENO)

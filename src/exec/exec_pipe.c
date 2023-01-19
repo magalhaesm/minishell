@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 21:30:25 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/03 15:46:50 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/19 15:59:37 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	exec_pipe(t_node *node, t_context *ctx)
 	t_node		*rhs;
 	t_node		*lhs;
 
+	ctx->pipeline = TRUE;
 	pipe(pfd);
 	lhs = node->data.pair.left;
 	aux_ctx = *ctx;

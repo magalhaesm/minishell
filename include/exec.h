@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:45:35 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/08 17:27:01 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/19 10:26:49 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_context {
 	t_byte	retcode;
 	t_bool	error;
 	t_bool	quit;
+	t_bool	pipeline;
 	t_list	*proc_queue;
 }	t_context;
 
@@ -46,6 +47,7 @@ void	exec_and(t_node *node, t_context *ctx);
 void	exec_or(t_node *node, t_context *ctx);
 void	exec_heredoc(t_node *node, t_context *ctx);
 void	exec_subshell(t_node *node, t_context *ctx);
+t_bool	exec_builtin(char **argv, t_context *ctx);
 
 void	enqueue(long pid, t_context *ctx);
 void	redirect_io(int saved[], t_context *ctx);
