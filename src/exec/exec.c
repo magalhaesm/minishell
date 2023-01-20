@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:46:14 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/19 09:03:34 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/20 19:34:12 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ t_bool	execute(t_node *root)
 	ctx.retcode = *get_exit_status();
 	ctx.error = FALSE;
 	ctx.quit = FALSE;
+	ctx.proc = 0;
 	ctx.pipeline = FALSE;
-	ctx.proc_queue = NULL;
+	ft_memset(ctx.pid, 0, PIPE_LIMIT * sizeof(int));
 	save_tree_ref(root);
 	exec_node(root, &ctx);
 	reaper(&ctx);
@@ -62,26 +63,23 @@ void	exec_node(t_node *node, t_context *ctx)
 
 void	reaper(t_context *ctx)
 {
-	int		wstatus;
-	t_list	*proc;
-	t_list	*aux;
+	int	it;
+	int	wstatus;
 
-	proc = ctx->proc_queue;
-	while (proc)
+	it = 0;
+	wstatus = 0;
+	while (ctx->pid[it] != 0)
 	{
-		waitpid((long)proc->content, &wstatus, 0);
-		aux = proc;
-		proc = proc->next;
-		free(aux);
+		waitpid(ctx->pid[it], &wstatus, 0);
+		ctx->pid[it] = 0;
+		ctx->proc--;
+		it++;
 	}
 	set_wstatus(wstatus, ctx);
-	ctx->proc_queue = NULL;
 }
 
 static void	set_wstatus(int wstatus, t_context *ctx)
 {
-	if (ctx->proc_queue == NULL)
-		return ;
 	if (WIFEXITED(wstatus))
 		ctx->retcode = WEXITSTATUS(wstatus);
 	else if (WIFSIGNALED(wstatus))

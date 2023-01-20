@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 16:35:36 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/19 11:10:59 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/20 17:35:12 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static t_bool	is_executable(char *filename, t_context *ctx);
 
 void	exec_command(t_node *node, t_context *ctx)
 {
-	char		**argv;
+	char	**argv;
 
 	argv = expand(node->data.cmd);
 	if (ft_strchr(argv[0], '/') == NULL)
