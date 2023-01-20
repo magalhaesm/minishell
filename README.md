@@ -60,7 +60,7 @@ If you want to run the executable program automatically with valgrind flags to c
 There are two main files at projects's root directory:
 
 - `include`: contains all the necessary headers for the project
-- `grammar`: the implemented grammar
+- `grammar`: the implemented grammar, which creates and checks the sentences
 - `libft`: our own C library with some helpful auxiliary functions, such as ft_strlen
 - `tests`: contains unit tests created with [Criterion](https://github.com/Snaipe/Criterion) testing framework to evaluate functions in `src`
 - `src`: contains the whole project implementation
@@ -99,9 +99,13 @@ graph TD;
 
 - General references:
   - [CS 61: Systems Programming and Machine Organization (2022)](https://cs61.seas.harvard.edu/site/2022/#gsc.tab=0), by Harvard University
+  - NYSTROM, Robert. _Crafting interpreters_. 2020
+  - AHO, Alfred. _Compiladores: princípios, técnicas e ferramentas_. 2007
   - [Playlist about compilers](https://www.youtube.com/playlist?list=PLX6Nyaq0ebfhI396WlWN6WlBm-tp7vDtV), by [Judson Santiago](https://www.youtube.com/@JudSan)
   - [Playlist about Programming Languages and Compilers](https://www.youtube.com/playlist?list=PLvat2X-KHJNYmC4M1HHrDkMkFDf8Dwyf8), by [Rafael Ivo](https://www.youtube.com/@ProfessorRafaelIvo)
   - [Subshell: types and origins](https://www.youtube.com/watch?v=MkejZKVfsRg), by [prog.shell.linux](https://www.youtube.com/@progshelllinux)
+
+
 
 - Useful tools for grammar generation:
   - [The context free grammar checker](https://smlweb.cpsc.ucalgary.ca/start.html), by [University of Calgary](https://science.ucalgary.ca/computer-science)
