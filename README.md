@@ -73,13 +73,34 @@ There are two main files at projects's root directory:
   - `signals`: consists of functions that handle user events, such as `ctrl-C`, `ctrl-D` and `ctrl-\`
   - `table`: implements a hash table to store enviroment variables
 
+## Project flowchart
+
+In a nutshell, the project flowchart is as follows:
+
+```mermaid
+graph LR;
+    INPUT-->scanner;
+    scanner-->parser;
+    parser-->expansor;
+    expansor-->executor;
+    executor-->OUTPUT
+```
+
+As an example, if given the input `true && ls || echo` the program generates the tree below to be executed:
+
+```mermaid
+graph TD;
+    OR-->AND;
+    OR-->echo;
+    AND-->true;
+    AND-->ls;
+```
 ## References
 
 - General references:
   - [CS 61: Systems Programming and Machine Organization (2022)](https://cs61.seas.harvard.edu/site/2022/#gsc.tab=0), by Harvard University
   - [Playlist about compilers](https://www.youtube.com/playlist?list=PLX6Nyaq0ebfhI396WlWN6WlBm-tp7vDtV), by [Judson Santiago](https://www.youtube.com/@JudSan)
   - [Playlist about Programming Languages and Compilers](https://www.youtube.com/playlist?list=PLvat2X-KHJNYmC4M1HHrDkMkFDf8Dwyf8), by [Rafael Ivo](https://www.youtube.com/@ProfessorRafaelIvo)
-
   - [Subshell: types and origins](https://www.youtube.com/watch?v=MkejZKVfsRg), by [prog.shell.linux](https://www.youtube.com/@progshelllinux)
 
 - Useful tools for grammar generation:
