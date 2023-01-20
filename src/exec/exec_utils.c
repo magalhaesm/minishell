@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 09:29:15 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/03 15:03:34 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/20 19:31:18 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,24 @@
 
 void	enqueue(long pid, t_context *ctx)
 {
-	ft_lstadd_back(&ctx->proc_queue, ft_lstnew((void *)pid));
+	ctx->pid[ctx->proc] = pid;
+	ctx->proc += 1;
+}
+
+void	copy_queue(t_context *ctx, t_context aux)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	ctx->proc = aux.proc;
+	while (aux.pid[j] != 0)
+	{
+		ctx->pid[i] = aux.pid[j];
+		i++;
+		j++;
+	}
 }
 
 void	redirect_io(int saved[], t_context *ctx)

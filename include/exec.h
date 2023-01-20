@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:45:35 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/19 10:26:49 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/20 17:57:26 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,18 @@
 # include "helpers.h"
 
 # define FORKED_CHILD 0
+# define PIPE_LIMIT 1024
 # define HEREDOC_TEMPFILE "/tmp/heredoc_tempfile"
 
 typedef struct s_context {
 	int		fd[2];
+	int		pid[PIPE_LIMIT];
 	int		fd_close;
+	int		proc;
 	t_byte	retcode;
 	t_bool	error;
 	t_bool	quit;
 	t_bool	pipeline;
-	t_list	*proc_queue;
 }	t_context;
 
 t_bool	execute(t_node *root);
@@ -50,6 +52,7 @@ void	exec_subshell(t_node *node, t_context *ctx);
 t_bool	exec_builtin(char **argv, t_context *ctx);
 
 void	enqueue(long pid, t_context *ctx);
+void	copy_queue(t_context *ctx, t_context aux_ctx);
 void	redirect_io(int saved[], t_context *ctx);
 void	restore_io(int saved[]);
 void	reaper(t_context *ctx);
