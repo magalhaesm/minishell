@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 16:35:36 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/20 17:35:12 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/21 18:15:29 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ static void	spawn_process(char **argv, t_context *ctx)
 		execve(argv[0], argv, environ);
 		exit(EXIT_FAILURE);
 	}
-	wait_user_signals();
 	if (ctx->fd[STDIN_FILENO] != STDIN_FILENO)
 		close(ctx->fd[STDIN_FILENO]);
 	if (ctx->fd[STDOUT_FILENO] != STDOUT_FILENO)

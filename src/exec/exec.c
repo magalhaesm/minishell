@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:46:14 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/20 21:05:46 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/21 18:19:59 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_bool	execute(t_node *root)
 	save_tree_ref(root);
 	exec_node(root, &ctx);
 	reaper(&ctx);
+	wait_user_signals();
 	set_exit_status(ctx.retcode);
 	return (ctx.quit);
 }
@@ -75,7 +76,7 @@ void	reaper(t_context *ctx)
 		ctx->proc--;
 		it++;
 	}
-	if (ctx->error == TRUE)
+	if (ctx->error == TRUE || ctx->retcode)
 		return ;
 	set_wstatus(wstatus, ctx);
 }
