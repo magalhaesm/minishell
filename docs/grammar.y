@@ -7,28 +7,41 @@
    The Grammar
    -------------------------------------------------------
 */
-%start commandline
+%start list
 %%
-
-commandline : list
-list : pipeline conditional
-conditional : AND pipeline conditional | OR pipeline conditional | ε
-pipeline : command fcommand
-command : simple_cmd | subshell fsubshell
-fcommand :  ε | PIPE pipeline
-subshell : LBRACE list RBRACE
-fsubshell : ε | redirect_list
-simple_cmd : WORD fword | cmd_prefix fcmd_prefix
-fword : ε | cmd_suffix
-fcmd_prefix : ε | WORD fword
-cmd_prefix : io_redirect cmd_prefix1
-cmd_prefix1 : io_redirect cmd_prefix1 | ε
-cmd_suffix : io_redirect cmd_suffix1 | WORD cmd_suffix1
-cmd_suffix1 : io_redirect cmd_suffix1 | WORD cmd_suffix1 | ε
-redirect_list : io_redirect redirect_list1
-redirect_list1 : io_redirect redirect_list1 | ε
-io_redirect : io_file | io_here
-io_file : LESS WORD | GREAT WORD | DGREAT WORD
-io_here : DLESS WORD
-
+              list : pipeline conditional
+       conditional : AND pipeline conditional
+                   | OR pipeline conditional
+                   | empty
+          pipeline : command pipeline_null
+           command : simple_cmd
+                   | subshell subshell_redir
+     pipeline_null : PIPE pipeline
+                   | empty
+          subshell : LBRACE list RBRACE
+    subshell_redir : redirect_list
+                   | empty
+        simple_cmd : WORD word_null
+                   | cmd_prefix fcmd_prefix
+         word_null : cmd_suffix
+                   | empty
+       fcmd_prefix : WORD word_null
+                   | empty
+        cmd_prefix : io_redirect cmd_prefix_null
+   cmd_prefix_null : io_redirect cmd_prefix_null
+                   | empty
+        cmd_suffix : io_redirect cmd_suffix_null
+                   | WORD cmd_suffix_null
+   cmd_suffix_null : io_redirect cmd_suffix_null
+                   | WORD cmd_suffix_null
+                   | empty
+     redirect_list : io_redirect redirect_list_null
+redirect_list_null : io_redirect redirect_list_null
+                   | empty
+       io_redirect : io_file
+                   | io_here
+           io_file : LESS WORD
+                   | GREAT WORD
+                   | DGREAT WORD
+           io_here : DLESS WORD
 %%
