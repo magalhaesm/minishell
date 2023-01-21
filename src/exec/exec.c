@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:46:14 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/20 19:34:12 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/01/20 21:05:46 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void	reaper(t_context *ctx)
 		ctx->proc--;
 		it++;
 	}
+	if (ctx->error == TRUE)
+		return ;
 	set_wstatus(wstatus, ctx);
 }
 
