@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://game.42sp.org.br/static/assets/achievements/minishelln.png">
+    <img src="https://game.42sp.org.br/static/assets/achievements/minishellm.png">
 </p>
 
 <p align="center">
@@ -110,7 +110,6 @@ graph TD;
 - Useful tools for grammar generation:
   - [The context free grammar checker](https://smlweb.cpsc.ucalgary.ca/start.html), by [University of Calgary](https://science.ucalgary.ca/computer-science)
   - [Grammophone: transform context-free grammars](https://mdaines.github.io/grammophone/)
-  - [Compiler left recursion eliminination](https://cyberzhg.github.io/toolbox/left_rec), by [Zhao HG](https://github.com/CyberZHG)
 
 - About hash table implementation
   - [FNV Hash](http://www.isthe.com/chongo/tech/comp/fnv/#FNV-1a), by [Landon Curt Noll](http://www.isthe.com/chongo/index.html)
@@ -129,4 +128,4 @@ graph TD;
   - https://github.com/SouzaSA/42sp_minishell.git
 
 - Automated tester that helped us to find some bugs: 
-  - https://github.com/LucasKuhn/minishell_tester/blob/main/builtins
+  - https://github.com/LucasKuhn/minishell_tester
