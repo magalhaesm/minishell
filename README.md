@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://game.42sp.org.br/static/assets/achievements/minishellm.png">
+    <img src="https://user-images.githubusercontent.com/102881479/223723896-8bb0e61e-1102-4dd9-b29a-06c4725aa3eb.png">
 </p>
 
 <p align="center">
