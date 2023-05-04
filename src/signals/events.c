@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 16:43:36 by ygorgsena         #+#    #+#             */
-/*   Updated: 2023/01/08 19:38:27 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/02/22 18:06:51 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ void	exit_heredoc(int sig)
 	set_exit_status(sig);
 	ft_putendl_fd("", STDOUT_FILENO);
 	msh_clean();
+	unlink(HEREDOC_TEMPFILE);
 	exit(sig);
 }

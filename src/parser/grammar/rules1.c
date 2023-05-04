@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 18:34:00 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/04 17:38:31 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/02/15 23:16:05 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,24 @@ t_node	*list(t_scanner *scanner)
 	t_node	*logical;
 	t_node	*aux;
 
-	if (first_set(PIPELINE, scanner))
+	if (!first_set(PIPELINE, scanner))
 	{
-		pipe = pipeline(scanner);
-		if (pipe)
-		{
-			logical = conditional(scanner);
-			if (logical)
-			{
-				aux = logical;
-				while (aux->data.pair.left)
-					aux = aux->data.pair.left;
-				aux->data.pair.left = pipe;
-				return (logical);
-			}
-			return (pipe);
-		}
+		syntax_error(scanner);
+		return (NULL);
 	}
-	syntax_error(scanner);
-	return (NULL);
+	pipe = pipeline(scanner);
+	if (!pipe)
+		return (NULL);
+	logical = conditional(scanner);
+	if (logical)
+	{
+		aux = logical;
+		while (aux->data.pair.left)
+			aux = aux->data.pair.left;
+		aux->data.pair.left = pipe;
+		return (logical);
+	}
+	return (pipe);
 }
 
 // conditional -> AND pipeline conditional
@@ -72,18 +71,18 @@ t_node	*pipeline(t_scanner *scanner)
 	t_node	*child;
 
 	parent = command(scanner);
-	if (parent)
+	if (!parent)
 	{
-		child = pipeline_null(scanner);
-		if (child && child->data.pair.left == NULL)
-		{
-			child->data.pair.left = parent;
-			return (child);
-		}
-		return (subtree(parent, child));
+		syntax_error(scanner);
+		return (NULL);
 	}
-	syntax_error(scanner);
-	return (NULL);
+	child = pipeline_null(scanner);
+	if (child && child->data.pair.left == NULL)
+	{
+		child->data.pair.left = parent;
+		return (child);
+	}
+	return (subtree(parent, child));
 }
 
 // command -> simple_cmd

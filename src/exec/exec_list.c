@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 22:24:20 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/20 17:53:47 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/04/05 15:51:15 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void	exec_or(t_node *node, t_context *ctx)
 
 static void	wait_queue(t_context *ctx, t_context *aux)
 {
-	if (aux->proc)
+	if (aux->proc > 0)
 	{
-		copy_queue(ctx, *aux);
+		update_queue(ctx, *aux);
 		reaper(ctx);
 	}
 	else

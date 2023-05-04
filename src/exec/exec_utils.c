@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 09:29:15 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/20 19:31:18 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/03/23 11:58:21 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	enqueue(long pid, t_context *ctx)
 	ctx->proc += 1;
 }
 
-void	copy_queue(t_context *ctx, t_context aux)
+void	update_queue(t_context *ctx, t_context aux)
 {
 	int	i;
 	int	j;

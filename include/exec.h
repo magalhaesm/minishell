@@ -6,7 +6,7 @@
 /*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:45:35 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/20 17:57:26 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/03/23 11:58:22 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	exec_subshell(t_node *node, t_context *ctx);
 t_bool	exec_builtin(char **argv, t_context *ctx);
 
 void	enqueue(long pid, t_context *ctx);
-void	copy_queue(t_context *ctx, t_context aux_ctx);
+void	update_queue(t_context *ctx, t_context aux_ctx);
 void	redirect_io(int saved[], t_context *ctx);
 void	restore_io(int saved[]);
 void	reaper(t_context *ctx);

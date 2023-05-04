@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:06:36 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/20 16:47:16 by yde-goes         ###   ########.fr       */
+/*   Updated: 2023/04/29 14:22:56 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 static void	msh_loop(void);
 static void	prompt_logo(void);
+void	print_tree(t_node *root, int indentation);
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -35,7 +36,7 @@ int	main(int argc, char **argv, char **envp)
 
 static void	msh_loop(void)
 {
-	t_bool		quit;
+	// t_bool		quit;
 	char		*cmdline;
 	t_scanner	scanner;
 	t_node		*root;
@@ -50,11 +51,12 @@ static void	msh_loop(void)
 				add_history(cmdline);
 			scanner = init_scanner(cmdline);
 			root = parse(&scanner);
-			quit = execute(root);
+			print_tree(root, 0);
+			// quit = execute(root);
 			free_tree(root);
 			free(cmdline);
-			if (quit)
-				cmdline = NULL;
+			// if (quit)
+			// 	cmdline = NULL;
 		}
 	}
 }

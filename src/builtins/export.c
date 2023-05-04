@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 21:24:00 by yde-goes          #+#    #+#             */
-/*   Updated: 2023/01/06 17:09:03 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2023/04/07 17:17:39 by mdias-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,14 @@ static void	ft_declare_x(char **args)
 	t_list	*envl;
 	size_t	size;
 
-	(void) args;
 	size = strtab_size(args);
-	if (size == 1)
+	if (size != 1)
+		return ;
+	envl = *get_envl();
+	while (envl)
 	{
-		envl = *get_envl();
-		while (envl)
-		{
-			ft_putstr_fd("declare -x ", STDOUT_FILENO);
-			ft_putendl_fd(envl->content, STDOUT_FILENO);
-			envl = envl->next;
-		}
+		ft_putstr_fd("declare -x ", STDOUT_FILENO);
+		ft_putendl_fd(envl->content, STDOUT_FILENO);
+		envl = envl->next;
 	}
 }
