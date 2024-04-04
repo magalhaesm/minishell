@@ -13,20 +13,20 @@
 
 The 8th project of 42 cursus syllabus asks students to implement a simplified shell. It's about minishell, as beautiful as a shell.
 
-As the project's subject states, the existence of shells is linked to the very existence of IT. At the time, al developers agreed that _communicating with a computer using aligned 1/0 swiches was seriously irritating_. It was only logical that they came up with the idea of creating a software to communicate with a computer using interactive lines of commands in a language somehat close to the human language.
+As the project's subject states, the existence of shells is linked to the very existence of IT. At the time, all developers agreed that _communicating with a computer using aligned 1/0 swiches was seriously irritating_. It was only logical that they came up with the idea of creating a software to communicate with a computer using interactive lines of commands in a language somewhat close to the human language.
 
 ## How to compile and run the project
 
 #### 1) Copy this repository to your local workstation
 
 ```html
-git@github.com:magalhaesm/minishell.git
+git clone https://github.com/magalhaesm/minishell.git
 ```
 
 #### 2) Install the required libraries to run the functions from readline library
 
 ```html
-sudo apt-get install libreadline6 libreadline6-dev
+sudo apt-get install -y libreadline6 libreadline6-dev
 ```
 
 #### 3) Compile the project with Makefile
