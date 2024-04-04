@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:45:35 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/20 17:57:26 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2024/04/04 13:07:57 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@
 # define PIPE_LIMIT 1024
 # define HEREDOC_TEMPFILE "/tmp/heredoc_tempfile"
 
-typedef struct s_context {
+typedef struct s_context
+{
 	int		fd[2];
 	int		pid[PIPE_LIMIT];
 	int		fd_close;

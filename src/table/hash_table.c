@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hash_table.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 17:39:31 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/15 21:10:47 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2024/04/04 13:08:21 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_entry	*find_entry(t_entry *entries, int capacity, char *key)
 				return (entry);
 			}
 			else if (tombstone == NULL)
-					tombstone = entry;
+				tombstone = entry;
 		}
 		else if (ft_strncmp(entry->key, key, ft_strlen(key)) == 0)
 			return (entry);
