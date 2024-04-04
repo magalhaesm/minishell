@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:36:15 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/24 11:03:19 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2024/04/04 13:08:10 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 # include "scanner.h"
 
-typedef enum e_node_type {
+typedef enum e_node_type
+{
 	COMMAND,
 	AND,
 	OR,
@@ -30,17 +31,20 @@ typedef enum e_node_type {
 typedef struct s_node	t_node;
 typedef char **			t_command;
 
-typedef struct s_operand {
+typedef struct s_operand
+{
 	t_node	*left;
 	t_node	*right;
 }	t_operand;
 
-typedef union u_node_value {
+typedef union u_node_value
+{
 	t_command	cmd;
 	t_operand	pair;
 }	t_node_value;
 
-typedef struct s_node {
+typedef struct s_node
+{
 	t_node_type		type;
 	t_node_value	data;
 }	t_node;

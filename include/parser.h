@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 09:49:48 by mdias-ma          #+#    #+#             */
-/*   Updated: 2022/12/21 14:40:55 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2024/04/04 13:08:39 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 # include "scanner.h"
 # include "tree.h"
 
-typedef enum e_nonterminal {
+typedef enum e_nonterminal
+{
 	LIST = 0,
 	PIPELINE = LIST,
 	CMD = LIST,
