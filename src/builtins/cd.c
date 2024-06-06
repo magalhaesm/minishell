@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 19:00:09 by yde-goes          #+#    #+#             */
-/*   Updated: 2023/01/01 19:15:34 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2024/04/04 13:08:29 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static char	*handle_special_cd(char **args)
 	{
 		getcwd(pwd, PATH_MAX);
 		return (pwd);
-	}			
+	}
 	else if (arg_len == 2 && ft_strncmp(args[1], "..", 2) == 0)
 		dir_param = "..";
 	return (dir_param);
