@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdias-ma <mdias-ma@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:06:36 by mdias-ma          #+#    #+#             */
-/*   Updated: 2023/01/03 12:02:59 by mdias-ma         ###   ########.fr       */
+/*   Updated: 2024/06/06 13:33:31 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-#define GREEN_PROMPT "\e[m\e[1;32m❯ \e[m"
+#define GREEN_PROMPT "\001\e[m\e[1;32m❯ \e[m\002"
 
 static void	msh_loop(void);
 
